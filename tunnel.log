@@ -1,22 +1,21 @@
-2025-07-14T01:19:42Z INF Starting tunnel tunnelID=6b77187f-6ad1-4eaf-bd50-52f58e39ade7
-2025-07-14T01:19:42Z INF Cannot determine default configuration path. No file [config.yml config.yaml] in [~/.cloudflared ~/.cloudflare-warp ~/cloudflare-warp /etc/cloudflared /usr/local/etc/cloudflared]
-2025-07-14T01:19:42Z INF Version 2025.7.0 (Checksum 2338d4605adbc66185d44ca1d9cc338be8e6e9ec978d59517ce47f1d9658955d)
-2025-07-14T01:19:42Z INF GOOS: darwin, GOVersion: go1.24.4, GoArch: arm64
-2025-07-14T01:19:42Z INF cloudflared will not automatically update if installed by a package manager.
-2025-07-14T01:19:42Z INF Generated Connector ID: 56f96a2c-bd0c-4ec6-a5bc-da97ae0c83c7
-2025-07-14T01:19:42Z WRN No ingress rules were defined in provided config (if any) nor from the cli, cloudflared will return 503 for all incoming HTTP requests
-2025-07-14T01:19:42Z INF Initial protocol quic
-2025-07-14T01:19:42Z INF ICMP proxy will use 192.168.50.173 as source for IPv4
-2025-07-14T01:19:42Z INF ICMP proxy will use fe80::14ea:2d30:36c0:44e6 in zone en0 as source for IPv6
-2025-07-14T01:19:42Z INF Created ICMP proxy listening on 192.168.50.173:0
-2025-07-14T01:19:42Z INF ICMP proxy will use 192.168.50.173 as source for IPv4
-2025-07-14T01:19:42Z INF ICMP proxy will use fe80::14ea:2d30:36c0:44e6 in zone en0 as source for IPv6
-2025-07-14T01:19:42Z INF Starting metrics server on 127.0.0.1:20241/metrics
-2025-07-14T01:19:42Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=0 event=0 ip=198.41.192.167
-2025-07-14T01:19:42Z INF Registered tunnel connection connIndex=0 connection=86134adb-774e-43a6-9bc7-af7ae1698542 event=0 ip=198.41.192.167 location=lax09 protocol=quic
-2025-07-14T01:19:42Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=1 event=0 ip=198.41.200.33
-2025-07-14T01:19:43Z INF Registered tunnel connection connIndex=1 connection=6a4fd8c4-a45a-45f2-81a2-07afed3a43c7 event=0 ip=198.41.200.33 location=lax01 protocol=quic
-2025-07-14T01:19:43Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=2 event=0 ip=198.41.192.27
-2025-07-14T01:19:44Z INF Registered tunnel connection connIndex=2 connection=7b3c5316-a890-484f-9a37-036b9321ca0b event=0 ip=198.41.192.27 location=lax07 protocol=quic
-2025-07-14T01:19:44Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=3 event=0 ip=198.41.200.73
-2025-07-14T01:19:45Z INF Registered tunnel connection connIndex=3 connection=d390d41d-4cfd-409e-ac58-a194e245fd5b event=0 ip=198.41.200.73 location=lax01 protocol=quic
+2025-07-14T02:00:07Z INF Starting tunnel tunnelID=6b77187f-6ad1-4eaf-bd50-52f58e39ade7
+2025-07-14T02:00:07Z INF Version 2025.7.0 (Checksum 2338d4605adbc66185d44ca1d9cc338be8e6e9ec978d59517ce47f1d9658955d)
+2025-07-14T02:00:07Z INF GOOS: darwin, GOVersion: go1.24.4, GoArch: arm64
+2025-07-14T02:00:07Z INF Settings: map[config:cloudflare-tunnel.yml cred-file:/Users/brettchiate/.cloudflared/6b77187f-6ad1-4eaf-bd50-52f58e39ade7.json credentials-file:/Users/brettchiate/.cloudflared/6b77187f-6ad1-4eaf-bd50-52f58e39ade7.json]
+2025-07-14T02:00:07Z INF cloudflared will not automatically update if installed by a package manager.
+2025-07-14T02:00:07Z INF Generated Connector ID: 76cdbf91-8678-4fdb-87de-8f1b254227e4
+2025-07-14T02:00:07Z INF Initial protocol quic
+2025-07-14T02:00:07Z INF ICMP proxy will use 192.168.50.173 as source for IPv4
+2025-07-14T02:00:07Z INF ICMP proxy will use fe80::14ea:2d30:36c0:44e6 in zone en0 as source for IPv6
+2025-07-14T02:00:07Z INF Created ICMP proxy listening on 192.168.50.173:0
+2025-07-14T02:00:07Z INF ICMP proxy will use 192.168.50.173 as source for IPv4
+2025-07-14T02:00:07Z INF ICMP proxy will use fe80::14ea:2d30:36c0:44e6 in zone en0 as source for IPv6
+2025-07-14T02:00:07Z INF Starting metrics server on 127.0.0.1:20241/metrics
+2025-07-14T02:00:07Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=0 event=0 ip=198.41.200.233
+2025-07-14T02:00:07Z INF Registered tunnel connection connIndex=0 connection=d2a043f3-cf8b-44a9-bf35-190d1788f0ed event=0 ip=198.41.200.233 location=lax06 protocol=quic
+2025-07-14T02:00:07Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=1 event=0 ip=198.41.192.27
+2025-07-14T02:00:07Z INF Registered tunnel connection connIndex=1 connection=594eaa72-47b7-4e59-aabc-e979c261f351 event=0 ip=198.41.192.27 location=lax05 protocol=quic
+2025-07-14T02:00:08Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=2 event=0 ip=198.41.200.33
+2025-07-14T02:00:09Z INF Registered tunnel connection connIndex=2 connection=87805f8a-0d38-41db-8349-d744a807d4c6 event=0 ip=198.41.200.33 location=lax06 protocol=quic
+2025-07-14T02:00:09Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=3 event=0 ip=198.41.192.7
+2025-07-14T02:00:10Z INF Registered tunnel connection connIndex=3 connection=8cc27240-e384-448d-99f3-13df96649edf event=0 ip=198.41.192.7 location=lax07 protocol=quic
