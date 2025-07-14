@@ -1,0 +1,42 @@
+/Users/brettchiate/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+INFO:     Started server process [79488]
+INFO:     Waiting for application startup.
+INFO:__main__:Initializing chatbot system...
+INFO:__main__:Loading embedding model...
+INFO:sentence_transformers.SentenceTransformer:Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+INFO:sentence_transformers.SentenceTransformer:Use pytorch device: cpu
+INFO:__main__:Setting up vector database...
+ERROR:chromadb.telemetry.product.posthog:Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+INFO:__main__:Loaded existing document collection
+INFO:__main__:Ollama model 'llama3.1:8b' is available
+INFO:__main__:Chatbot system initialized successfully!
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:3000 (Press CTRL+C to quit)
+
+    🚀 FutureClarity Chatbot System Starting...
+    
+    📋 Setup Instructions:
+    1. Install Ollama: https://ollama.ai/download
+    2. Pull a model: ollama pull mistral:7b
+    3. Install Python dependencies: pip install -r requirements.txt
+    4. Run this script: python chatbot_app.py
+    
+    🌐 Access Points:
+    - Admin Interface: http://localhost:3000
+    - Chatbot Embed: http://localhost:3000/embed
+    - API Documentation: http://localhost:3000/docs
+    
+    📚 Document Management:
+    - Upload documents via the admin interface
+    - Supported formats: PDF, DOCX, TXT, MD
+    - Documents are automatically processed and indexed
+    
+    🎯 Embedding on Websites:
+    Use this iframe code:
+    <iframe src="http://localhost:3000/embed" width="400" height="600" frameborder="0"></iframe>
+    
+    
+INFO:     127.0.0.1:51958 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     76.50.80.152:0 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     76.50.80.152:0 - "GET /embed HTTP/1.1" 200 OK
