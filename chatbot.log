@@ -40,3 +40,4 @@ INFO:     Uvicorn running on http://0.0.0.0:3000 (Press CTRL+C to quit)
 INFO:     127.0.0.1:51958 - "GET /api/health HTTP/1.1" 200 OK
 INFO:     76.50.80.152:0 - "GET /api/health HTTP/1.1" 200 OK
 INFO:     76.50.80.152:0 - "GET /embed HTTP/1.1" 200 OK
+INFO:     76.50.80.152:0 - "GET /api/health HTTP/1.1" 200 OK
