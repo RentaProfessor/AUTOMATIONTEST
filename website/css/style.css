@@ -917,7 +917,7 @@ body {
 
 @media (max-width: 900px) {
     .contact-form-section {
-        flex-direction: column;
+    flex-direction: column;
     }
     .contact-info {
         flex-direction: column;
