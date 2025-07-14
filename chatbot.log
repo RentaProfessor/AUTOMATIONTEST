@@ -41,3 +41,22 @@ INFO:     127.0.0.1:51958 - "GET /api/health HTTP/1.1" 200 OK
 INFO:     76.50.80.152:0 - "GET /api/health HTTP/1.1" 200 OK
 INFO:     76.50.80.152:0 - "GET /embed HTTP/1.1" 200 OK
 INFO:     76.50.80.152:0 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52034 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     76.50.80.152:0 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     76.50.80.152:0 - "GET /embed HTTP/1.1" 200 OK
+INFO:     76.50.80.152:0 - "GET /embed HTTP/1.1" 200 OK
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  3.73it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  3.73it/s]
+ERROR:chromadb.telemetry.product.posthog:Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+INFO:     76.50.80.152:0 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     76.50.80.152:0 - "GET /embed HTTP/1.1" 200 OK
+INFO:     76.50.80.152:0 - "GET /embed HTTP/1.1" 200 OK
+INFO:     76.50.80.152:0 - "GET /embed HTTP/1.1" 200 OK
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 10.78it/s]
+INFO:     76.50.80.152:0 - "POST /api/chat HTTP/1.1" 200 OK
+INFO:     76.50.80.152:0 - "GET /embed HTTP/1.1" 200 OK
+INFO:     54.37.10.247:0 - "GET /embed HTTP/1.1" 200 OK
+INFO:     167.114.3.106:0 - "GET /embed HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52513 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     76.50.80.152:0 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     76.50.80.152:0 - "HEAD /embed HTTP/1.1" 405 Method Not Allowed
+INFO:     76.50.80.152:0 - "GET /embed HTTP/1.1" 200 OK
