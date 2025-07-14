@@ -51,8 +51,43 @@ ollama pull llama3:8b
 # Add your logo (PNG with transparency)
 cp your-logo.png assets/logo.png
 
+<<<<<<< HEAD
 # Add your outro video (9:16 vertical MP4)
 cp your-outro.mp4 assets/outro.mp4
+=======
+### For Different Clients
+
+1. **Company Information**: Update the system prompt in `generate_response()`
+2. **Styling**: Modify CSS colors and branding
+3. **Documents**: Upload client-specific knowledge base
+4. **Model**: Choose appropriate model for client needs
+
+### Example Customizations
+
+**Legal Firm**: Use `llama2:7b` with legal documents
+**Healthcare**: Use `mistral:7b` with medical policies
+**E-commerce**: Use `phi3:mini` with product catalogs
+
+## 🚀 Deployment
+
+### Local Development
+- Run on localhost:8000 for testing
+
+### Production Deployment
+
+#### Docker Deployment
+```dockerfile
+FROM python:3.9-slim
+
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
+COPY . .
+EXPOSE 8000
+
+CMD ["python", "chatbot_app.py"]
+>>>>>>> 0b2d5f7 (Remove ngrok, add Cloudflare Tunnel instructions, update chatbot iframe for Cloudflare embed)
 ```
 
 ### 4. Start Processing
@@ -60,6 +95,7 @@ cp your-outro.mp4 assets/outro.mp4
 # Auto mode - watches for new files
 python main.py --watch
 
+<<<<<<< HEAD
 # Or interactive mode
 python main.py
 ```
@@ -293,3 +329,19 @@ MIT License - Feel free to use for personal and commercial projects.
 **Made with ❤️ for content creators who want to automate their workflow without breaking the bank!**
 
 Drop a video, get a branded reel. It's that simple. 🚀 
+=======
+## Exposing Locally Hosted App to the Internet
+
+- Use Cloudflare Tunnel for secure, reliable public access:
+
+```sh
+cloudflared tunnel --url http://localhost:8000
+```
+
+- Follow Cloudflare's documentation to set up a tunnel and connect it to your domain if desired: https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/
+
+## 🔍 API Documentation
+
+### Chat Endpoint
+```
+>>>>>>> 0b2d5f7 (Remove ngrok, add Cloudflare Tunnel instructions, update chatbot iframe for Cloudflare embed)
