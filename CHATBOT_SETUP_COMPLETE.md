@@ -2,27 +2,32 @@
 
 ## 🎯 System Status
 
-Your FutureClarity AI Chatbot is now properly configured and running with a **stable, permanent tunnel**.
+Your FutureClarity AI Chatbot is now properly configured and running with a **stable, working tunnel**.
 
-### 🔗 Important URLs
+### 🔗 Current Working URLs
 
 - **🏠 Local Chatbot**: `http://localhost:3000`
-- **🌍 Public URL**: `https://ai-chatbot.yourdomain.com.futureclarityautomation.com`
-- **🔧 Embed URL**: `https://ai-chatbot.yourdomain.com.futureclarityautomation.com/embed`
-- **📊 Health Check**: `https://ai-chatbot.yourdomain.com.futureclarityautomation.com/api/health`
+- **🌍 Public URL**: `https://preventing-careful-inc-configurations.trycloudflare.com`
+- **🔧 Embed URL**: `https://preventing-careful-inc-configurations.trycloudflare.com/embed`
+- **📊 Health Check**: `https://preventing-careful-inc-configurations.trycloudflare.com/api/health`
 
 ### 🆔 Tunnel Information
 
-- **Tunnel ID**: `6b77187f-6ad1-4eaf-bd50-52f58e39ade7`
-- **Connector ID**: `76cdbf91-8678-4fdb-87de-8f1b254227e4`
-- **Named Tunnel**: `ai-chatbot`
-- **Domain**: `ai-chatbot.yourdomain.com.futureclarityautomation.com`
+- **Tunnel Type**: Quick Tunnel (trycloudflare.com)
+- **Connector ID**: `6f5fe255-9d54-41d3-87c7-92b39205dfec`
+- **Edge Location**: `lax07`
+- **Protocol**: `QUIC`
 
 ## 🚀 How to Start/Stop Services
 
 ### Start Everything (Recommended)
 ```bash
 ./start_reliable_chatbot.sh
+```
+
+### Update Tunnel URL (if needed)
+```bash
+./update_reliable_tunnel.sh
 ```
 
 ### Check Status
@@ -34,42 +39,43 @@ Your FutureClarity AI Chatbot is now properly configured and running with a **st
 ```bash
 # Press Ctrl+C in the terminal running the services, or:
 pkill -f "python3.*chatbot_app.py"
-pkill -f "cloudflared.*tunnel.*ai-chatbot"
+pkill -f "cloudflared.*tunnel.*--url"
 ```
 
 ## 🔧 Configuration Files Updated
 
 ### ✅ HTML Files Updated
-- `website/index.html` - Updated with permanent tunnel URL
-- `index.html` - Updated with permanent tunnel URL
+- `website/index.html` - Updated with working tunnel URL
+- `index.html` - Updated with working tunnel URL
 
 ### ✅ Tunnel Configuration
-- `cloudflare-tunnel.yml` - Configured for port 3000 with correct domain
-- Named tunnel properly configured with permanent domain
+- Using quick tunnel approach for immediate reliability
+- Automatic URL extraction and HTML updating
 
 ## 📝 Key Features
 
 ### 🛡️ Reliability Features
-- **Permanent Domain**: No more changing URLs
-- **Auto-restart**: Services automatically restart if they crash
-- **Health Monitoring**: Continuous health checks
-- **Proper Logging**: All logs saved to `tunnel.log`
+- **Working tunnel URL** - Tested and verified
+- **Auto-restart** - Services automatically restart if they crash
+- **Health monitoring** - Continuous health checks
+- **Proper logging** - All activity logged
+- **Auto URL updates** - Script to update tunnel URLs when needed
 
 ### 🌐 Tunnel Benefits
-- **Stable URL**: `ai-chatbot.yourdomain.com.futureclarityautomation.com`
-- **SSL/TLS**: Automatic HTTPS encryption
-- **Global CDN**: Cloudflare's global network
-- **No Port Forwarding**: Works behind firewalls
+- **Immediate setup** - Works without complex DNS configuration
+- **SSL/TLS** - Automatic HTTPS encryption
+- **Global CDN** - Cloudflare's global network
+- **No port forwarding** - Works behind firewalls
 
 ## 📊 Monitoring
 
 ### Check Logs
 ```bash
 # View tunnel logs
-tail -f tunnel.log
+tail -f tunnel_quick.log
 
 # View last 50 lines
-tail -50 tunnel.log
+tail -50 tunnel_quick.log
 ```
 
 ### Test Connections
@@ -80,23 +86,23 @@ curl http://localhost:3000/api/health
 # Test embed endpoint
 curl http://localhost:3000/embed
 
-# Test public URL (may take time during startup)
-curl https://ai-chatbot.yourdomain.com.futureclarityautomation.com/api/health
+# Test public URL
+curl https://preventing-careful-inc-configurations.trycloudflare.com/api/health
 ```
 
 ## 🔐 Security Notes
 
-- The tunnel uses your existing Cloudflare credentials
+- The tunnel uses Cloudflare's free quick tunnel service
 - All traffic is encrypted via HTTPS
 - Local chatbot only accessible on localhost:3000
 - Public access only through the secure tunnel
 
 ## 🎯 Next Steps
 
-1. **Test the chatbot** by visiting: `https://ai-chatbot.yourdomain.com.futureclarityautomation.com`
-2. **Test the embed** by visiting: `https://ai-chatbot.yourdomain.com.futureclarityautomation.com/embed`
+1. **Test the chatbot** by visiting: `https://preventing-careful-inc-configurations.trycloudflare.com`
+2. **Test the embed** by visiting: `https://preventing-careful-inc-configurations.trycloudflare.com/embed`
 3. **Check your website** to ensure the iframe is loading properly
-4. **Monitor logs** with `tail -f tunnel.log` to ensure everything is stable
+4. **Monitor logs** with `tail -f tunnel_quick.log` to ensure everything is stable
 
 ## 🆘 Troubleshooting
 
@@ -115,23 +121,30 @@ python3 chatbot_app.py &
 # Check tunnel status
 ps aux | grep cloudflared
 
-# Restart tunnel
-pkill -f "cloudflared.*tunnel.*ai-chatbot"
-cloudflared tunnel --config cloudflare-tunnel.yml run ai-chatbot &
+# Restart tunnel with new URL
+./update_reliable_tunnel.sh
 ```
 
-### If you need to change the domain:
-1. Update `cloudflare-tunnel.yml` with the new hostname
-2. Update both `index.html` and `website/index.html` with the new URL
-3. Restart the services
+### If you need a new tunnel URL:
+```bash
+# Get a fresh tunnel URL
+./update_reliable_tunnel.sh
+```
 
 ## ✅ Success Indicators
 
-- ✅ Chatbot running on port 3000
-- ✅ Tunnel connected to multiple edge locations
-- ✅ Health endpoint returning JSON response
-- ✅ Embed endpoint returning HTML
-- ✅ HTML files updated with permanent URL
-- ✅ Named tunnel configured with stable domain
+- ✅ **Chatbot running** on port 3000
+- ✅ **Tunnel connected** to edge locations
+- ✅ **Health endpoint** returning JSON response: `{"status":"healthy","version":"1.0.0","model":"llama3.1:8b","documents_processed":0}`
+- ✅ **Embed endpoint** returning HTML
+- ✅ **HTML files** updated with working URL
+- ✅ **Quick tunnel** configured with immediate access
 
-Your chatbot is now **reliable, permanent, and won't break or change URLs**! 
+## 🔄 Recent Fixes
+
+### Fixed "unsupported protocol" Issue
+- **Problem**: Complex domain `ai-chatbot.yourdomain.com.futureclarityautomation.com` caused SSL handshake failures
+- **Solution**: Switched to reliable quick tunnel approach with `trycloudflare.com` domain
+- **Result**: Immediate working access with proper SSL
+
+Your chatbot is now **working reliably with a tested, functional tunnel URL**! 
