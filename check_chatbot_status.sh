@@ -45,21 +45,23 @@ fi
 # Check tunnel connection (basic test)
 echo ""
 echo "🧪 Testing tunnel connection..."
-if curl -s -m 10 https://ai-chatbot.yourdomain.com.futureclarityautomation.com/api/health > /dev/null 2>&1; then
+TUNNEL_URL=$(cat current_tunnel_url.txt 2>/dev/null || echo "https://preventing-careful-inc-configurations.trycloudflare.com")
+if curl -s -m 10 "$TUNNEL_URL/api/health" > /dev/null 2>&1; then
     echo "✅ Tunnel connection is working"
-    echo "   Public URL: https://ai-chatbot.yourdomain.com.futureclarityautomation.com"
+    echo "   Public URL: $TUNNEL_URL"
 else
     echo "⚠️  Tunnel connection test failed (this may be normal during startup)"
-    echo "   Public URL: https://ai-chatbot.yourdomain.com.futureclarityautomation.com"
+    echo "   Public URL: $TUNNEL_URL"
 fi
 
 echo ""
 echo "📊 System Information:"
 echo "====================="
+TUNNEL_URL=$(cat current_tunnel_url.txt 2>/dev/null || echo "https://preventing-careful-inc-configurations.trycloudflare.com")
 echo "🏠 Local chatbot: http://localhost:3000"
-echo "🌍 Public URL: https://ai-chatbot.yourdomain.com.futureclarityautomation.com"
-echo "🔧 Embed URL: https://ai-chatbot.yourdomain.com.futureclarityautomation.com/embed"
-echo "📊 Health check: https://ai-chatbot.yourdomain.com.futureclarityautomation.com/api/health"
+echo "🌍 Public URL: $TUNNEL_URL"
+echo "🔧 Embed URL: $TUNNEL_URL/embed"
+echo "📊 Health check: $TUNNEL_URL/api/health"
 echo ""
 echo "🆔 Tunnel ID: 6b77187f-6ad1-4eaf-bd50-52f58e39ade7"
 echo "🔗 Connector ID: $(grep "Generated Connector ID" tunnel.log 2>/dev/null | tail -1 | awk '{print $NF}' || echo "Check tunnel.log")"
