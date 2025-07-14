@@ -19,3 +19,8 @@
 2025-07-14T02:06:24Z INF Starting metrics server on 127.0.0.1:20242/metrics
 2025-07-14T02:06:24Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=0 event=0 ip=198.41.192.107
 2025-07-14T02:06:24Z INF Registered tunnel connection connIndex=0 connection=b3e5702d-9028-46cb-a3d6-51ff3b8161ea event=0 ip=198.41.192.107 location=lax07 protocol=quic
+2025-07-14T02:28:10Z ERR Failed to serve tunnel connection error="timeout: no recent network activity" connIndex=0 event=0 ip=198.41.192.107
+2025-07-14T02:28:10Z ERR Serve tunnel error error="timeout: no recent network activity" connIndex=0 event=0 ip=198.41.192.107
+2025-07-14T02:28:10Z INF Retrying connection in up to 1s connIndex=0 event=0 ip=198.41.192.107
+2025-07-14T02:28:11Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=0 event=0 ip=198.41.192.27
+2025-07-14T02:28:11Z INF Registered tunnel connection connIndex=0 connection=86f6ba89-bfdb-474f-b9c2-890ad23a0a5e event=0 ip=198.41.192.27 location=lax07 protocol=quic
