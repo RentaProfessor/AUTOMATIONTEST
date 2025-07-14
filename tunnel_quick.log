@@ -19,3 +19,9 @@
 2025-07-14T22:34:25Z INF Starting metrics server on 127.0.0.1:20241/metrics
 2025-07-14T22:34:25Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=0 event=0 ip=198.41.192.57
 2025-07-14T22:34:26Z INF Registered tunnel connection connIndex=0 connection=c907407b-18c3-44ba-8ded-eac97463e6e2 event=0 ip=198.41.192.57 location=lax09 protocol=quic
+2025-07-14T22:37:09Z INF Initiating graceful shutdown due to signal terminated ...
+2025-07-14T22:37:09Z ERR Failed to serve tunnel connection error="context canceled" connIndex=0 event=0 ip=198.41.192.57
+2025-07-14T22:37:09Z INF Retrying connection in up to 1s connIndex=0 event=0 ip=198.41.192.57
+2025-07-14T22:37:09Z ERR no more connections active and exiting
+2025-07-14T22:37:09Z INF Tunnel server stopped
+2025-07-14T22:37:09Z INF Metrics server stopped
