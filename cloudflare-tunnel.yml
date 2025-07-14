@@ -1,0 +1,7 @@
+tunnel: 6b77187f-6ad1-4eaf-bd50-52f58e39ade7
+credentials-file: /Users/brettchiate/.cloudflared/6b77187f-6ad1-4eaf-bd50-52f58e39ade7.json
+
+ingress:
+  - hostname: ai.yourdomain.com
+    service: http://localhost:5001
+  - service: http_status:404 

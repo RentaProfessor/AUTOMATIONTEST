@@ -1,0 +1,66 @@
+{
+  "general": {
+    "auto_mode": false,
+    "review_ai_output": false,
+    "delete_temp_files": true,
+    "log_level": "INFO"
+  },
+  "ai": {
+    "model": "dolphin-mistral:7b",
+    "temperature": 0.7,
+    "max_tokens": 1000,
+    "ollama_url": "http://localhost:11434"
+  },
+  "transcription": {
+    "whisper_model": "base",
+    "language": "en",
+    "verbose": false
+  },
+  "video": {
+    "output_format": "mp4",
+    "output_resolution": "1080x1920",
+    "output_fps": 30,
+    "video_codec": "libx264",
+    "audio_codec": "aac",
+    "bitrate": "2M",
+    "crf": 23
+  },
+  "overlays": {
+    "font_family": "Arial",
+    "font_size": 64,
+    "font_color": "white",
+    "outline_color": "black",
+    "outline_width": 3,
+    "duration": 4.0,
+    "fade_duration": 0.8,
+    "position": "center",
+    "max_width": 92
+  },
+  "logo": {
+    "enabled": true,
+    "path": "assets/logo.png",
+    "position": "top-right",
+    "size": "15%",
+    "margin": 20
+  },
+  "outro": {
+    "enabled": true,
+    "path": "assets/outro_vertical_1080p.mp4"
+  },
+  "folders": {
+    "input": "input_clips",
+    "output": "output_clips",
+    "assets": "assets",
+    "logs": "logs",
+    "temp": "temp"
+  },
+  "file_handling": {
+    "supported_formats": [".mp4", ".mov", ".avi", ".mkv"],
+    "output_naming": "{original_name}_processed_{timestamp}",
+    "backup_originals": false
+  },
+  "prompts": {
+    "analysis_prompt": "Create 2-3 general financial education tips for this video. Focus on helpful, educational content that anyone can benefit from. These should be general financial wisdom, not specific advice.\n\nCreate simple, helpful tips like:\n- \"💡 Tip: Track your spending daily\"\n- \"📊 Smart: Build emergency fund first\"\n- \"🎯 Key: Know your financial goals\"\n- \"💰 Wise: Start investing early\"\n- \"📈 Smart: Budget before you spend\"\n- \"🔍 Tip: Review finances monthly\"\n- \"⭐ Rule: Pay yourself first\"\n- \"✅ Key: Understand your money flow\"\n\nMake them 4-8 words each. Space them throughout the video (every 8-12 seconds).\n\nRespond ONLY with valid JSON:\n{\n  \"overlays\": [\n    {\n      \"timestamp\": 8.0,\n      \"text\": \"💡 Tip: Track your spending daily\",\n      \"duration\": 3.5\n    },\n    {\n      \"timestamp\": 16.0,\n      \"text\": \"📊 Smart: Build emergency fund first\",\n      \"duration\": 3.5\n    }\n  ]\n}",
+    "caption_prompt": "You are a professional social media content creator for Future Clarity Financial Evaluations. Create an engaging Instagram/social media caption based on this video transcript.\n\nOur Service:\n- Financial Evaluations: Professional analysis to help people understand their financial situations\n- One-on-One Sessions: Personalized attention from experienced financial evaluators\n- Comprehensive Analysis: Detailed evaluation of your current financial situation\n- Clear Understanding: We help you understand where you stand financially\n\nCaption Requirements:\n1. Hook: Start with an engaging question or statement related to the video content\n2. Value: Comment on the video content and explain how we provide professional financial evaluation\n3. Service: Naturally mention our financial evaluation service\n4. Call-to-Action: Encourage booking a FREE consultation for financial evaluation\n5. Engagement: Include relevant hashtags and encourage interaction\n6. Professional tone but conversational\n7. Keep under 2200 characters\n\nWrite the caption based on this video transcript:"
+  }
+} 
