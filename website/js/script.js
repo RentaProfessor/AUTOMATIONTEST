@@ -473,8 +473,8 @@ function initTypingEffect() {
         setTimeout(typeEffect, speed);
     }
     
-    // Start typing effect after 2 seconds
-    setTimeout(typeEffect, 2000);
+    // Start typing effect immediately
+    setTimeout(typeEffect, 500);
 }
 
 // Event tracking (replace with actual analytics)
