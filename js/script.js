@@ -171,8 +171,10 @@ function animateCounters() {
             });
             
             observer.observe(counter);
+        } else {
+            // If not a number (like "24/7"), display it directly without animation
+            counter.textContent = originalText;
         }
-        // If not a number, keep the original text (like "24/7", "Free", etc.)
     });
 }
 
