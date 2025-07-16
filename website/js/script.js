@@ -445,7 +445,7 @@ function initTypingEffect() {
     if (!gradientText) return;
     
     const words = ['Web Design', 'AI Automation', 'Future Clarity'];
-    let wordIndex = 0;
+    let wordIndex = 1; // Start with second word since first is already displayed
     let charIndex = 0;
     let isDeleting = false;
     
