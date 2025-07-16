@@ -142,10 +142,17 @@ function animateCounters() {
     const counters = document.querySelectorAll('.stat-number');
     
     counters.forEach(counter => {
-        const originalText = counter.textContent;
-        const target = parseInt(originalText);
+        const originalText = counter.textContent.trim();
         
-        // Only animate if the text is actually a number
+        // Check if the text contains non-numeric characters (like "24/7")
+        if (originalText.includes('/') || originalText.includes('Free') || isNaN(parseInt(originalText))) {
+            // Display text directly without animation
+            counter.textContent = originalText;
+            return;
+        }
+        
+        // Only animate if the text is a pure number
+        const target = parseInt(originalText);
         if (!isNaN(target)) {
             const increment = target / 100;
             let current = 0;
@@ -172,7 +179,7 @@ function animateCounters() {
             
             observer.observe(counter);
         } else {
-            // If not a number (like "24/7"), display it directly without animation
+            // Fallback: display original text
             counter.textContent = originalText;
         }
     });
