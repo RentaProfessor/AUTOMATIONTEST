@@ -144,16 +144,16 @@ function animateCounters() {
     counters.forEach(counter => {
         const originalText = counter.textContent.trim();
         
-        // Check if the text contains non-numeric characters (like "24/7")
-        if (originalText.includes('/') || originalText.includes('Free') || isNaN(parseInt(originalText))) {
-            // Display text directly without animation
+        // Explicitly check for "24/7" and other non-numeric text
+        if (originalText === '24/7' || originalText.includes('/') || originalText.includes('Free') || isNaN(parseInt(originalText))) {
+            // Display text directly without any animation or observer
             counter.textContent = originalText;
-            return;
+            return; // Exit early, no animation
         }
         
         // Only animate if the text is a pure number
         const target = parseInt(originalText);
-        if (!isNaN(target)) {
+        if (!isNaN(target) && target > 0) {
             const increment = target / 100;
             let current = 0;
             
@@ -179,7 +179,7 @@ function animateCounters() {
             
             observer.observe(counter);
         } else {
-            // Fallback: display original text
+            // Fallback: display original text without animation
             counter.textContent = originalText;
         }
     });
@@ -444,7 +444,7 @@ function initTypingEffect() {
     const gradientText = document.querySelector('.gradient-text');
     if (!gradientText) return;
     
-    const words = ['AI Automation', 'Smart Solutions', 'Future Technology', 'AI Automation'];
+    const words = ['Web Design', 'AI Automation', 'Smart Solutions', 'AI Automation'];
     let wordIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
