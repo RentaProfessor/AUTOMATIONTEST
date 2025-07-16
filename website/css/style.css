@@ -285,10 +285,15 @@ body {
 .hero-stats {
     display: flex;
     gap: 40px;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .stat {
     text-align: center;
+    min-width: 100px;
+    flex: 1;
+    overflow: visible;
 }
 
 .stat-number {
@@ -297,6 +302,8 @@ body {
     font-weight: 700;
     color: var(--primary-color);
     margin-bottom: 5px;
+    white-space: nowrap;
+    overflow: visible;
 }
 
 .stat-label {
@@ -1358,6 +1365,11 @@ body {
     .hero-stats {
         flex-direction: column;
         gap: 20px;
+        align-items: center;
+    }
+    
+    .stat {
+        min-width: 120px;
     }
     
     
