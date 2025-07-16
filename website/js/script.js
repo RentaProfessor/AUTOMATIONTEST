@@ -444,7 +444,7 @@ function initTypingEffect() {
     const gradientText = document.querySelector('.gradient-text');
     if (!gradientText) return;
     
-    const words = ['Web Design', 'AI Automation', 'Smart Solutions', 'AI Automation'];
+    const words = ['Web Design', 'AI Automation', 'Future Clarity'];
     let wordIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
