@@ -146,48 +146,19 @@ body {
 .nav-logo {
     display: flex;
     align-items: center;
-    gap: 12px;
-    overflow: hidden;
-    max-height: 60px;
-}
-
-.logo-image {
-    height: 45px;
-    width: auto;
-    max-width: 45px;
-    max-height: 45px;
-    object-fit: contain;
-    object-position: center;
-    transition: var(--transition);
-    display: block;
-    background: transparent;
-    border: none;
-    outline: none;
-}
-
-.logo-image:hover {
-    transform: scale(1.05);
-}
-
-.logo-text {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
+    gap: 5px;
 }
 
 .nav-logo h2 {
     font-size: 1.8rem;
     font-weight: 700;
     color: var(--primary-color);
-    margin: 0;
-    line-height: 1.1;
 }
 
 .logo-subtitle {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     color: var(--text-light);
     font-weight: 400;
-    line-height: 1;
 }
 
 .nav-menu {
@@ -1283,24 +1254,6 @@ body {
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .nav-logo {
-        gap: 8px;
-    }
-    
-    .logo-image {
-        height: 35px;
-        max-width: 35px;
-        max-height: 35px;
-    }
-    
-    .nav-logo h2 {
-        font-size: 1.4rem;
-    }
-    
-    .logo-subtitle {
-        font-size: 0.75rem;
-    }
-    
     .nav-menu {
         position: fixed;
         top: 70px;
@@ -1405,24 +1358,6 @@ body {
 }
 
 @media (max-width: 480px) {
-    .nav-logo {
-        gap: 6px;
-    }
-    
-    .logo-image {
-        height: 30px;
-        max-width: 30px;
-        max-height: 30px;
-    }
-    
-    .nav-logo h2 {
-        font-size: 1.2rem;
-    }
-    
-    .logo-subtitle {
-        font-size: 0.7rem;
-    }
-    
     .hero-title {
         font-size: 2rem;
     }
