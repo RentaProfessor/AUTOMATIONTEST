@@ -146,44 +146,13 @@ body {
 .nav-logo {
     display: flex;
     align-items: center;
-    gap: 12px;
-}
-
-.logo-link {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    text-decoration: none;
-    color: inherit;
-    transition: var(--transition);
-}
-
-.logo-link:hover {
-    transform: translateY(-1px);
-}
-
-.nav-logo-img {
-    height: 40px;
-    width: auto;
-    transition: var(--transition);
-}
-
-.nav-logo-img:hover {
-    transform: scale(1.05);
-}
-
-.nav-logo-text {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
+    gap: 5px;
 }
 
 .nav-logo h2 {
     font-size: 1.8rem;
     font-weight: 700;
     color: var(--primary-color);
-    margin: 0;
-    line-height: 1;
 }
 
 .logo-subtitle {
@@ -1146,49 +1115,13 @@ body {
 .footer-logo {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 5px;
     margin-bottom: 20px;
-}
-
-.footer-logo .logo-link {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    text-decoration: none;
-    color: inherit;
-    transition: var(--transition);
-}
-
-.footer-logo .logo-link:hover {
-    transform: translateY(-1px);
-}
-
-.footer-logo-img {
-    height: 35px;
-    width: auto;
-    transition: var(--transition);
-}
-
-.footer-logo-img:hover {
-    transform: scale(1.05);
-}
-
-.footer-logo-text {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-}
-
-.footer-logo h3 {
-    margin: 0;
-    color: var(--light-color);
-    line-height: 1;
 }
 
 .footer-logo span {
     color: #ccc;
     font-size: 0.9rem;
-    margin: 0;
 }
 
 .social-links {
@@ -1321,38 +1254,6 @@ body {
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .nav-logo {
-        gap: 8px;
-    }
-    
-    .nav-logo-img {
-        height: 32px;
-    }
-    
-    .nav-logo h2 {
-        font-size: 1.4rem;
-    }
-    
-    .logo-subtitle {
-        font-size: 0.8rem;
-    }
-    
-    .footer-logo {
-        gap: 8px;
-    }
-    
-    .footer-logo-img {
-        height: 28px;
-    }
-    
-    .footer-logo h3 {
-        font-size: 1.3rem;
-    }
-    
-    .footer-logo span {
-        font-size: 0.8rem;
-    }
-    
     .nav-menu {
         position: fixed;
         top: 70px;
