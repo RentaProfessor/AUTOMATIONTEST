@@ -146,19 +146,61 @@ body {
 .nav-logo {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 0;
+}
+
+.logo-image {
+    height: 60px;
+    width: auto;
+    max-width: 80px;
+    object-fit: contain;
+    flex-shrink: 0;
+    display: block;
+    margin: 0;
+    margin-left: -10px;
+    padding: 0;
+    border: none;
+    outline: none;
+    vertical-align: middle;
+    box-sizing: border-box;
+    position: relative;
+    transform: scale(1.1);
+    transform-origin: left center;
+    clip-path: inset(10% 20% 10% 5%);
+}
+
+.logo-text-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    flex-shrink: 0;
+    border: none;
+    outline: none;
+    box-sizing: border-box;
 }
 
 .nav-logo h2 {
     font-size: 1.8rem;
     font-weight: 700;
     color: var(--primary-color);
+    margin: 0;
+    padding: 0;
+    line-height: 1.2;
+    border: none;
+    outline: none;
 }
 
 .logo-subtitle {
     font-size: 0.9rem;
     color: var(--text-light);
     font-weight: 400;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+    border: none;
+    outline: none;
 }
 
 .nav-menu {
@@ -1254,6 +1296,14 @@ body {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    .logo-image {
+        height: 50px;
+        max-width: 70px;
+        margin-left: -8px;
+        transform: scale(1.1);
+        clip-path: inset(10% 20% 10% 5%);
+    }
+    
     .nav-menu {
         position: fixed;
         top: 70px;
@@ -1358,6 +1408,14 @@ body {
 }
 
 @media (max-width: 480px) {
+    .logo-image {
+        height: 45px;
+        max-width: 60px;
+        margin-left: -6px;
+        transform: scale(1.1);
+        clip-path: inset(10% 20% 10% 5%);
+    }
+    
     .hero-title {
         font-size: 2rem;
     }
