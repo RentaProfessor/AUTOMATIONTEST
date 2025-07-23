@@ -71,71 +71,148 @@ function initNavigation() {
     //         navbar.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.1)';
     //     }
     // });
-    }
+}
+
+// Portfolio filtering functionality
+function initPortfolioFilters() {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const portfolioItems = document.querySelectorAll('.portfolio-item');
     
+    if (filterButtons.length === 0 || portfolioItems.length === 0) return;
+    
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const filter = this.getAttribute('data-filter');
+            
+            // Update active button
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Filter portfolio items
+            portfolioItems.forEach(item => {
+                const category = item.getAttribute('data-category');
+                
+                if (filter === 'all' || category === filter) {
+                    item.classList.remove('filtered-out');
+                    setTimeout(() => {
+                        item.style.display = 'block';
+                    }, 100);
+                } else {
+                    item.classList.add('filtered-out');
+                    setTimeout(() => {
+                        if (item.classList.contains('filtered-out')) {
+                            item.style.display = 'none';
+                        }
+                    }, 300);
+                }
+            });
+        });
+    });
+}
 
-
-
-
-// Animation and scroll effects
-function initAnimations() {
-    // Intersection Observer for animations
+// Portfolio animation on scroll
+function initPortfolioAnimations() {
+    const portfolioItems = document.querySelectorAll('.portfolio-item');
+    const statItems = document.querySelectorAll('.stat-item');
+    
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
     };
     
-    const observer = new IntersectionObserver(function(entries) {
+    const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.style.opacity = '1';
                 entry.target.style.transform = 'translateY(0)';
-                
-                // Special animations for specific elements
-                if (entry.target.classList.contains('service-card')) {
-                    entry.target.style.animationDelay = `${Math.random() * 0.5}s`;
-                    entry.target.style.animation = 'fadeInUp 0.8s ease-out forwards';
-                }
-                
-                if (entry.target.classList.contains('industry-card')) {
-                    entry.target.style.animationDelay = `${Math.random() * 0.3}s`;
-                    entry.target.style.animation = 'fadeInUp 0.6s ease-out forwards';
-                }
-                
-                if (entry.target.classList.contains('feature-item')) {
-                    entry.target.style.animationDelay = `${Math.random() * 0.2}s`;
-                    entry.target.style.animation = 'fadeInRight 0.7s ease-out forwards';
-                }
             }
         });
     }, observerOptions);
     
-    // Observe elements for animation
-    const animatedElements = document.querySelectorAll(
-        '.service-card, .industry-card, .feature-item, .team-member, .contact-item, .dashboard-mockup'
-    );
-    
-    animatedElements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
-        observer.observe(el);
+    // Animate portfolio items
+    portfolioItems.forEach((item, index) => {
+        item.style.opacity = '0';
+        item.style.transform = 'translateY(30px)';
+        item.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+        observer.observe(item);
     });
     
-    // Counter animation
-    animateCounters();
-    
-    // Parallax effect for hero section
-    window.addEventListener('scroll', function() {
-        const scrolled = window.pageYOffset;
-        const hero = document.querySelector('.hero');
-        const heroContent = document.querySelector('.hero-content');
-        
-        if (hero && heroContent) {
-            heroContent.style.transform = `translateY(${scrolled * 0.1}px)`;
-        }
+    // Animate stats
+    statItems.forEach((item, index) => {
+        item.style.opacity = '0';
+        item.style.transform = 'translateY(20px)';
+        item.style.transition = `opacity 0.5s ease ${index * 0.2}s, transform 0.5s ease ${index * 0.2}s`;
+        observer.observe(item);
     });
 }
+
+// Counter animation for portfolio stats
+function initCounterAnimation() {
+    const statNumbers = document.querySelectorAll('.stat-number');
+    
+    const animateCounter = (element) => {
+        const target = element.textContent;
+        const isPercentage = target.includes('%');
+        const isPlus = target.includes('+');
+        const isDash = target.includes('-');
+        
+        let numericTarget;
+        if (isPercentage) {
+            numericTarget = parseInt(target.replace('%', ''));
+        } else if (isPlus) {
+            numericTarget = parseInt(target.replace('+', ''));
+        } else if (isDash) {
+            numericTarget = target; // Keep as string for "2-3"
+            element.textContent = target;
+            return;
+        } else {
+            numericTarget = parseInt(target);
+        }
+        
+        if (isNaN(numericTarget)) return;
+        
+        let current = 0;
+        const increment = numericTarget / 50;
+        const timer = setInterval(() => {
+            current += increment;
+            if (current >= numericTarget) {
+                current = numericTarget;
+                clearInterval(timer);
+            }
+            
+            let displayValue = Math.floor(current);
+            if (isPercentage) {
+                displayValue += '%';
+            } else if (isPlus) {
+                displayValue += '+';
+            }
+            
+            element.textContent = displayValue;
+        }, 40);
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateCounter(entry.target);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+    
+    statNumbers.forEach(stat => {
+        observer.observe(stat);
+    });
+}
+
+// Initialize everything when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    initNavigation();
+    initAnimations();
+    initPortfolioFilters();
+    initPortfolioAnimations();
+    initCounterAnimation();
+});
 
 // Counter animation
 function animateCounters() {
