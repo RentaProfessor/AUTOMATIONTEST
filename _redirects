@@ -1,0 +1,9 @@
+# Redirects for Cloudflare Pages
+# If someone visits the root without index.html, serve index.html
+/ /index.html 200
+
+# Portfolio redirect
+/portfolio /portfolio.html 200
+
+# Fallback for any 404s - serve index.html
+/* /index.html 404
