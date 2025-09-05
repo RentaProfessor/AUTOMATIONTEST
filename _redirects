@@ -4,6 +4,3 @@
 
 # Portfolio redirect
 /portfolio /portfolio.html 200
-
-# Fallback for any 404s - serve index.html
-/* /index.html 404
