@@ -1,8 +1,0 @@
-This folder is for your branding assets:
-
-1. logo.png - Your brand logo (PNG with transparency)
-2. outro.mp4 - Your outro video (9:16 vertical format)
-
-See README_ASSETS.md for detailed instructions on creating and configuring these assets.
-
-The video processing workflow will automatically use these files when they are present. 

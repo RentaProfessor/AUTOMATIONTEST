@@ -1667,7 +1667,7 @@ body {
         gap: 30px;
     }
     
-    /* Enhanced mobile ngrok iframe compatibility */
+    /* Enhanced mobile iframe compatibility */
     .contact-chatbot iframe {
         width: 100% !important;
         height: 450px !important;

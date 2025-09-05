@@ -1,9 +1,0 @@
-watchdog==4.0.0
-openai-whisper==20231117
-requests==2.31.0
-Pillow==10.1.0
-numpy==1.24.3
-python-dotenv==1.0.0
-flask==3.0.0
-flask-socketio==5.3.6
-werkzeug==3.0.1 
