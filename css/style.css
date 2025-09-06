@@ -1,4 +1,4 @@
-/* CSS Reset and Base Styles - Updated: Narrower iframe aspect ratio */
+/* CSS Reset and Base Styles - Updated: Natural desktop aspect ratio for iframes */
 * {
     margin: 0;
     padding: 0;
@@ -1307,14 +1307,15 @@ body {
     position: absolute !important;
     top: 0 !important;
     left: 0 !important;
-    width: 120% !important;
-    height: 250% !important;
+    width: 100% !important;
+    height: 100% !important;
     border: none !important;
     border-radius: 10px !important;
-    transform: scale(0.7) !important;
+    transform: scale(0.5) !important;
     transform-origin: top left !important;
     max-width: none !important;
     max-height: none !important;
+    object-fit: contain !important;
 }
 
 .project-overlay {
@@ -1656,11 +1657,12 @@ body {
     
     /* Mobile iframe adjustments */
     .iframe-container iframe {
-        transform: scale(0.6) !important;
-        width: 140% !important;
-        height: 280% !important;
+        transform: scale(0.4) !important;
+        width: 100% !important;
+        height: 100% !important;
         max-width: none !important;
         max-height: none !important;
+        object-fit: contain !important;
     }
     
     .cta-buttons {
