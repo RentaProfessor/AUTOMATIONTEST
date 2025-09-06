@@ -1270,12 +1270,12 @@ body {
     border-radius: 15px;
     overflow: hidden;
     box-shadow: var(--shadow-md);
-    transition: var(--transition);
+    transition: var(--transition), opacity 0.3s ease, visibility 0.3s ease;
     animation: fadeInUp 0.6s ease-out;
     min-height: 400px !important;
     max-height: 400px !important;
-    display: flex !important;
-    flex-direction: column !important;
+    display: flex;
+    flex-direction: column;
 }
 
 .project-card:hover {
