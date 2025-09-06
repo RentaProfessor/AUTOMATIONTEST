@@ -22,7 +22,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     
     <title>Portfolio - FutureClarity Automation</title>
-    <link rel="stylesheet" href="css/style.css?v=11">
+    <link rel="stylesheet" href="css/style.css?v=12">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -203,6 +203,22 @@
             const filterBtns = document.querySelectorAll('.filter-btn');
             const projectCards = document.querySelectorAll('.project-card');
             
+            // Initial check for single project centering
+            function checkSingleProject() {
+                const visibleCards = Array.from(projectCards).filter(card => 
+                    card.style.visibility !== 'hidden' && card.style.opacity !== '0'
+                );
+                const projectsGrid = document.querySelector('.projects-grid');
+                if (visibleCards.length === 1) {
+                    projectsGrid.classList.add('single-project');
+                } else {
+                    projectsGrid.classList.remove('single-project');
+                }
+            }
+            
+            // Run initial check
+            checkSingleProject();
+            
             filterBtns.forEach(btn => {
                 btn.addEventListener('click', function() {
                     // Remove active class from all buttons
@@ -212,16 +228,26 @@
                     
                     const filter = this.getAttribute('data-filter');
                     
+                    let visibleCount = 0;
                     projectCards.forEach(card => {
                         if (filter === 'all' || card.getAttribute('data-category') === filter) {
                             card.style.visibility = 'visible';
                             card.style.opacity = '1';
                             card.style.animation = 'fadeInUp 0.5s ease-out';
+                            visibleCount++;
                         } else {
                             card.style.visibility = 'hidden';
                             card.style.opacity = '0';
                         }
                     });
+                    
+                    // Center single project
+                    const projectsGrid = document.querySelector('.projects-grid');
+                    if (visibleCount === 1) {
+                        projectsGrid.classList.add('single-project');
+                    } else {
+                        projectsGrid.classList.remove('single-project');
+                    }
                 });
             });
         });

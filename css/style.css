@@ -1265,6 +1265,18 @@ body {
     justify-items: stretch !important;
 }
 
+/* Center single project in category */
+.projects-grid.single-project {
+    justify-content: center !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+}
+
+.projects-grid.single-project .project-card {
+    max-width: 400px !important;
+    flex: 0 0 auto !important;
+}
+
 .project-card {
     background: var(--light-color);
     border-radius: 15px;
