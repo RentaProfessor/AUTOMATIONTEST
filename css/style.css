@@ -1301,6 +1301,8 @@ body {
     padding: 0 !important;
     overflow: hidden !important;
     position: relative !important;
+    width: 100% !important;
+    height: 100% !important;
 }
 
 .iframe-container iframe {
@@ -1311,11 +1313,11 @@ body {
     height: 100% !important;
     border: none !important;
     border-radius: 10px !important;
-    transform: scale(0.8) !important;
+    transform: scale(1) !important;
     transform-origin: top left !important;
     max-width: none !important;
     max-height: none !important;
-    object-fit: contain !important;
+    object-fit: cover !important;
 }
 
 .project-overlay {
@@ -1657,12 +1659,12 @@ body {
     
     /* Mobile iframe adjustments */
     .iframe-container iframe {
-        transform: scale(0.7) !important;
+        transform: scale(1) !important;
         width: 100% !important;
         height: 100% !important;
         max-width: none !important;
         max-height: none !important;
-        object-fit: contain !important;
+        object-fit: cover !important;
         border: none !important;
     }
     
