@@ -1267,14 +1267,18 @@ body {
 
 /* Center single project in category */
 .projects-grid.single-project {
-    justify-content: center !important;
-    display: flex !important;
-    flex-wrap: wrap !important;
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    justify-items: center !important;
+    align-items: start !important;
+    gap: 30px !important;
 }
 
 .projects-grid.single-project .project-card {
     max-width: 400px !important;
-    flex: 0 0 auto !important;
+    width: 100% !important;
+    min-height: 400px !important;
+    max-height: 400px !important;
 }
 
 .project-card {
@@ -1677,6 +1681,23 @@ body {
     .projects-grid {
         grid-template-columns: 1fr;
         gap: 20px;
+    }
+    
+    /* Mobile single project centering */
+    .projects-grid.single-project {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        justify-items: center !important;
+        align-items: start !important;
+        gap: 20px !important;
+        padding: 0 20px !important;
+    }
+    
+    .projects-grid.single-project .project-card {
+        max-width: 350px !important;
+        width: 100% !important;
+        min-height: 400px !important;
+        max-height: 400px !important;
     }
     
     .project-image {
