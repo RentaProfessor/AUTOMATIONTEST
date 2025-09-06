@@ -1257,6 +1257,14 @@ body {
     background: #f8f9fa;
 }
 
+/* Ensure single project containers are properly centered */
+.portfolio-grid.single-project-container {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    min-height: 600px !important;
+}
+
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -1267,12 +1275,12 @@ body {
 
 /* Center single project in category */
 .projects-grid.single-project {
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-    justify-items: center !important;
+    display: flex !important;
+    justify-content: center !important;
     align-items: center !important;
-    gap: 30px !important;
+    gap: 0 !important;
     min-height: 500px !important;
+    width: 100% !important;
 }
 
 .projects-grid.single-project .project-card {
@@ -1281,6 +1289,7 @@ body {
     min-height: 400px !important;
     max-height: 400px !important;
     margin: 0 !important;
+    flex: 0 0 auto !important;
 }
 
 .project-card {
@@ -1688,13 +1697,13 @@ body {
     
     /* Mobile single project centering */
     .projects-grid.single-project {
-        display: grid !important;
-        grid-template-columns: 1fr !important;
-        justify-items: center !important;
+        display: flex !important;
+        justify-content: center !important;
         align-items: center !important;
-        gap: 20px !important;
+        gap: 0 !important;
         padding: 0 20px !important;
         min-height: 500px !important;
+        width: 100% !important;
     }
     
     .projects-grid.single-project .project-card {
@@ -1703,6 +1712,7 @@ body {
         min-height: 400px !important;
         max-height: 400px !important;
         margin: 0 !important;
+        flex: 0 0 auto !important;
     }
     
     .project-image {
