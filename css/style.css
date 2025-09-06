@@ -1294,6 +1294,27 @@ body {
     color: var(--primary-color);
 }
 
+/* Iframe container specific styles */
+.iframe-container {
+    background: none !important;
+    display: block !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    position: relative !important;
+}
+
+.iframe-container iframe {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 166.67% !important;
+    height: 166.67% !important;
+    border: none !important;
+    border-radius: 10px !important;
+    transform: scale(0.6) !important;
+    transform-origin: top left !important;
+}
+
 .project-overlay {
     position: absolute;
     top: 0;
@@ -1629,6 +1650,13 @@ body {
     
     .project-placeholder {
         font-size: 2rem;
+    }
+    
+    /* Mobile iframe adjustments */
+    .iframe-container iframe {
+        transform: scale(0.5) !important;
+        width: 200% !important;
+        height: 200% !important;
     }
     
     .cta-buttons {
