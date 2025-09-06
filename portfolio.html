@@ -22,7 +22,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     
     <title>Portfolio - FutureClarity Automation</title>
-    <link rel="stylesheet" href="css/style.css?v=21">
+    <link rel="stylesheet" href="css/style.css?v=20">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -203,19 +203,28 @@
             const filterBtns = document.querySelectorAll('.filter-btn');
             const projectCards = document.querySelectorAll('.project-card');
             
-            // Initial check for single project centering
+            // Enhanced single project centering with proper detection
             function checkSingleProject() {
                 const visibleCards = Array.from(projectCards).filter(card => 
-                    card.style.visibility !== 'hidden' && card.style.opacity !== '0'
+                    card.style.visibility !== 'hidden' && 
+                    card.style.opacity !== '0' && 
+                    card.style.display !== 'none'
                 );
                 const projectsGrid = document.querySelector('.projects-grid');
                 const portfolioGrid = document.querySelector('.portfolio-grid');
+                
                 if (visibleCards.length === 1) {
                     projectsGrid.classList.add('single-project');
                     portfolioGrid.classList.add('single-project-container');
+                    // Ensure proper centering
+                    projectsGrid.style.justifyContent = 'center';
+                    projectsGrid.style.alignItems = 'center';
                 } else {
                     projectsGrid.classList.remove('single-project');
                     portfolioGrid.classList.remove('single-project-container');
+                    // Reset to grid layout
+                    projectsGrid.style.justifyContent = '';
+                    projectsGrid.style.alignItems = '';
                 }
             }
             
@@ -244,16 +253,8 @@
                         }
                     });
                     
-                    // Center single project
-                    const projectsGrid = document.querySelector('.projects-grid');
-                    const portfolioGrid = document.querySelector('.portfolio-grid');
-                    if (visibleCount === 1) {
-                        projectsGrid.classList.add('single-project');
-                        portfolioGrid.classList.add('single-project-container');
-                    } else {
-                        projectsGrid.classList.remove('single-project');
-                        portfolioGrid.classList.remove('single-project-container');
-                    }
+                    // Use enhanced single project centering
+                    checkSingleProject();
                 });
             });
         });
