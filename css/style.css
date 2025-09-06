@@ -1259,10 +1259,9 @@ body {
 
 /* Ensure single project containers are properly centered */
 .portfolio-grid.single-project-container {
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
+    display: block !important;
     min-height: 600px !important;
+    padding: 80px 0 !important;
 }
 
 .projects-grid {
@@ -1281,11 +1280,13 @@ body {
     gap: 0 !important;
     min-height: 500px !important;
     width: 100% !important;
+    max-width: 1200px !important;
+    margin: 0 auto !important;
 }
 
 .projects-grid.single-project .project-card {
     max-width: 400px !important;
-    width: 100% !important;
+    width: 400px !important;
     min-height: 400px !important;
     max-height: 400px !important;
     margin: 0 !important;
@@ -1704,11 +1705,13 @@ body {
         padding: 0 20px !important;
         min-height: 500px !important;
         width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
     }
     
     .projects-grid.single-project .project-card {
         max-width: 350px !important;
-        width: 100% !important;
+        width: 350px !important;
         min-height: 400px !important;
         max-height: 400px !important;
         margin: 0 !important;
