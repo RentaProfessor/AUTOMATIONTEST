@@ -1263,14 +1263,17 @@ body {
     justify-content: center !important;
     align-items: flex-start !important;
     min-height: 700px !important;
+    padding: 80px 0 !important;
 }
 
 .portfolio-grid.single-project-container .container {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: flex-start !important;
     width: 100% !important;
     max-width: 1200px !important;
     margin: 0 auto !important;
-    display: flex !important;
-    justify-content: center !important;
+    padding: 0 20px !important;
 }
 
 .projects-grid {
@@ -1289,7 +1292,7 @@ body {
     gap: 0 !important;
     min-height: 600px !important;
     width: 100% !important;
-    max-width: 1200px !important;
+    max-width: 400px !important;
     margin: 0 auto !important;
     padding-top: 50px !important;
     position: relative !important;
@@ -1755,7 +1758,7 @@ body {
         gap: 0 !important;
         min-height: 600px !important;
         width: 100% !important;
-        max-width: 100% !important;
+        max-width: 350px !important;
         margin: 0 auto !important;
         padding: 50px 20px 0 20px !important;
         position: relative !important;
