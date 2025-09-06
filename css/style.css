@@ -1270,21 +1270,64 @@ body {
     justify-items: stretch !important;
 }
 
-/* Center single project in category - proper system */
+/* COMPREHENSIVE SINGLE PROJECT SYSTEM */
 .projects-grid.single-project {
     display: flex !important;
     justify-content: center !important;
-    align-items: center !important;
+    align-items: flex-start !important;
     gap: 0 !important;
-    min-height: 500px !important;
+    min-height: 600px !important;
     width: 100% !important;
+    padding-top: 50px !important;
 }
 
 .projects-grid.single-project .project-card {
     width: 400px !important;
     max-width: 400px !important;
     min-width: 400px !important;
+    min-height: 400px !important;
+    max-height: 400px !important;
     flex-shrink: 0 !important;
+    flex-grow: 0 !important;
+    margin: 0 !important;
+}
+
+/* Ensure iframe containers maintain consistent size */
+.projects-grid.single-project .project-image {
+    height: 250px !important;
+    min-height: 250px !important;
+    max-height: 250px !important;
+    overflow: hidden !important;
+    position: relative !important;
+}
+
+/* Ensure iframe container maintains size */
+.projects-grid.single-project .iframe-container {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 250px !important;
+    max-height: 250px !important;
+    position: relative !important;
+    overflow: hidden !important;
+    background: none !important;
+}
+
+/* Force desktop view with proper scaling */
+.projects-grid.single-project .iframe-container iframe {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 400% !important;
+    height: 400% !important;
+    border: none !important;
+    border-radius: 10px !important;
+    transform: scale(0.25) !important;
+    transform-origin: top left !important;
+    max-width: none !important;
+    max-height: none !important;
+    object-fit: cover !important;
+    min-width: 1400px !important;
+    min-height: 1000px !important;
 }
 
 .project-card {
@@ -1690,22 +1733,64 @@ body {
         gap: 20px;
     }
     
-    /* Mobile single project centering - proper system */
+    /* COMPREHENSIVE MOBILE SINGLE PROJECT SYSTEM */
     .projects-grid.single-project {
         display: flex !important;
         justify-content: center !important;
-        align-items: center !important;
+        align-items: flex-start !important;
         gap: 0 !important;
-        min-height: 500px !important;
+        min-height: 600px !important;
         width: 100% !important;
-        padding: 0 20px !important;
+        padding: 50px 20px 0 20px !important;
     }
     
     .projects-grid.single-project .project-card {
         width: 350px !important;
         max-width: 350px !important;
         min-width: 350px !important;
+        min-height: 400px !important;
+        max-height: 400px !important;
         flex-shrink: 0 !important;
+        flex-grow: 0 !important;
+        margin: 0 !important;
+    }
+    
+    /* Mobile iframe containers maintain consistent size */
+    .projects-grid.single-project .project-image {
+        height: 200px !important;
+        min-height: 200px !important;
+        max-height: 200px !important;
+        overflow: hidden !important;
+        position: relative !important;
+    }
+    
+    /* Mobile iframe container maintains size */
+    .projects-grid.single-project .iframe-container {
+        width: 100% !important;
+        height: 100% !important;
+        min-height: 200px !important;
+        max-height: 200px !important;
+        position: relative !important;
+        overflow: hidden !important;
+        background: none !important;
+    }
+    
+    /* Mobile force desktop view with proper scaling */
+    .projects-grid.single-project .iframe-container iframe {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 500% !important;
+        height: 500% !important;
+        border: none !important;
+        border-radius: 10px !important;
+        transform: scale(0.2) !important;
+        transform-origin: top left !important;
+        max-width: none !important;
+        max-height: none !important;
+        object-fit: cover !important;
+        min-width: 1400px !important;
+        min-height: 1000px !important;
     }
     
     .project-image {
