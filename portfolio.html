@@ -22,7 +22,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     
     <title>Portfolio - FutureClarity Automation</title>
-    <link rel="stylesheet" href="css/style.css?v=16">
+    <link rel="stylesheet" href="css/style.css?v=17">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -209,13 +209,10 @@
                     card.style.visibility !== 'hidden' && card.style.opacity !== '0'
                 );
                 const projectsGrid = document.querySelector('.projects-grid');
-                const portfolioGrid = document.querySelector('.portfolio-grid');
                 if (visibleCards.length === 1) {
                     projectsGrid.classList.add('single-project');
-                    portfolioGrid.classList.add('single-project-container');
                 } else {
                     projectsGrid.classList.remove('single-project');
-                    portfolioGrid.classList.remove('single-project-container');
                 }
             }
             
@@ -246,13 +243,10 @@
                     
                     // Center single project
                     const projectsGrid = document.querySelector('.projects-grid');
-                    const portfolioGrid = document.querySelector('.portfolio-grid');
                     if (visibleCount === 1) {
                         projectsGrid.classList.add('single-project');
-                        portfolioGrid.classList.add('single-project-container');
                     } else {
                         projectsGrid.classList.remove('single-project');
-                        portfolioGrid.classList.remove('single-project-container');
                     }
                 });
             });
