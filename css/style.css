@@ -1321,11 +1321,11 @@ body {
     position: absolute !important;
     top: 0 !important;
     left: 0 !important;
-    width: 200% !important;
-    height: 200% !important;
+    width: 300% !important;
+    height: 300% !important;
     border: none !important;
     border-radius: 10px !important;
-    transform: scale(0.5) !important;
+    transform: scale(0.33) !important;
     transform-origin: top left !important;
     max-width: none !important;
     max-height: none !important;
@@ -1677,9 +1677,9 @@ body {
     
     /* Mobile iframe adjustments */
     .iframe-container iframe {
-        transform: scale(0.4) !important;
-        width: 250% !important;
-        height: 250% !important;
+        transform: scale(0.3) !important;
+        width: 350% !important;
+        height: 350% !important;
         max-width: none !important;
         max-height: none !important;
         object-fit: cover !important;
