@@ -1,4 +1,4 @@
-/* CSS Reset and Base Styles - Updated: Added loading indicators and enhanced iframe handling - CACHE BUST: 2024-01-15-16:15 */
+/* CSS Reset and Base Styles - Updated: Enhanced video loading timing and intermediate states - CACHE BUST: 2024-01-15-16:30 */
 * {
     margin: 0;
     padding: 0;
@@ -1475,6 +1475,13 @@ body {
     font-weight: 500;
     z-index: 1;
     white-space: nowrap;
+    transition: opacity 0.3s ease;
+}
+
+/* Loading state for video content */
+.iframe-container.video-loading::after {
+    content: 'Loading Videos...';
+    color: var(--primary-color);
 }
 
 @keyframes iframe-spin {
