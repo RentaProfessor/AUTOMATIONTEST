@@ -1347,13 +1347,13 @@ body {
         position: absolute !important;
         top: 0 !important;
         left: 0 !important;
-        width: 250% !important;
-        height: 250% !important;
+        width: 300% !important;
+        height: 300% !important;
         border: none !important;
         border-radius: 10px !important;
         object-fit: cover !important;
         /* Zoom out to show full website view including hero section */
-        transform: scale(0.4) !important;
+        transform: scale(0.33) !important;
         transform-origin: top left !important;
         /* Prevent iframe from affecting parent layout */
         pointer-events: none !important;
@@ -1421,7 +1421,9 @@ body {
     display: block;
     padding: 0;
     overflow: hidden;
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100% !important;
     height: 100% !important;
     min-height: 300px !important;
@@ -1470,13 +1472,13 @@ iframe {
         position: absolute !important;
         top: 0 !important;
         left: 0 !important;
-        width: 250% !important;
-        height: 250% !important;
+        width: 300% !important;
+        height: 300% !important;
         border: none !important;
         border-radius: 10px !important;
         object-fit: cover !important;
         /* Zoom out to show full website view including hero section */
-        transform: scale(0.4) !important;
+        transform: scale(0.33) !important;
         transform-origin: top left !important;
         /* Prevent iframe from affecting parent layout */
         pointer-events: none !important;
