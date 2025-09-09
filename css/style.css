@@ -1341,19 +1341,13 @@ body {
     border-radius: 10px !important;
 }
 
-/* Single Project Iframe - DESKTOP VIEW WITH ZOOMED OUT FULL VIEW */
+/* Single Project Iframe - DESKTOP VIEW WITH NATURAL DISPLAY */
 @media (min-width: 769px) {
     .projects-grid.single-project .iframe-container iframe {
         width: 100% !important;
         height: 100% !important;
         border: none !important;
         border-radius: 10px !important;
-        object-fit: cover !important;
-        /* Zoom out to show full website view including hero section */
-        transform: scale(0.4) !important;
-        transform-origin: top left !important;
-        width: 250% !important;
-        height: 250% !important;
         /* Prevent iframe from affecting parent layout */
         pointer-events: none !important;
     }
@@ -1452,19 +1446,13 @@ iframe {
     transition: opacity 0.3s ease;
 }
 
-/* Iframe - DESKTOP VIEW WITH ZOOMED OUT FULL VIEW */
+/* Iframe - DESKTOP VIEW WITH NATURAL DISPLAY */
 @media (min-width: 769px) {
     .iframe-container iframe {
         width: 100% !important;
         height: 100% !important;
         border: none !important;
         border-radius: 10px !important;
-        object-fit: cover !important;
-        /* Zoom out to show full website view including hero section */
-        transform: scale(0.4) !important;
-        transform-origin: top left !important;
-        width: 250% !important;
-        height: 250% !important;
         /* Prevent iframe from affecting parent layout */
         pointer-events: none !important;
     }
