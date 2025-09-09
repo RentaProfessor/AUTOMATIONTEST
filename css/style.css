@@ -1349,6 +1349,11 @@ body {
         border: none !important;
         border-radius: 10px !important;
         object-fit: cover !important;
+        /* Force mobile viewport for iframe content */
+        transform: scale(0.5) !important;
+        transform-origin: top left !important;
+        width: 200% !important;
+        height: 200% !important;
         /* Prevent iframe from affecting parent layout */
         pointer-events: none !important;
     }
@@ -1455,6 +1460,11 @@ iframe {
         border: none !important;
         border-radius: 10px !important;
         object-fit: cover !important;
+        /* Force mobile viewport for iframe content */
+        transform: scale(0.5) !important;
+        transform-origin: top left !important;
+        width: 200% !important;
+        height: 200% !important;
         /* Prevent iframe from affecting parent layout */
         pointer-events: none !important;
     }
