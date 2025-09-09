@@ -621,6 +621,39 @@ function initIframeHandling() {
         // Handle iframe load success
         iframe.addEventListener('load', function() {
             console.log('Iframe loaded successfully:', this.src);
+            
+            // Try to inject mobile viewport into iframe content
+            try {
+                const iframeDoc = this.contentDocument || this.contentWindow.document;
+                if (iframeDoc) {
+                    // Add mobile viewport meta tag
+                    let viewportMeta = iframeDoc.querySelector('meta[name="viewport"]');
+                    if (viewportMeta) {
+                        viewportMeta.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
+                    } else {
+                        viewportMeta = iframeDoc.createElement('meta');
+                        viewportMeta.setAttribute('name', 'viewport');
+                        viewportMeta.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
+                        iframeDoc.head.appendChild(viewportMeta);
+                    }
+                    
+                    // Force mobile styles
+                    const style = iframeDoc.createElement('style');
+                    style.textContent = `
+                        body { 
+                            width: 375px !important; 
+                            max-width: 375px !important; 
+                            overflow-x: hidden !important;
+                        }
+                        * { 
+                            max-width: 375px !important; 
+                        }
+                    `;
+                    iframeDoc.head.appendChild(style);
+                }
+            } catch (e) {
+                console.log('Cannot access iframe content (cross-origin):', e.message);
+            }
         });
         
         // Handle iframe errors with fallback
