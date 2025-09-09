@@ -1228,16 +1228,25 @@ body {
     background: #f8f9fa;
 }
 
-/* Portfolio Grid Base Layout */
+/* Portfolio Grid Base Layout - 2x2 Grid */
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 40px;
     align-items: start;
     justify-items: center;
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
+}
+
+/* Tablet Layout - 2x2 Grid */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+        max-width: 900px;
+    }
 }
 
 /* Single Project Container - FIXED CENTERING */
