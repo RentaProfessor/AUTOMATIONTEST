@@ -613,19 +613,17 @@ preloadResources();
 // Iframe handling for portfolio
 function initIframeHandling() {
     const iframes = document.querySelectorAll('.iframe-container iframe');
+    console.log('Found iframes:', iframes.length);
     
-    iframes.forEach(iframe => {
-        // Add loading state management
+    iframes.forEach((iframe, index) => {
+        console.log(`Iframe ${index + 1}:`, iframe.src);
+        
+        // Handle iframe load success
         iframe.addEventListener('load', function() {
-            this.classList.add('loaded');
-            // Hide loading spinner
-            const container = this.closest('.iframe-container');
-            if (container) {
-                container.style.setProperty('--loading-opacity', '0');
-            }
+            console.log('Iframe loaded successfully:', this.src);
         });
         
-        // Handle iframe errors
+        // Handle iframe errors with fallback
         iframe.addEventListener('error', function() {
             console.warn('Iframe failed to load:', this.src);
             // Show fallback content or error message
@@ -642,12 +640,6 @@ function initIframeHandling() {
                 `;
             }
         });
-        
-        // Set loading state initially
-        const container = iframe.closest('.iframe-container');
-        if (container) {
-            container.style.setProperty('--loading-opacity', '1');
-        }
     });
 }
 

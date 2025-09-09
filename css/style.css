@@ -1437,40 +1437,14 @@ iframe {
     transition: opacity 0.3s ease !important;
 }
 
-/* Iframe loading state */
+/* Iframe loading state - simplified */
 .iframe-container {
     position: relative;
 }
 
-.iframe-container::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 40px;
-    height: 40px;
-    border: 3px solid #f3f3f3;
-    border-top: 3px solid var(--primary-color);
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    z-index: 1;
-    opacity: var(--loading-opacity, 1);
-    transition: opacity 0.3s ease;
-}
-
 .iframe-container iframe {
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.iframe-container iframe.loaded {
     opacity: 1;
-}
-
-@keyframes spin {
-    0% { transform: translate(-50%, -50%) rotate(0deg); }
-    100% { transform: translate(-50%, -50%) rotate(360deg); }
+    transition: opacity 0.3s ease;
 }
 
 /* Iframe - DESKTOP VIEW WITH PROPER SCALING */
