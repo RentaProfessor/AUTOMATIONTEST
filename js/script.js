@@ -610,36 +610,83 @@ document.head.appendChild(style);
 // Initialize on DOM ready
 preloadResources();
 
-// Iframe handling for portfolio
+// Enhanced iframe handling for portfolio with loading states
 function initIframeHandling() {
     const iframes = document.querySelectorAll('.iframe-container iframe');
     console.log('Found iframes:', iframes.length);
     
     iframes.forEach((iframe, index) => {
+        const container = iframe.closest('.iframe-container');
         console.log(`Iframe ${index + 1}:`, iframe.src);
+        
+        // Set initial loading state
+        iframe.style.opacity = '0';
+        
+        // Add loading timeout for slow-loading iframes
+        const loadingTimeout = setTimeout(() => {
+            if (iframe.style.opacity === '0') {
+                console.log('Iframe taking too long to load, showing with fade-in:', iframe.src);
+                iframe.style.opacity = '1';
+                // Hide loading indicator after timeout
+                if (container) {
+                    container.classList.add('loaded');
+                }
+            }
+        }, 10000); // 10 second timeout
         
         // Handle iframe load success
         iframe.addEventListener('load', function() {
             console.log('Iframe loaded successfully:', this.src);
+            clearTimeout(loadingTimeout);
+            
+            // Smooth fade-in effect
+            setTimeout(() => {
+                this.style.opacity = '1';
+                this.setAttribute('data-loaded', 'true');
+                
+                // Hide loading indicator
+                if (container) {
+                    container.classList.add('loaded');
+                }
+            }, 500); // Small delay to ensure content is rendered
         });
         
         // Handle iframe errors with fallback
         iframe.addEventListener('error', function() {
             console.warn('Iframe failed to load:', this.src);
+            clearTimeout(loadingTimeout);
+            
             // Show fallback content or error message
-            const container = this.closest('.iframe-container');
             if (container) {
                 container.innerHTML = `
-                    <div style="display: flex; align-items: center; justify-content: center; height: 100%; background: #f8f9fa; color: #666; flex-direction: column; gap: 10px;">
+                    <div style="display: flex; align-items: center; justify-content: center; height: 100%; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); color: #666; flex-direction: column; gap: 10px; border-radius: 10px;">
                         <i class="fas fa-exclamation-triangle" style="font-size: 2rem; color: #ffc107;"></i>
-                        <p>Preview unavailable</p>
-                        <a href="${this.src}" target="_blank" style="color: var(--primary-color); text-decoration: none;">
+                        <p style="margin: 0; font-weight: 500;">Preview Unavailable</p>
+                        <a href="${this.src}" target="_blank" style="color: var(--primary-color); text-decoration: none; font-weight: 500; padding: 8px 16px; border: 2px solid var(--primary-color); border-radius: 6px; transition: all 0.3s ease;">
                             View Live Site <i class="fas fa-external-link-alt"></i>
                         </a>
                     </div>
                 `;
             }
         });
+        
+        // Add intersection observer for lazy loading optimization
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Iframe is visible, ensure it loads
+                        const iframe = entry.target;
+                        if (iframe.src && !iframe.getAttribute('data-loaded')) {
+                            console.log('Iframe in viewport, ensuring load:', iframe.src);
+                        }
+                        observer.unobserve(iframe);
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            observer.observe(iframe);
+        }
     });
 }
 

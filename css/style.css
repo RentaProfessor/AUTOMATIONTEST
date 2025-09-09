@@ -1,4 +1,4 @@
-/* CSS Reset and Base Styles - Updated: Fixed mobile iframe slivers - restored full desktop view in bubbles - CACHE BUST: 2024-01-15-16:00 */
+/* CSS Reset and Base Styles - Updated: Added loading indicators and enhanced iframe handling - CACHE BUST: 2024-01-15-16:15 */
 * {
     margin: 0;
     padding: 0;
@@ -1428,7 +1428,7 @@ body {
  * This ensures consistent sizing and prevents layout issues
  */
 .iframe-container {
-    background: #f8f9fa;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
     display: block;
     padding: 0;
     overflow: hidden;
@@ -1446,6 +1446,40 @@ body {
     /* Ensure container doesn't cause overflow */
     contain: layout style paint;
     will-change: transform;
+}
+
+/* Loading indicator for iframes */
+.iframe-container::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    border: 3px solid #e3e3e3;
+    border-top: 3px solid var(--primary-color);
+    border-radius: 50%;
+    animation: iframe-spin 1s linear infinite;
+    z-index: 1;
+}
+
+.iframe-container::after {
+    content: 'Loading Preview...';
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--text-light);
+    font-size: 0.9rem;
+    font-weight: 500;
+    z-index: 1;
+    white-space: nowrap;
+}
+
+@keyframes iframe-spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
 /* 
@@ -1467,13 +1501,24 @@ iframe {
     -ms-user-scalable: no !important;
 }
 
-/* Iframe loading state - simplified */
-.iframe-container {
-    position: relative;
+/* Iframe loading state - enhanced */
+.iframe-container iframe {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: 2;
 }
 
-.iframe-container iframe {
+/* Hide loading indicator when iframe is loaded */
+.iframe-container iframe[data-loaded="true"],
+.iframe-container:hover iframe {
     opacity: 1;
+}
+
+.iframe-container:hover::before,
+.iframe-container:hover::after,
+.iframe-container.loaded::before,
+.iframe-container.loaded::after {
+    opacity: 0;
     transition: opacity 0.3s ease;
 }
 
