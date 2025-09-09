@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initFormHandling();
     initScrollEffects();
     initTypingEffect();
+    initIframeHandling();
     
     console.log('FutureClarity Automation website loaded successfully!');
 });
@@ -609,6 +610,47 @@ document.head.appendChild(style);
 // Initialize on DOM ready
 preloadResources();
 
+// Iframe handling for portfolio
+function initIframeHandling() {
+    const iframes = document.querySelectorAll('.iframe-container iframe');
+    
+    iframes.forEach(iframe => {
+        // Add loading state management
+        iframe.addEventListener('load', function() {
+            this.classList.add('loaded');
+            // Hide loading spinner
+            const container = this.closest('.iframe-container');
+            if (container) {
+                container.style.setProperty('--loading-opacity', '0');
+            }
+        });
+        
+        // Handle iframe errors
+        iframe.addEventListener('error', function() {
+            console.warn('Iframe failed to load:', this.src);
+            // Show fallback content or error message
+            const container = this.closest('.iframe-container');
+            if (container) {
+                container.innerHTML = `
+                    <div style="display: flex; align-items: center; justify-content: center; height: 100%; background: #f8f9fa; color: #666; flex-direction: column; gap: 10px;">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 2rem; color: #ffc107;"></i>
+                        <p>Preview unavailable</p>
+                        <a href="${this.src}" target="_blank" style="color: var(--primary-color); text-decoration: none;">
+                            View Live Site <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                `;
+            }
+        });
+        
+        // Set loading state initially
+        const container = iframe.closest('.iframe-container');
+        if (container) {
+            container.style.setProperty('--loading-opacity', '1');
+        }
+    });
+}
+
 // Export functions for testing
 window.FutureClarityApp = {
     trackEvent,
@@ -618,5 +660,6 @@ window.FutureClarityApp = {
     initAnimations,
     initFormHandling,
     initScrollEffects,
-    initTypingEffect
+    initTypingEffect,
+    initIframeHandling
 }; 

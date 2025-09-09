@@ -1344,17 +1344,10 @@ body {
 /* Single Project Iframe - DESKTOP VIEW WITH PROPER SCALING */
 @media (min-width: 769px) {
     .projects-grid.single-project .iframe-container iframe {
-        position: absolute !important;
-        top: 0 !important;
-        left: 0 !important;
         width: 100% !important;
         height: 100% !important;
         border: none !important;
         border-radius: 10px !important;
-        transform: scale(1) !important;
-        transform-origin: top left !important;
-        max-width: 100% !important;
-        max-height: 100% !important;
         object-fit: cover !important;
         /* Prevent iframe from affecting parent layout */
         pointer-events: none !important;
@@ -1434,27 +1427,60 @@ body {
  */
 iframe {
     border: none !important;
-    background: transparent !important;
+    background: #f8f9fa !important;
     /* Prevent iframe from affecting parent layout */
     pointer-events: none !important;
+    /* Ensure proper scaling */
+    max-width: 100% !important;
+    max-height: 100% !important;
+    /* Smooth loading */
+    transition: opacity 0.3s ease !important;
+}
+
+/* Iframe loading state */
+.iframe-container {
+    position: relative;
+}
+
+.iframe-container::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    z-index: 1;
+    opacity: var(--loading-opacity, 1);
+    transition: opacity 0.3s ease;
+}
+
+.iframe-container iframe {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.iframe-container iframe.loaded {
+    opacity: 1;
+}
+
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
 /* Iframe - DESKTOP VIEW WITH PROPER SCALING */
 @media (min-width: 769px) {
     .iframe-container iframe {
-        position: absolute !important;
-        top: 0 !important;
-        left: 0 !important;
         width: 100% !important;
         height: 100% !important;
         border: none !important;
         border-radius: 10px !important;
-        transform: scale(1) !important;
-        transform-origin: top left !important;
-        max-width: 100% !important;
-        max-height: 100% !important;
         object-fit: cover !important;
-        z-index: 1 !important;
         /* Prevent iframe from affecting parent layout */
         pointer-events: none !important;
     }
@@ -1463,9 +1489,6 @@ iframe {
     .project-image .iframe-container {
         width: 100% !important;
         height: 100% !important;
-        position: absolute !important;
-        top: 0 !important;
-        left: 0 !important;
         overflow: hidden !important;
     }
     
@@ -1853,19 +1876,10 @@ iframe {
     
     /* Mobile Iframe - FIXED FOR PROPER MOBILE DISPLAY */
     .projects-grid.single-project .iframe-container iframe {
-        position: absolute !important;
-        top: 0 !important;
-        left: 0 !important;
         width: 100% !important;
         height: 100% !important;
-        min-width: 100% !important;
-        min-height: 100% !important;
-        max-width: 100% !important;
-        max-height: 100% !important;
         border: none !important;
         border-radius: 10px !important;
-        transform: none !important;
-        transform-origin: initial !important;
         object-fit: cover !important;
         /* Mobile-specific iframe properties */
         -webkit-overflow-scrolling: touch !important;
@@ -1929,17 +1943,8 @@ iframe {
     .projects-grid .iframe-container iframe {
         width: 100% !important;
         height: 100% !important;
-        min-width: 100% !important;
-        min-height: 100% !important;
-        max-width: 100% !important;
-        max-height: 100% !important;
-        transform: none !important;
-        transform-origin: initial !important;
         object-fit: cover;
         border: none;
-        position: absolute;
-        top: 0;
-        left: 0;
         /* Mobile-specific iframe properties */
         -webkit-overflow-scrolling: touch;
         overflow: auto;
