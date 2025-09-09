@@ -1,4 +1,4 @@
-/* CSS Reset and Base Styles - Updated: Fixed iframe scaling for both desktop and mobile - CACHE BUST: 2024-01-15-15:15 */
+/* CSS Reset and Base Styles - Updated: Fixed mobile overflow and blue bar issues - CACHE BUST: 2024-01-15-15:30 */
 * {
     margin: 0;
     padding: 0;
@@ -26,12 +26,19 @@
     --transition: all 0.3s ease;
 }
 
+html {
+    overflow-x: hidden;
+}
+
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     line-height: 1.6;
     color: var(--text-color);
     background-color: var(--light-color);
     overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+    position: relative;
 }
 
 .container {
@@ -1433,6 +1440,9 @@ body {
     box-sizing: border-box;
     /* Prevent iframe from affecting parent layout */
     isolation: isolate;
+    /* Ensure container doesn't cause overflow */
+    contain: layout style paint size;
+    will-change: transform;
 }
 
 /* 
@@ -1715,6 +1725,21 @@ iframe {
     }
 }
 
+/* Mobile Overflow Prevention */
+@media (max-width: 768px) {
+    * {
+        max-width: 100vw;
+        box-sizing: border-box;
+    }
+    
+    .container {
+        width: 100%;
+        max-width: 100vw;
+        padding: 0 15px;
+        overflow-x: hidden;
+    }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .logo-image {
@@ -1880,6 +1905,8 @@ iframe {
         position: relative !important;
         overflow: hidden !important;
         background: #f8f9fa !important;
+        contain: layout style paint size !important;
+        max-width: 100vw !important;
     }
     
     /* Mobile Iframe - FIXED FOR PROPER MOBILE DISPLAY WITH DESKTOP VIEW */
