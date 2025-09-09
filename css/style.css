@@ -1222,6 +1222,31 @@ body {
 
 /* Portfolio Styles */
 
+/* 
+ * ========================================
+ * IFRAME FUTURE-PROOFING GUIDELINES
+ * ========================================
+ * 
+ * When adding new iframe projects to the portfolio:
+ * 
+ * 1. ALWAYS use the .iframe-container class:
+ *    <div class="project-placeholder iframe-container">
+ *        <iframe src="YOUR_URL" title="Project Title"></iframe>
+ *    </div>
+ * 
+ * 2. The iframe will automatically:
+ *    - Scale to 25% for desktop view (1200px -> 300px)
+ *    - Fill full width on mobile
+ *    - Have proper overflow handling
+ *    - Not affect parent layout
+ * 
+ * 3. Desktop scaling: 1200px width × 800px height scaled to 25%
+ * 4. Mobile: Full width and height of container
+ * 5. All styling is handled automatically by existing CSS
+ * 
+ * ========================================
+ */
+
 
 .portfolio-grid {
     padding: 80px 0;
@@ -1322,15 +1347,17 @@ body {
         position: absolute !important;
         top: 0 !important;
         left: 0 !important;
-        width: 100% !important;
-        height: 100% !important;
+        width: 1200px !important;
+        height: 800px !important;
         border: none !important;
         border-radius: 10px !important;
-        transform: none !important;
-        transform-origin: initial !important;
-        max-width: 100% !important;
-        max-height: 100% !important;
+        transform: scale(0.25) !important;
+        transform-origin: top left !important;
+        max-width: none !important;
+        max-height: none !important;
         object-fit: cover !important;
+        /* Prevent iframe from affecting parent layout */
+        pointer-events: none !important;
     }
 }
 
@@ -1365,6 +1392,8 @@ body {
     flex-shrink: 0;
     width: 100% !important;
     box-sizing: border-box;
+    /* Prevent iframe content from affecting layout */
+    contain: layout style paint;
 }
 
 .project-placeholder {
@@ -1379,6 +1408,10 @@ body {
 }
 
 /* Iframe Container - FIXED ASPECT RATIO */
+/* 
+ * FUTURE-PROOFING: All new iframes should use this container class
+ * This ensures consistent sizing and prevents layout issues
+ */
 .iframe-container {
     background: #f8f9fa;
     display: block;
@@ -1391,6 +1424,19 @@ body {
     max-height: 300px !important;
     border-radius: 10px;
     box-sizing: border-box;
+    /* Prevent iframe from affecting parent layout */
+    isolation: isolate;
+}
+
+/* 
+ * FUTURE-PROOFING: General iframe rules for any new additions
+ * These rules ensure all iframes behave consistently
+ */
+iframe {
+    border: none !important;
+    background: transparent !important;
+    /* Prevent iframe from affecting parent layout */
+    pointer-events: none !important;
 }
 
 /* Iframe - DESKTOP VIEW WITH PROPER SCALING */
@@ -1399,16 +1445,18 @@ body {
         position: absolute !important;
         top: 0 !important;
         left: 0 !important;
-        width: 100% !important;
-        height: 100% !important;
+        width: 1200px !important;
+        height: 800px !important;
         border: none !important;
         border-radius: 10px !important;
-        transform: none !important;
-        transform-origin: initial !important;
-        max-width: 100% !important;
-        max-height: 100% !important;
+        transform: scale(0.25) !important;
+        transform-origin: top left !important;
+        max-width: none !important;
+        max-height: none !important;
         object-fit: cover !important;
         z-index: 1 !important;
+        /* Prevent iframe from affecting parent layout */
+        pointer-events: none !important;
     }
     
     /* Ensure iframe container fills project image */
@@ -1418,6 +1466,12 @@ body {
         position: absolute !important;
         top: 0 !important;
         left: 0 !important;
+        overflow: hidden !important;
+    }
+    
+    /* Re-enable pointer events for overlay */
+    .project-overlay {
+        pointer-events: auto !important;
     }
 }
 
