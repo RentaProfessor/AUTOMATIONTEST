@@ -1,4 +1,4 @@
-/* CSS Reset and Base Styles - Updated: Fixed iframe scaling to show full desktop view - CACHE BUST: 2024-01-15-15:00 */
+/* CSS Reset and Base Styles - Updated: Fixed iframe scaling for both desktop and mobile - CACHE BUST: 2024-01-15-15:15 */
 * {
     margin: 0;
     padding: 0;
@@ -1882,16 +1882,26 @@ iframe {
         background: #f8f9fa !important;
     }
     
-    /* Mobile Iframe - FIXED FOR PROPER MOBILE DISPLAY */
+    /* Mobile Iframe - FIXED FOR PROPER MOBILE DISPLAY WITH DESKTOP VIEW */
     .projects-grid.single-project .iframe-container iframe {
-        width: 100% !important;
-        height: 100% !important;
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 400% !important;  /* Scale up to show full desktop width */
+        height: 400% !important; /* Scale up to show full desktop height */
         border: none !important;
         border-radius: 10px !important;
+        /* Prevent iframe from affecting parent layout */
+        pointer-events: none !important;
+        /* Scale down to fit container while showing full desktop view */
+        transform: scale(0.25) !important;
+        transform-origin: top left !important;
+        /* Ensure full coverage */
         object-fit: cover !important;
+        object-position: top left !important;
         /* Mobile-specific iframe properties */
         -webkit-overflow-scrolling: touch !important;
-        overflow: auto !important;
+        overflow: hidden !important;
         font-size: 16px !important;
         -webkit-text-size-adjust: 100% !important;
         -webkit-tap-highlight-color: transparent !important;
@@ -1947,21 +1957,31 @@ iframe {
         font-size: 2rem;
     }
     
-    /* Mobile Regular Iframe Adjustments - FIXED FOR PROPER MOBILE DISPLAY */
+    /* Mobile Regular Iframe Adjustments - FIXED FOR PROPER MOBILE DISPLAY WITH DESKTOP VIEW */
     .projects-grid .iframe-container iframe {
-        width: 100% !important;
-        height: 100% !important;
-        object-fit: cover;
-        border: none;
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 400% !important;  /* Scale up to show full desktop width */
+        height: 400% !important; /* Scale up to show full desktop height */
+        border: none !important;
+        /* Prevent iframe from affecting parent layout */
+        pointer-events: none !important;
+        /* Scale down to fit container while showing full desktop view */
+        transform: scale(0.25) !important;
+        transform-origin: top left !important;
+        /* Ensure full coverage */
+        object-fit: cover !important;
+        object-position: top left !important;
         /* Mobile-specific iframe properties */
-        -webkit-overflow-scrolling: touch;
-        overflow: auto;
+        -webkit-overflow-scrolling: touch !important;
+        overflow: hidden !important;
         /* Prevent zoom on focus */
-        font-size: 16px;
+        font-size: 16px !important;
         /* iOS specific */
-        -webkit-text-size-adjust: 100%;
+        -webkit-text-size-adjust: 100% !important;
         /* Android specific */
-        -webkit-tap-highlight-color: transparent;
+        -webkit-tap-highlight-color: transparent !important;
     }
     
     .cta-buttons {
