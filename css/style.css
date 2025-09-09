@@ -1322,14 +1322,14 @@ body {
         position: absolute !important;
         top: 0 !important;
         left: 0 !important;
-        width: 1200px !important;
-        height: 800px !important;
+        width: 100% !important;
+        height: 100% !important;
         border: none !important;
         border-radius: 10px !important;
-        transform: scale(0.25) !important;
-        transform-origin: top left !important;
-        max-width: none !important;
-        max-height: none !important;
+        transform: none !important;
+        transform-origin: initial !important;
+        max-width: 100% !important;
+        max-height: 100% !important;
         object-fit: cover !important;
     }
 }
@@ -1393,20 +1393,20 @@ body {
     box-sizing: border-box;
 }
 
-/* Iframe - DESKTOP VIEW WITH CONSISTENT SCALING */
+/* Iframe - DESKTOP VIEW WITH PROPER SCALING */
 @media (min-width: 769px) {
     .iframe-container iframe {
         position: absolute !important;
         top: 0 !important;
         left: 0 !important;
-        width: 1200px !important;
-        height: 800px !important;
+        width: 100% !important;
+        height: 100% !important;
         border: none !important;
         border-radius: 10px !important;
-        transform: scale(0.25) !important;
-        transform-origin: top left !important;
-        max-width: none !important;
-        max-height: none !important;
+        transform: none !important;
+        transform-origin: initial !important;
+        max-width: 100% !important;
+        max-height: 100% !important;
         object-fit: cover !important;
         z-index: 1 !important;
     }
@@ -1433,6 +1433,7 @@ body {
     justify-content: center;
     opacity: 0;
     transition: var(--transition);
+    z-index: 10 !important;
 }
 
 .project-card:hover .project-overlay {
