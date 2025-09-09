@@ -639,62 +639,16 @@ function initIframeHandling() {
             console.log('Iframe loaded successfully:', this.src);
             clearTimeout(loadingTimeout);
             
-            // Change loading message to indicate video loading
-            if (container) {
-                container.classList.add('video-loading');
-            }
-            
-            // Try to detect when video content is ready
-            const checkVideoContent = () => {
-                try {
-                    // Check if iframe has loaded content and videos
-                    const iframeDoc = this.contentDocument || this.contentWindow.document;
-                    const videos = iframeDoc.querySelectorAll('video');
-                    
-                    if (videos.length > 0) {
-                        console.log(`Found ${videos.length} videos, checking readiness...`);
-                        // If videos exist, wait for them to be ready
-                        let videosReady = 0;
-                        videos.forEach(video => {
-                            if (video.readyState >= 2) { // HAVE_CURRENT_DATA or higher
-                                videosReady++;
-                            }
-                        });
-                        
-                        if (videosReady === videos.length) {
-                            console.log('All videos ready, showing iframe:', this.src);
-                            this.style.opacity = '1';
-                            this.setAttribute('data-loaded', 'true');
-                            if (container) {
-                                container.classList.remove('video-loading');
-                                container.classList.add('loaded');
-                            }
-                            return;
-                        } else {
-                            console.log(`Videos still loading: ${videosReady}/${videos.length} ready`);
-                        }
-                    }
-                } catch (e) {
-                    // Cross-origin restrictions prevent access, fall back to delay
-                    console.log('Cannot access iframe content (cross-origin), using delay fallback:', this.src);
-                }
+            // Simple delay to allow content to render
+            setTimeout(() => {
+                this.style.opacity = '1';
+                this.setAttribute('data-loaded', 'true');
                 
-                // Fallback: Extended delay for video content to fully render
-                setTimeout(() => {
-                    console.log('Showing iframe after extended delay for video content:', this.src);
-                    this.style.opacity = '1';
-                    this.setAttribute('data-loaded', 'true');
-                    
-                    // Hide loading indicator after additional delay
-                    if (container) {
-                        container.classList.remove('video-loading');
-                        container.classList.add('loaded');
-                    }
-                }, 5000); // 5 second delay to allow video content to render
-            };
-            
-            // Check after delays to allow video loading
-            setTimeout(checkVideoContent, 2000);
+                // Hide loading indicator
+                if (container) {
+                    container.classList.add('loaded');
+                }
+            }, 2000); // Simple 2 second delay
         });
         
         // Handle iframe errors with fallback
