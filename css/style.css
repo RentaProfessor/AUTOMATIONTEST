@@ -1341,13 +1341,18 @@ body {
     border-radius: 10px !important;
 }
 
-/* Single Project Iframe - DESKTOP VIEW WITH NATURAL DISPLAY */
+/* Single Project Iframe - DESKTOP VIEW ZOOMED OUT TO FIT CONTAINER */
 @media (min-width: 769px) {
     .projects-grid.single-project .iframe-container iframe {
         width: 100% !important;
         height: 100% !important;
         border: none !important;
         border-radius: 10px !important;
+        /* Show desktop view zoomed out to fit container */
+        transform: scale(0.6) !important;
+        transform-origin: center center !important;
+        width: 166.67% !important;
+        height: 166.67% !important;
         /* Prevent iframe from affecting parent layout */
         pointer-events: none !important;
     }
@@ -1446,13 +1451,18 @@ iframe {
     transition: opacity 0.3s ease;
 }
 
-/* Iframe - DESKTOP VIEW WITH NATURAL DISPLAY */
+/* Iframe - DESKTOP VIEW ZOOMED OUT TO FIT CONTAINER */
 @media (min-width: 769px) {
     .iframe-container iframe {
         width: 100% !important;
         height: 100% !important;
         border: none !important;
         border-radius: 10px !important;
+        /* Show desktop view zoomed out to fit container */
+        transform: scale(0.6) !important;
+        transform-origin: center center !important;
+        width: 166.67% !important;
+        height: 166.67% !important;
         /* Prevent iframe from affecting parent layout */
         pointer-events: none !important;
     }
@@ -1462,6 +1472,9 @@ iframe {
         width: 100% !important;
         height: 100% !important;
         overflow: hidden !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
     }
     
     /* Re-enable pointer events for overlay */
