@@ -1341,20 +1341,27 @@ body {
     border-radius: 10px !important;
 }
 
-/* Single Project Iframe - DESKTOP VIEW ZOOMED OUT TO FIT CONTAINER */
+/* Single Project Iframe - DESKTOP VIEW WITH ZOOMED OUT FULL VIEW */
 @media (min-width: 769px) {
     .projects-grid.single-project .iframe-container iframe {
-        width: 100% !important;
-        height: 100% !important;
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 250% !important;
+        height: 250% !important;
         border: none !important;
         border-radius: 10px !important;
-        /* Show desktop view zoomed out to fit container */
-        transform: scale(0.6) !important;
-        transform-origin: center center !important;
-        width: 166.67% !important;
-        height: 166.67% !important;
+        object-fit: cover !important;
+        /* Zoom out to show full website view including hero section */
+        transform: scale(0.4) !important;
+        transform-origin: top left !important;
         /* Prevent iframe from affecting parent layout */
         pointer-events: none !important;
+        /* Force desktop rendering */
+        min-width: 1200px !important;
+        min-height: 800px !important;
+        /* Prevent mobile viewport detection */
+        zoom: 1 !important;
     }
 }
 
@@ -1439,6 +1446,12 @@ iframe {
     max-height: 100% !important;
     /* Smooth loading */
     transition: opacity 0.3s ease !important;
+    /* Force desktop rendering - prevent mobile detection */
+    user-scalable: no !important;
+    /* Prevent zoom and mobile behaviors */
+    -webkit-user-scalable: no !important;
+    -moz-user-scalable: no !important;
+    -ms-user-scalable: no !important;
 }
 
 /* Iframe loading state - simplified */
@@ -1451,30 +1464,41 @@ iframe {
     transition: opacity 0.3s ease;
 }
 
-/* Iframe - DESKTOP VIEW ZOOMED OUT TO FIT CONTAINER */
+/* Iframe - DESKTOP VIEW WITH ZOOMED OUT FULL VIEW */
 @media (min-width: 769px) {
     .iframe-container iframe {
-        width: 100% !important;
-        height: 100% !important;
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 250% !important;
+        height: 250% !important;
         border: none !important;
         border-radius: 10px !important;
-        /* Show desktop view zoomed out to fit container */
-        transform: scale(0.6) !important;
-        transform-origin: center center !important;
-        width: 166.67% !important;
-        height: 166.67% !important;
+        object-fit: cover !important;
+        /* Zoom out to show full website view including hero section */
+        transform: scale(0.4) !important;
+        transform-origin: top left !important;
         /* Prevent iframe from affecting parent layout */
         pointer-events: none !important;
+        /* Force desktop rendering */
+        min-width: 1200px !important;
+        min-height: 800px !important;
+        /* Prevent mobile viewport detection */
+        zoom: 1 !important;
     }
     
     /* Ensure iframe container fills project image */
     .project-image .iframe-container {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
         width: 100% !important;
         height: 100% !important;
         overflow: hidden !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
+        /* Ensure proper containment */
+        contain: layout style paint !important;
+        /* Prevent any movement */
+        transform: none !important;
     }
     
     /* Re-enable pointer events for overlay */
