@@ -610,10 +610,15 @@ document.head.appendChild(style);
 // Initialize on DOM ready
 preloadResources();
 
-// Enhanced iframe handling for portfolio with loading states
+// Enhanced iframe handling for portfolio with loading states and crash prevention
 function initIframeHandling() {
     const iframes = document.querySelectorAll('.iframe-container iframe');
     console.log('Found iframes:', iframes.length);
+    
+    // Mobile performance optimization: limit concurrent iframe loads
+    const isMobile = window.innerWidth <= 768;
+    let loadedCount = 0;
+    const maxConcurrentLoads = isMobile ? 2 : 4;
     
     iframes.forEach((iframe, index) => {
         const container = iframe.closest('.iframe-container');
@@ -622,7 +627,7 @@ function initIframeHandling() {
         // Set initial loading state
         iframe.style.opacity = '0';
         
-        // Add loading timeout for slow-loading iframes
+        // Add loading timeout for slow-loading iframes (reduced for mobile performance)
         const loadingTimeout = setTimeout(() => {
             if (iframe.style.opacity === '0') {
                 console.log('Iframe taking too long to load, showing with fade-in:', iframe.src);
@@ -632,14 +637,14 @@ function initIframeHandling() {
                     container.classList.add('loaded');
                 }
             }
-        }, 10000); // 10 second timeout
+        }, 5000); // 5 second timeout (reduced from 10s for mobile performance)
         
         // Handle iframe load success
         iframe.addEventListener('load', function() {
             console.log('Iframe loaded successfully:', this.src);
             clearTimeout(loadingTimeout);
             
-            // Simple delay to allow content to render
+            // Optimized delay for mobile performance
             setTimeout(() => {
                 this.style.opacity = '1';
                 this.setAttribute('data-loaded', 'true');
@@ -648,7 +653,7 @@ function initIframeHandling() {
                 if (container) {
                     container.classList.add('loaded');
                 }
-            }, 2000); // Simple 2 second delay
+            }, 1000); // Reduced to 1 second for better mobile performance
         });
         
         // Handle iframe errors with fallback
@@ -670,22 +675,34 @@ function initIframeHandling() {
             }
         });
         
-        // Add intersection observer for lazy loading optimization
-        if ('IntersectionObserver' in window) {
+        // Add intersection observer for lazy loading optimization with mobile performance
+        if ('IntersectionObserver' in window && loadedCount < maxConcurrentLoads) {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
-                    if (entry.isIntersecting) {
+                    if (entry.isIntersecting && loadedCount < maxConcurrentLoads) {
                         // Iframe is visible, ensure it loads
                         const iframe = entry.target;
                         if (iframe.src && !iframe.getAttribute('data-loaded')) {
                             console.log('Iframe in viewport, ensuring load:', iframe.src);
+                            loadedCount++;
                         }
                         observer.unobserve(iframe);
                     }
                 });
-            }, { threshold: 0.1 });
+            }, { 
+                threshold: isMobile ? 0.3 : 0.1, // Higher threshold for mobile
+                rootMargin: isMobile ? '50px' : '100px' // Smaller margin for mobile
+            });
             
             observer.observe(iframe);
+        }
+        
+        // Memory cleanup for mobile
+        if (isMobile) {
+            // Add unload listener to clean up resources
+            window.addEventListener('beforeunload', () => {
+                iframe.src = 'about:blank';
+            });
         }
     });
 }

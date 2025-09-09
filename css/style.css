@@ -1797,6 +1797,10 @@ iframe {
     body {
         -webkit-overflow-scrolling: touch;
         scroll-behavior: smooth;
+        /* Prevent bounce scrolling issues */
+        position: relative;
+        overflow-x: hidden;
+        overflow-y: auto;
     }
     
     /* Ensure smooth scrolling on all mobile sections */
@@ -1806,6 +1810,13 @@ iframe {
     .portfolio-grid,
     .contact {
         -webkit-overflow-scrolling: touch;
+        /* Remove conflicting overflow properties */
+        overflow: visible;
+    }
+    
+    /* Prevent horizontal scroll issues */
+    .container {
+        overflow-x: hidden;
     }
 }
 
@@ -1979,35 +1990,30 @@ iframe {
         overflow: hidden !important;
         background: #f8f9fa !important;
         border-radius: 10px !important;
-        contain: layout style paint !important;
+        /* contain: layout style paint !important; */ /* Removed for mobile performance */
     }
     
-    /* Mobile Iframe - FIXED FOR PROPER MOBILE DISPLAY WITH DESKTOP VIEW */
+    /* Mobile Iframe - OPTIMIZED FOR PERFORMANCE AND SCROLLING */
     .projects-grid.single-project .iframe-container iframe {
         position: absolute !important;
         top: 0 !important;
         left: 0 !important;
-        width: 400% !important;  /* Scale up to show full desktop width */
-        height: 400% !important; /* Scale up to show full desktop height */
+        width: 100% !important;
+        height: 100% !important;
         border: none !important;
         border-radius: 10px !important;
         /* Prevent iframe from affecting parent layout */
         pointer-events: none !important;
-        /* Scale down to fit container while showing full desktop view */
-        transform: scale(0.25) !important;
-        transform-origin: top left !important;
-        /* Force desktop viewport */
-        min-width: 1200px !important;
-        min-height: 800px !important;
-        /* Ensure full coverage */
-        object-fit: cover !important;
-        object-position: top left !important;
-        /* Mobile-specific iframe properties */
-        -webkit-overflow-scrolling: touch !important;
-        overflow: hidden !important;
+        /* Force desktop viewport with URL parameters instead of scaling */
+        min-width: 100% !important;
+        min-height: 100% !important;
+        /* Mobile-optimized properties */
         font-size: 16px !important;
         -webkit-text-size-adjust: 100% !important;
         -webkit-tap-highlight-color: transparent !important;
+        /* Remove conflicting properties */
+        object-fit: cover !important;
+        object-position: center !important;
     }
     
     /* Mobile Regular Project Cards - OPTIMIZED */
@@ -2075,28 +2081,22 @@ iframe {
         font-size: 2rem;
     }
     
-    /* Mobile Regular Iframe Adjustments - FIXED FOR PROPER MOBILE DISPLAY WITH DESKTOP VIEW */
+    /* Mobile Regular Iframe Adjustments - OPTIMIZED FOR PERFORMANCE */
     .projects-grid .iframe-container iframe {
         position: absolute !important;
         top: 0 !important;
         left: 0 !important;
-        width: 400% !important;  /* Scale up to show full desktop width */
-        height: 400% !important; /* Scale up to show full desktop height */
+        width: 100% !important;
+        height: 100% !important;
         border: none !important;
         /* Prevent iframe from affecting parent layout */
         pointer-events: none !important;
-        /* Scale down to fit container while showing full desktop view */
-        transform: scale(0.25) !important;
-        transform-origin: top left !important;
-        /* Force desktop viewport */
-        min-width: 1200px !important;
-        min-height: 800px !important;
-        /* Ensure full coverage */
+        /* Force desktop viewport with URL parameters instead of scaling */
+        min-width: 100% !important;
+        min-height: 100% !important;
+        /* Mobile-optimized properties */
         object-fit: cover !important;
-        object-position: top left !important;
-        /* Mobile-specific iframe properties */
-        -webkit-overflow-scrolling: touch !important;
-        overflow: hidden !important;
+        object-position: center !important;
         /* Prevent zoom on focus */
         font-size: 16px !important;
         /* iOS specific */
