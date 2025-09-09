@@ -22,7 +22,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     
     <title>Portfolio - FutureClarity Automation</title>
-    <link rel="stylesheet" href="css/style.css?v=25">
+    <link rel="stylesheet" href="css/style.css?v=3">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -39,8 +39,8 @@
             <ul class="nav-menu">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="index.html#services">Services</a></li>
-                <li><a href="portfolio.html" class="active">Portfolio</a></li>
                 <li><a href="index.html#about">About</a></li>
+                <li><a href="portfolio.html" class="active">Portfolio</a></li>
                 <li><a href="index.html#contact">Contact</a></li>
             </ul>
             <div class="nav-toggle">
@@ -59,8 +59,8 @@
                     Our <span class="gradient-text">Portfolio</span>
                 </h1>
                 <p class="hero-description">
-                    Explore our recent projects showcasing modern websites, e-commerce solutions, 
-                    and digital experiences that have helped small businesses grow and succeed online.
+                    Explore our recent projects showcasing modern landing pages, AI automation, 
+                    and e-commerce solutions that have helped small businesses grow and succeed online.
                 </p>
             </div>
             <div class="hero-visual">
@@ -78,21 +78,40 @@
         </div>
     </section>
 
+    <!-- Portfolio Categories -->
+    <section class="portfolio-categories">
+        <div class="container">
+            <div class="section-header">
+                <h2>Project Categories</h2>
+                <p>Browse our work by service type</p>
+            </div>
+            <div class="category-filters">
+                <button class="filter-btn active" data-filter="all">All Projects</button>
+                <button class="filter-btn" data-filter="landing-page">Landing Page</button>
+                <button class="filter-btn" data-filter="ecommerce">E-Commerce</button>
+                <button class="filter-btn" data-filter="ai-automation">AI Automation</button>
+                <button class="filter-btn" data-filter="social-media">Social Media</button>
+            </div>
+        </div>
+    </section>
 
     <!-- Portfolio Grid -->
     <section class="portfolio-grid">
         <div class="container">
             <div class="projects-grid">
                 <!-- Landing Page Projects -->
-                <div class="project-card">
+                <div class="project-card" data-category="landing-page">
                     <div class="project-image">
-                        <div class="project-placeholder iframe-container">
-                            <iframe src="https://demo-grill.pages.dev/" title="Demo Grill Restaurant Website"></iframe>
+                        <div class="project-placeholder">
+                            <i class="fas fa-utensils"></i>
                         </div>
                         <div class="project-overlay">
                             <div class="project-links">
                                 <a href="https://demo-grill.pages.dev/" target="_blank" class="project-link" title="View Live Site">
                                     <i class="fas fa-external-link-alt"></i>
+                                </a>
+                                <a href="#" class="project-detail" title="View Details">
+                                    <i class="fas fa-eye"></i>
                                 </a>
                             </div>
                         </div>
@@ -108,74 +127,137 @@
                     </div>
                 </div>
 
-                <div class="project-card">
+                <div class="project-card" data-category="ecommerce">
                     <div class="project-image">
-                        <div class="project-placeholder iframe-container">
-                            <iframe src="https://clothing-web.pages.dev/" title="CLOTH Clothing Website"></iframe>
+                        <div class="project-placeholder">
+                            <i class="fas fa-shopping-cart"></i>
                         </div>
                         <div class="project-overlay">
                             <div class="project-links">
-                                <a href="https://clothing-web.pages.dev/" target="_blank" class="project-link" title="View Live Site">
+                                <a href="#" class="project-link" title="View Live Site">
                                     <i class="fas fa-external-link-alt"></i>
+                                </a>
+                                <a href="#" class="project-detail" title="View Details">
+                                    <i class="fas fa-eye"></i>
                                 </a>
                             </div>
                         </div>
                     </div>
                     <div class="project-content">
-                        <h3>CLOTH Streetwear</h3>
-                        <p>Premium streetwear e-commerce website featuring urban fashion, modern design, and seamless shopping experience. Showcases the latest collection with clean, bold aesthetics that redefine streetwear culture.</p>
+                        <h3>Fashion Boutique E-Store</h3>
+                        <p>Complete e-commerce solution with inventory management, payment processing, and customer accounts for an online fashion retailer.</p>
                         <div class="project-tags">
                             <span class="tag">E-Commerce</span>
                             <span class="tag">Fashion</span>
-                            <span class="tag">Streetwear</span>
+                            <span class="tag">Payment Gateway</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="project-card">
+                <div class="project-card" data-category="ai-automation">
                     <div class="project-image">
-                        <div class="project-placeholder iframe-container">
-                            <iframe src="https://coffee-web.pages.dev/" title="Hollow Coffee Website"></iframe>
+                        <div class="project-placeholder">
+                            <i class="fas fa-robot"></i>
                         </div>
                         <div class="project-overlay">
                             <div class="project-links">
-                                <a href="https://coffee-web.pages.dev/" target="_blank" class="project-link" title="View Live Site">
+                                <a href="#" class="project-link" title="View Live Site">
                                     <i class="fas fa-external-link-alt"></i>
+                                </a>
+                                <a href="#" class="project-detail" title="View Details">
+                                    <i class="fas fa-eye"></i>
                                 </a>
                             </div>
                         </div>
                     </div>
                     <div class="project-content">
-                        <h3>Hollow Coffee</h3>
-                        <p>Premium coffee shop website featuring a warm, inviting design that captures the essence of a local coffee experience. Complete with menu display, location information, and a welcoming atmosphere that makes customers feel at home.</p>
+                        <h3>Real Estate AI Chatbot</h3>
+                        <p>Intelligent chatbot system for property inquiries, lead qualification, and appointment scheduling for a real estate agency.</p>
                         <div class="project-tags">
-                            <span class="tag">Coffee Shop</span>
-                            <span class="tag">Restaurant</span>
-                            <span class="tag">Local Business</span>
+                            <span class="tag">AI Chatbot</span>
+                            <span class="tag">Real Estate</span>
+                            <span class="tag">Lead Generation</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="project-card">
+                <div class="project-card" data-category="landing-page">
                     <div class="project-image">
-                        <div class="project-placeholder iframe-container">
-                            <iframe src="https://final-demo-1yh.pages.dev/" title="Demo Smoke Vape Shop Website"></iframe>
+                        <div class="project-placeholder">
+                            <i class="fas fa-briefcase"></i>
                         </div>
                         <div class="project-overlay">
                             <div class="project-links">
-                                <a href="https://final-demo-1yh.pages.dev/" target="_blank" class="project-link" title="View Live Site">
+                                <a href="#" class="project-link" title="View Live Site">
                                     <i class="fas fa-external-link-alt"></i>
+                                </a>
+                                <a href="#" class="project-detail" title="View Details">
+                                    <i class="fas fa-eye"></i>
                                 </a>
                             </div>
                         </div>
                     </div>
                     <div class="project-content">
-                        <h3>Demo Smoke Vape Shop</h3>
-                        <p>Modern vape and smoke shop e-commerce website with age verification, product catalog, and shopping cart functionality. Features a sleek design with comprehensive product browsing and secure checkout process.</p>
+                        <h3>Law Firm Professional Site</h3>
+                        <p>Professional website for a law firm with service pages, attorney profiles, and secure client portal integration.</p>
                         <div class="project-tags">
-                            <span class="tag">E-Commerce</span>
-                            <span class="tag">Vape Shop</span>
-                            <span class="tag">Age Verification</span>
+                            <span class="tag">Professional</span>
+                            <span class="tag">Legal</span>
+                            <span class="tag">Secure Portal</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="social-media">
+                    <div class="project-image">
+                        <div class="project-placeholder">
+                            <i class="fas fa-share-alt"></i>
+                        </div>
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="#" class="project-link" title="View Live Site">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                                <a href="#" class="project-detail" title="View Details">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Fitness Studio Social Campaign</h3>
+                        <p>Complete social media management and content creation for a local fitness studio, increasing followers by 300%.</p>
+                        <div class="project-tags">
+                            <span class="tag">Social Media</span>
+                            <span class="tag">Fitness</span>
+                            <span class="tag">Content Creation</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="ecommerce">
+                    <div class="project-image">
+                        <div class="project-placeholder">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="#" class="project-link" title="View Live Site">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                                <a href="#" class="project-detail" title="View Details">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Artisan Food Marketplace</h3>
+                        <p>Multi-vendor marketplace for local artisan food producers with vendor dashboards and commission tracking.</p>
+                        <div class="project-tags">
+                            <span class="tag">Marketplace</span>
+                            <span class="tag">Food</span>
+                            <span class="tag">Multi-vendor</span>
                         </div>
                     </div>
                 </div>
@@ -232,5 +314,32 @@
     </footer>
 
     <script src="js/script.js?v=2"></script>
+    <script>
+        // Portfolio filtering functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const projectCards = document.querySelectorAll('.project-card');
+            
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    const filter = this.getAttribute('data-filter');
+                    
+                    projectCards.forEach(card => {
+                        if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                            card.style.display = 'block';
+                            card.style.animation = 'fadeInUp 0.5s ease-out';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 </body>
 </html> 
