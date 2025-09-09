@@ -1308,19 +1308,21 @@ body {
 }
 
 /* Single Project Iframe - DESKTOP VIEW WITH PROPER SCALING */
-.projects-grid.single-project .iframe-container iframe {
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 1200px !important;
-    height: 800px !important;
-    border: none !important;
-    border-radius: 10px !important;
-    transform: scale(0.25) !important;
-    transform-origin: top left !important;
-    max-width: none !important;
-    max-height: none !important;
-    object-fit: cover !important;
+@media (min-width: 769px) {
+    .projects-grid.single-project .iframe-container iframe {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 1200px !important;
+        height: 800px !important;
+        border: none !important;
+        border-radius: 10px !important;
+        transform: scale(0.25) !important;
+        transform-origin: top left !important;
+        max-width: none !important;
+        max-height: none !important;
+        object-fit: cover !important;
+    }
 }
 
 /* Project Card - CONSISTENT DIMENSIONS */
@@ -1380,19 +1382,21 @@ body {
 }
 
 /* Iframe - DESKTOP VIEW WITH CONSISTENT SCALING */
-.iframe-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 1200px;
-    height: 800px;
-    border: none;
-    border-radius: 10px;
-    transform: scale(0.25);
-    transform-origin: top left;
-    max-width: none;
-    max-height: none;
-    object-fit: cover;
+@media (min-width: 769px) {
+    .iframe-container iframe {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 1200px !important;
+        height: 800px !important;
+        border: none !important;
+        border-radius: 10px !important;
+        transform: scale(0.25) !important;
+        transform-origin: top left !important;
+        max-width: none !important;
+        max-height: none !important;
+        object-fit: cover !important;
+    }
 }
 
 .project-overlay {
@@ -1845,7 +1849,7 @@ body {
     }
     
     /* Mobile Regular Iframe Adjustments - FIXED FOR PROPER MOBILE DISPLAY */
-    .iframe-container iframe {
+    .projects-grid .iframe-container iframe {
         width: 100% !important;
         height: 100% !important;
         min-width: 100% !important;
