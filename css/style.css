@@ -136,12 +136,17 @@ body {
     top: 0;
     left: 0;
     right: 0;
+    background-color: rgba(255, 255, 255, 0.8); /* Safari fallback */
     background: rgba(255, 255, 255, 0.8);
+    -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     z-index: 1000;
     padding: 0;
     box-shadow: var(--shadow-sm);
     transition: var(--transition);
+    /* Safari rendering optimization */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
 }
 
 .nav-container {
@@ -281,9 +286,21 @@ body {
 /* Hero Section */
 .hero {
     padding: 120px 0 80px;
+    /* Safari-specific gradient declarations */
+    background-color: #f5f7fa; /* Solid fallback first */
+    background: -webkit-linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    background: -moz-linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    background: -o-linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
     background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
     position: relative;
     overflow: hidden;
+    /* Safari-specific rendering fixes */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    perspective: 1000;
 }
 
 .hero::before {
@@ -2019,6 +2036,13 @@ iframe {
         min-height: auto !important;
         position: relative !important;
         background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
+        background-color: #f8fafc !important; /* Safari fallback */
+        /* Safari-specific fixes for mobile */
+        -webkit-transform: translateZ(0) !important;
+        transform: translateZ(0) !important;
+        -webkit-backface-visibility: hidden !important;
+        backface-visibility: hidden !important;
+        will-change: auto !important;
     }
     
     .hero-container {

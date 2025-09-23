@@ -2,6 +2,9 @@
 // Handles all interactive features and animations
 
 document.addEventListener('DOMContentLoaded', function() {
+    // Safari hero background fix
+    fixSafariHeroBackground();
+    
     // Initialize all components
     initNavigation();
     initAnimations();
@@ -17,6 +20,35 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Mobile optimization active - text animations disabled for better performance');
     }
 });
+
+// Fix Safari hero background rendering issue
+function fixSafariHeroBackground() {
+    // Detect Safari browser
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    
+    if (isSafari) {
+        const hero = document.querySelector('.hero');
+        if (hero) {
+            // Force redraw by temporarily changing and restoring a property
+            const originalTransform = hero.style.transform;
+            hero.style.transform = 'translateZ(0)';
+            
+            // Use requestAnimationFrame to ensure the change is applied
+            requestAnimationFrame(() => {
+                hero.style.transform = originalTransform;
+                
+                // Also force a repaint by briefly changing opacity
+                requestAnimationFrame(() => {
+                    const originalOpacity = hero.style.opacity || '1';
+                    hero.style.opacity = '0.99';
+                    requestAnimationFrame(() => {
+                        hero.style.opacity = originalOpacity;
+                    });
+                });
+            });
+        }
+    }
+}
 
 // Navigation functionality
 function initNavigation() {
@@ -648,6 +680,12 @@ document.head.appendChild(style);
 
 // Initialize on DOM ready
 preloadResources();
+
+// Additional Safari fix on window load
+window.addEventListener('load', function() {
+    // Safari sometimes needs a second background fix after all resources load
+    setTimeout(fixSafariHeroBackground, 100);
+});
 
 // Enhanced iframe handling for portfolio with loading states and crash prevention
 function initIframeHandling() {
