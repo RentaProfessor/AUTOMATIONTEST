@@ -2050,11 +2050,11 @@ iframe {
     }
     
     .hero-description {
-        font-size: 1.15rem !important;
-        line-height: 1.7 !important;
-        margin-bottom: 40px !important;
-        padding: 0 10px !important;
-        max-width: 90% !important;
+        font-size: 1.05rem !important;
+        line-height: 1.5 !important;
+        margin-bottom: 35px !important;
+        padding: 0 5px !important;
+        max-width: 95% !important;
         margin-left: auto !important;
         margin-right: auto !important;
         color: var(--text-light) !important;
@@ -2189,10 +2189,10 @@ iframe {
     }
     
     .section-header p {
-        font-size: 1.1rem !important;
-        line-height: 1.7 !important;
-        padding: 0 !important;
-        max-width: 90% !important;
+        font-size: 1.05rem !important;
+        line-height: 1.5 !important;
+        padding: 0 5px !important;
+        max-width: 95% !important;
         margin: 0 auto !important;
         color: var(--text-light) !important;
     }
@@ -2269,11 +2269,12 @@ iframe {
     }
     
     .service-card p {
-        font-size: 0.95rem !important;
-        line-height: 1.5 !important;
-        margin-bottom: 15px !important;
+        font-size: 0.9rem !important;
+        line-height: 1.4 !important;
+        margin-bottom: 12px !important;
         color: var(--text-light) !important;
         text-align: center !important;
+        padding: 0 5px !important;
     }
     
     /* Hide service features on mobile to prevent clutter */
@@ -2310,9 +2311,11 @@ iframe {
     }
     
     .features-text p {
-        font-size: 1.05rem !important;
+        font-size: 1rem !important;
+        line-height: 1.5 !important;
         text-align: center !important;
-        margin-bottom: 30px !important;
+        margin-bottom: 25px !important;
+        padding: 0 5px !important;
     }
     
     .features-list {
@@ -2350,8 +2353,9 @@ iframe {
     }
     
     .industry-card p {
-        font-size: 0.9rem !important;
-        line-height: 1.5 !important;
+        font-size: 0.85rem !important;
+        line-height: 1.4 !important;
+        padding: 0 5px !important;
     }
     
     /* Mobile About - SIMPLIFIED */
@@ -2371,16 +2375,19 @@ iframe {
     }
     
     .about-intro {
-        font-size: 1.1rem !important;
+        font-size: 1.05rem !important;
+        line-height: 1.5 !important;
         text-align: center !important;
-        margin-bottom: 25px !important;
+        margin-bottom: 20px !important;
+        padding: 0 5px !important;
     }
     
     .about-text p {
-        font-size: 1rem !important;
-        line-height: 1.6 !important;
+        font-size: 0.95rem !important;
+        line-height: 1.5 !important;
         text-align: center !important;
-        margin-bottom: 30px !important;
+        margin-bottom: 25px !important;
+        padding: 0 5px !important;
     }
     
     .about-values {
@@ -2494,10 +2501,11 @@ iframe {
     }
     
     .contact-item p {
-        font-size: 0.9rem !important;
-        line-height: 1.4 !important;
+        font-size: 0.85rem !important;
+        line-height: 1.3 !important;
         color: var(--text-light) !important;
         margin: 0 !important;
+        padding: 0 5px !important;
     }
     
     /* Mobile Container - PROPERLY SCALED */
@@ -2541,9 +2549,10 @@ iframe {
     }
     
     .project-content p {
-        font-size: 0.9rem !important;
-        line-height: 1.5 !important;
-        margin-bottom: 15px !important;
+        font-size: 0.85rem !important;
+        line-height: 1.4 !important;
+        margin-bottom: 12px !important;
+        padding: 0 5px !important;
     }
     
     .project-tags {
@@ -2593,8 +2602,9 @@ iframe {
     }
     
     .hero-description {
-        font-size: 1rem !important;
-        padding: 0 10px !important;
+        font-size: 0.95rem !important;
+        line-height: 1.4 !important;
+        padding: 0 5px !important;
     }
     
     .hero-buttons .btn {
@@ -2609,8 +2619,9 @@ iframe {
     }
     
     .section-header p {
-        font-size: 1rem !important;
-        padding: 0 15px !important;
+        font-size: 0.95rem !important;
+        line-height: 1.4 !important;
+        padding: 0 10px !important;
     }
     
     .services-grid,
