@@ -2091,17 +2091,20 @@ iframe {
         box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3) !important;
     }
     
-    /* Mobile Stats - SIMPLIFIED */
+    /* Mobile Stats - PROPERLY SCALED */
     .hero-stats {
         justify-content: center !important;
-        gap: 25px !important;
-        flex-wrap: wrap !important;
-        padding: 15px !important;
+        gap: 20px !important;
+        flex-wrap: nowrap !important;
+        padding: 12px !important;
         background: rgba(255, 255, 255, 0.8) !important;
-        border-radius: 15px !important;
+        border-radius: 12px !important;
         backdrop-filter: blur(10px) !important;
-        margin: 0 20px !important;
+        margin: 0 15px !important;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+        width: calc(100% - 30px) !important;
+        box-sizing: border-box !important;
+        max-width: 100vw !important;
     }
     
     /* Hide the last stat on mobile for cleaner look */
@@ -2110,21 +2113,23 @@ iframe {
     }
     
     .stat {
-        min-width: 100px !important;
-        flex: none !important;
+        min-width: 90px !important;
+        flex: 1 !important;
         text-align: center !important;
+        max-width: 120px !important;
     }
     
     .stat-number {
-        font-size: 1.8rem !important;
-        margin-bottom: 6px !important;
+        font-size: 1.5rem !important;
+        margin-bottom: 4px !important;
         font-weight: 700 !important;
         color: var(--primary-color) !important;
+        line-height: 1.2 !important;
     }
     
     .stat-label {
-        font-size: 0.9rem !important;
-        line-height: 1.3 !important;
+        font-size: 0.8rem !important;
+        line-height: 1.2 !important;
         color: var(--text-light) !important;
         font-weight: 500 !important;
     }
@@ -2192,22 +2197,27 @@ iframe {
         color: var(--text-light) !important;
     }
     
-    /* Mobile Services - Professional Cards */
+    /* Mobile Services - PROPERLY SCALED */
     .services-grid {
         grid-template-columns: 1fr !important;
-        gap: 35px !important;
-        padding: 0 25px !important;
+        gap: 20px !important;
+        padding: 0 15px !important;
+        max-width: 100vw !important;
+        box-sizing: border-box !important;
     }
     
     .service-card {
-        padding: 40px 35px !important;
+        padding: 25px 20px !important;
         margin: 0 !important;
-        border-radius: 20px !important;
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1) !important;
+        border-radius: 15px !important;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
         transition: all 0.3s ease !important;
         background: var(--light-color) !important;
         position: relative !important;
         overflow: hidden !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
     }
     
     .service-card:hover {
@@ -2236,66 +2246,51 @@ iframe {
     }
     
     .service-icon {
-        width: 90px !important;
-        height: 90px !important;
-        margin: 0 auto 25px !important;
+        width: 60px !important;
+        height: 60px !important;
+        margin: 0 auto 15px !important;
         background: var(--gradient-primary) !important;
         border-radius: 50% !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
-        font-size: 2.2rem !important;
+        font-size: 1.5rem !important;
         color: white !important;
-        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3) !important;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3) !important;
     }
     
     .service-card h3 {
-        font-size: 1.5rem !important;
-        margin-bottom: 20px !important;
+        font-size: 1.2rem !important;
+        margin-bottom: 12px !important;
         font-weight: 600 !important;
         color: var(--text-color) !important;
         text-align: center !important;
+        line-height: 1.3 !important;
     }
     
     .service-card p {
-        font-size: 1.05rem !important;
-        line-height: 1.7 !important;
-        margin-bottom: 25px !important;
+        font-size: 0.95rem !important;
+        line-height: 1.5 !important;
+        margin-bottom: 15px !important;
         color: var(--text-light) !important;
         text-align: center !important;
     }
     
+    /* Hide service features on mobile to prevent clutter */
     .service-features {
-        margin-bottom: 30px !important;
-        text-align: left !important;
-    }
-    
-    .service-features li {
-        padding: 8px 0 !important;
-        font-size: 1rem !important;
-        color: var(--text-light) !important;
-        position: relative !important;
-        padding-left: 25px !important;
-    }
-    
-    .service-features li::before {
-        content: '✓' !important;
-        position: absolute !important;
-        left: 0 !important;
-        color: var(--primary-color) !important;
-        font-weight: bold !important;
-        font-size: 1.1rem !important;
+        display: none !important;
     }
     
     .service-price {
-        font-size: 1.3rem !important;
+        font-size: 1.1rem !important;
         font-weight: 700 !important;
         color: var(--primary-color) !important;
         text-align: center !important;
-        padding: 20px !important;
+        padding: 15px !important;
         background: rgba(102, 126, 234, 0.1) !important;
-        border-radius: 12px !important;
-        margin-top: 25px !important;
+        border-radius: 10px !important;
+        margin-top: 15px !important;
+        line-height: 1.3 !important;
     }
     
     /* Mobile Features - SIMPLIFIED */
@@ -2328,11 +2323,13 @@ iframe {
         margin-top: 20px !important;
     }
     
-    /* Mobile Industries - SIMPLIFIED */
+    /* Mobile Industries - PROPERLY SCALED */
     .industries-grid {
         grid-template-columns: 1fr !important;
-        gap: 25px !important;
-        padding: 0 20px !important;
+        gap: 15px !important;
+        padding: 0 15px !important;
+        max-width: 100vw !important;
+        box-sizing: border-box !important;
     }
     
     /* Hide some industry cards on mobile for cleaner look */
@@ -2341,17 +2338,20 @@ iframe {
     }
     
     .industry-card {
-        padding: 30px 25px !important;
+        padding: 20px 15px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
     }
     
     .industry-card h3 {
-        font-size: 1.3rem !important;
-        margin-bottom: 12px !important;
+        font-size: 1.1rem !important;
+        margin-bottom: 10px !important;
+        line-height: 1.3 !important;
     }
     
     .industry-card p {
-        font-size: 1rem !important;
-        line-height: 1.6 !important;
+        font-size: 0.9rem !important;
+        line-height: 1.5 !important;
     }
     
     /* Mobile About - SIMPLIFIED */
@@ -2396,36 +2396,39 @@ iframe {
     
     .contact-form {
         max-width: 100% !important;
-        margin: 0 25px !important;
-        padding: 40px 35px !important;
-        border-radius: 20px !important;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1) !important;
+        margin: 0 15px !important;
+        padding: 25px 20px !important;
+        border-radius: 15px !important;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1) !important;
         background: var(--light-color) !important;
         border: 1px solid rgba(102, 126, 234, 0.1) !important;
+        width: calc(100% - 30px) !important;
+        box-sizing: border-box !important;
     }
     
     .contact-form h3 {
-        font-size: 1.6rem !important;
-        margin-bottom: 30px !important;
+        font-size: 1.3rem !important;
+        margin-bottom: 20px !important;
         text-align: center !important;
         color: var(--text-color) !important;
         font-weight: 600 !important;
     }
     
     .contact-form .form-group {
-        margin-bottom: 25px !important;
+        margin-bottom: 15px !important;
     }
     
     .contact-form input,
     .contact-form textarea,
     .contact-form select {
         width: 100% !important;
-        padding: 16px 20px !important;
+        padding: 12px 15px !important;
         border: 2px solid rgba(102, 126, 234, 0.1) !important;
-        border-radius: 12px !important;
-        font-size: 1.05rem !important;
+        border-radius: 10px !important;
+        font-size: 1rem !important;
         background: var(--light-color) !important;
         transition: all 0.3s ease !important;
+        box-sizing: border-box !important;
     }
     
     .contact-form input:focus,
@@ -2439,15 +2442,16 @@ iframe {
     
     .contact-form .btn {
         width: 100% !important;
-        padding: 18px !important;
-        font-size: 1.1rem !important;
+        padding: 14px !important;
+        font-size: 1rem !important;
         font-weight: 600 !important;
-        border-radius: 12px !important;
+        border-radius: 10px !important;
         background: var(--gradient-primary) !important;
         color: white !important;
         border: none !important;
         box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3) !important;
         transition: all 0.3s ease !important;
+        box-sizing: border-box !important;
     }
     
     .contact-form .btn:hover {
@@ -2458,60 +2462,67 @@ iframe {
     .contact-info {
         flex-direction: column !important;
         align-items: center !important;
-        gap: 30px !important;
+        gap: 20px !important;
         text-align: center !important;
-        padding: 0 25px !important;
+        padding: 0 15px !important;
     }
     
     .contact-item {
         flex-direction: column !important;
         text-align: center !important;
-        gap: 15px !important;
-        padding: 25px !important;
+        gap: 10px !important;
+        padding: 20px 15px !important;
         background: rgba(102, 126, 234, 0.05) !important;
-        border-radius: 15px !important;
-        width: 100% !important;
-        max-width: 300px !important;
+        border-radius: 12px !important;
+        width: calc(100% - 30px) !important;
+        max-width: 280px !important;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
+        box-sizing: border-box !important;
     }
     
     .contact-item i {
-        font-size: 2rem !important;
+        font-size: 1.5rem !important;
         color: var(--primary-color) !important;
-        margin-bottom: 10px !important;
+        margin-bottom: 8px !important;
     }
     
     .contact-item h4 {
-        font-size: 1.3rem !important;
-        margin-bottom: 12px !important;
+        font-size: 1.1rem !important;
+        margin-bottom: 8px !important;
         color: var(--text-color) !important;
         font-weight: 600 !important;
     }
     
     .contact-item p {
-        font-size: 1.05rem !important;
-        line-height: 1.6 !important;
+        font-size: 0.9rem !important;
+        line-height: 1.4 !important;
         color: var(--text-light) !important;
         margin: 0 !important;
     }
     
-    /* Mobile Container */
+    /* Mobile Container - PROPERLY SCALED */
     .container {
-        padding: 0 20px !important;
-        max-width: 100% !important;
+        padding: 0 15px !important;
+        max-width: 100vw !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important;
     }
     
-    /* Mobile Portfolio */
+    /* Mobile Portfolio - PROPERLY SCALED */
     .projects-grid {
         grid-template-columns: 1fr !important;
-        gap: 30px !important;
-        padding: 0 20px !important;
+        gap: 20px !important;
+        padding: 0 15px !important;
+        max-width: 100vw !important;
+        box-sizing: border-box !important;
     }
     
     .project-card {
         width: 100% !important;
         max-width: 100% !important;
         margin: 0 auto !important;
+        box-sizing: border-box !important;
     }
     
     .project-image {
@@ -2520,18 +2531,19 @@ iframe {
     }
     
     .project-content {
-        padding: 25px 20px !important;
+        padding: 20px 15px !important;
     }
     
     .project-content h3 {
-        font-size: 1.3rem !important;
-        margin-bottom: 12px !important;
+        font-size: 1.2rem !important;
+        margin-bottom: 10px !important;
+        line-height: 1.3 !important;
     }
     
     .project-content p {
-        font-size: 1rem !important;
-        line-height: 1.6 !important;
-        margin-bottom: 20px !important;
+        font-size: 0.9rem !important;
+        line-height: 1.5 !important;
+        margin-bottom: 15px !important;
     }
     
     .project-tags {
