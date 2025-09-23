@@ -2054,10 +2054,15 @@ iframe {
         line-height: 1.5 !important;
         margin-bottom: 35px !important;
         padding: 0 5px !important;
-        max-width: 95% !important;
+        max-width: 98% !important;
         margin-left: auto !important;
         margin-right: auto !important;
         color: var(--text-light) !important;
+        text-align: justify !important;
+        hyphens: auto !important;
+        -webkit-hyphens: auto !important;
+        -ms-hyphens: auto !important;
+        word-spacing: -0.05em !important;
     }
     
     /* Mobile Buttons - SIMPLIFIED */
@@ -2192,9 +2197,13 @@ iframe {
         font-size: 1.05rem !important;
         line-height: 1.5 !important;
         padding: 0 5px !important;
-        max-width: 95% !important;
+        max-width: 98% !important;
         margin: 0 auto !important;
         color: var(--text-light) !important;
+        text-align: justify !important;
+        hyphens: auto !important;
+        -webkit-hyphens: auto !important;
+        word-spacing: -0.05em !important;
     }
     
     /* Mobile Services - PROPERLY SCALED */
@@ -2273,8 +2282,11 @@ iframe {
         line-height: 1.4 !important;
         margin-bottom: 12px !important;
         color: var(--text-light) !important;
-        text-align: center !important;
+        text-align: justify !important;
         padding: 0 5px !important;
+        hyphens: auto !important;
+        -webkit-hyphens: auto !important;
+        word-spacing: -0.05em !important;
     }
     
     /* Hide service features on mobile to prevent clutter */
@@ -2313,9 +2325,12 @@ iframe {
     .features-text p {
         font-size: 1rem !important;
         line-height: 1.5 !important;
-        text-align: center !important;
+        text-align: justify !important;
         margin-bottom: 25px !important;
         padding: 0 5px !important;
+        hyphens: auto !important;
+        -webkit-hyphens: auto !important;
+        word-spacing: -0.05em !important;
     }
     
     .features-list {
@@ -2356,6 +2371,10 @@ iframe {
         font-size: 0.85rem !important;
         line-height: 1.4 !important;
         padding: 0 5px !important;
+        text-align: justify !important;
+        hyphens: auto !important;
+        -webkit-hyphens: auto !important;
+        word-spacing: -0.05em !important;
     }
     
     /* Mobile About - SIMPLIFIED */
@@ -2377,17 +2396,23 @@ iframe {
     .about-intro {
         font-size: 1.05rem !important;
         line-height: 1.5 !important;
-        text-align: center !important;
+        text-align: justify !important;
         margin-bottom: 20px !important;
         padding: 0 5px !important;
+        hyphens: auto !important;
+        -webkit-hyphens: auto !important;
+        word-spacing: -0.05em !important;
     }
     
     .about-text p {
         font-size: 0.95rem !important;
         line-height: 1.5 !important;
-        text-align: center !important;
+        text-align: justify !important;
         margin-bottom: 25px !important;
         padding: 0 5px !important;
+        hyphens: auto !important;
+        -webkit-hyphens: auto !important;
+        word-spacing: -0.05em !important;
     }
     
     .about-values {
@@ -2506,6 +2531,10 @@ iframe {
         color: var(--text-light) !important;
         margin: 0 !important;
         padding: 0 5px !important;
+        text-align: justify !important;
+        hyphens: auto !important;
+        -webkit-hyphens: auto !important;
+        word-spacing: -0.05em !important;
     }
     
     /* Mobile Container - PROPERLY SCALED */
@@ -2553,6 +2582,10 @@ iframe {
         line-height: 1.4 !important;
         margin-bottom: 12px !important;
         padding: 0 5px !important;
+        text-align: justify !important;
+        hyphens: auto !important;
+        -webkit-hyphens: auto !important;
+        word-spacing: -0.05em !important;
     }
     
     .project-tags {
@@ -2604,7 +2637,12 @@ iframe {
     .hero-description {
         font-size: 0.95rem !important;
         line-height: 1.4 !important;
-        padding: 0 5px !important;
+        padding: 0 3px !important;
+        text-align: justify !important;
+        hyphens: auto !important;
+        -webkit-hyphens: auto !important;
+        word-spacing: -0.05em !important;
+        max-width: 99% !important;
     }
     
     .hero-buttons .btn {
@@ -2621,7 +2659,12 @@ iframe {
     .section-header p {
         font-size: 0.95rem !important;
         line-height: 1.4 !important;
-        padding: 0 10px !important;
+        padding: 0 5px !important;
+        text-align: justify !important;
+        hyphens: auto !important;
+        -webkit-hyphens: auto !important;
+        word-spacing: -0.05em !important;
+        max-width: 99% !important;
     }
     
     .services-grid,
