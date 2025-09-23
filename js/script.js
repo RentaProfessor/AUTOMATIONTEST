@@ -85,7 +85,27 @@ function initNavigation() {
 
 // Animation and scroll effects
 function initAnimations() {
-    // Intersection Observer for animations
+    // MOBILE PERFORMANCE: Disable complex animations on mobile
+    const isMobile = window.innerWidth <= 768;
+    
+    if (isMobile) {
+        // On mobile, just show elements without complex animations
+        const animatedElements = document.querySelectorAll(
+            '.service-card, .industry-card, .feature-item, .team-member, .contact-item, .dashboard-mockup'
+        );
+        
+        animatedElements.forEach(el => {
+            el.style.opacity = '1';
+            el.style.transform = 'none';
+            el.style.transition = 'none';
+        });
+        
+        // Simple counter animation for mobile
+        animateCounters();
+        return; // Exit early on mobile
+    }
+    
+    // DESKTOP ONLY: Complex scroll animations
     const observer = new IntersectionObserver(function(entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -112,7 +132,7 @@ function initAnimations() {
         });
     }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
     
-    // Observe elements for animation
+    // Observe elements for animation (DESKTOP ONLY)
     const animatedElements = document.querySelectorAll(
         '.service-card, .industry-card, .feature-item, .team-member, .contact-item, .dashboard-mockup'
     );
@@ -129,9 +149,6 @@ function initAnimations() {
     
     // Parallax effect for hero section (DESKTOP ONLY)
     window.addEventListener('scroll', function() {
-        // Disable parallax on mobile for better performance
-        if (window.innerWidth <= 768) return;
-        
         const scrolled = window.pageYOffset;
         const hero = document.querySelector('.hero');
         const heroContent = document.querySelector('.hero-content');
@@ -397,8 +414,13 @@ function initScrollEffects() {
     highlightActiveNavigation();
 }
 
-// Create scroll progress bar
+// Create scroll progress bar (DESKTOP ONLY)
 function createScrollProgressBar() {
+    // MOBILE PERFORMANCE: Disable scroll progress bar on mobile
+    if (window.innerWidth <= 768) {
+        return;
+    }
+    
     const progressBar = document.createElement('div');
     progressBar.className = 'scroll-progress';
     progressBar.style.cssText = `

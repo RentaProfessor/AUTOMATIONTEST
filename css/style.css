@@ -2060,22 +2060,27 @@ iframe {
         color: var(--text-light) !important;
     }
     
-    /* Mobile Buttons - Professional */
+    /* Mobile Buttons - SIMPLIFIED */
     .hero-buttons {
         flex-direction: column !important;
         align-items: center !important;
-        gap: 20px !important;
-        margin-bottom: 60px !important;
+        gap: 15px !important;
+        margin-bottom: 40px !important;
+    }
+    
+    /* Hide extra buttons on mobile for cleaner look */
+    .hero-buttons .btn:nth-child(n+3) {
+        display: none !important;
     }
     
     .hero-buttons .btn {
-        width: 320px !important;
+        width: 280px !important;
         max-width: 85vw !important;
-        padding: 18px 35px !important;
+        padding: 16px 30px !important;
         font-size: 1.1rem !important;
         font-weight: 600 !important;
         text-align: center !important;
-        min-height: 55px !important;
+        min-height: 50px !important;
         border-radius: 12px !important;
         box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2) !important;
         transition: all 0.3s ease !important;
@@ -2086,12 +2091,12 @@ iframe {
         box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3) !important;
     }
     
-    /* Mobile Stats - Clean Layout */
+    /* Mobile Stats - SIMPLIFIED */
     .hero-stats {
         justify-content: center !important;
-        gap: 40px !important;
+        gap: 25px !important;
         flex-wrap: wrap !important;
-        padding: 20px !important;
+        padding: 15px !important;
         background: rgba(255, 255, 255, 0.8) !important;
         border-radius: 15px !important;
         backdrop-filter: blur(10px) !important;
@@ -2099,44 +2104,40 @@ iframe {
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
     }
     
+    /* Hide the last stat on mobile for cleaner look */
+    .hero-stats .stat:last-child {
+        display: none !important;
+    }
+    
     .stat {
-        min-width: 110px !important;
+        min-width: 100px !important;
         flex: none !important;
         text-align: center !important;
     }
     
     .stat-number {
-        font-size: 2rem !important;
-        margin-bottom: 8px !important;
+        font-size: 1.8rem !important;
+        margin-bottom: 6px !important;
         font-weight: 700 !important;
         color: var(--primary-color) !important;
     }
     
     .stat-label {
-        font-size: 0.95rem !important;
+        font-size: 0.9rem !important;
         line-height: 1.3 !important;
         color: var(--text-light) !important;
         font-weight: 500 !important;
     }
     
-    /* Mobile Hero Visual - Enhanced */
+    /* Mobile Hero Visual - REMOVED FOR CLEANER DESIGN */
     .hero-visual {
-        order: -1 !important;
-        margin-bottom: 40px !important;
+        display: none !important;
     }
     
-    .ai-animation {
-        width: 250px !important;
-        height: 250px !important;
-        margin: 0 auto !important;
-    }
-    
-    .ai-circle {
-        width: 180px !important;
-        height: 180px !important;
-        top: 35px !important;
-        left: 35px !important;
-        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2) !important;
+    .ai-animation,
+    .ai-circle,
+    .ai-dots {
+        display: none !important;
     }
     
     /* Mobile Sections - Professional Spacing */
@@ -2297,7 +2298,16 @@ iframe {
         margin-top: 25px !important;
     }
     
-    /* Mobile Features */
+    /* Mobile Features - SIMPLIFIED */
+    .features-visual {
+        display: none !important;
+    }
+    
+    .features-content {
+        display: block !important;
+        text-align: center !important;
+    }
+    
     .features-text h2 {
         font-size: 2rem !important;
         text-align: center !important;
@@ -2310,26 +2320,24 @@ iframe {
         margin-bottom: 30px !important;
     }
     
-    .feature-item {
-        gap: 20px !important;
-        padding: 20px 0 !important;
+    .features-list {
+        display: none !important; /* Hide detailed feature list on mobile for cleaner look */
     }
     
-    .feature-item h4 {
-        font-size: 1.2rem !important;
-        margin-bottom: 10px !important;
+    .features-portfolio {
+        margin-top: 20px !important;
     }
     
-    .feature-item p {
-        font-size: 1rem !important;
-        line-height: 1.6 !important;
-    }
-    
-    /* Mobile Industries */
+    /* Mobile Industries - SIMPLIFIED */
     .industries-grid {
         grid-template-columns: 1fr !important;
         gap: 25px !important;
         padding: 0 20px !important;
+    }
+    
+    /* Hide some industry cards on mobile for cleaner look */
+    .industry-card:nth-child(n+4) {
+        display: none !important;
     }
     
     .industry-card {
@@ -2346,7 +2354,16 @@ iframe {
         line-height: 1.6 !important;
     }
     
-    /* Mobile About */
+    /* Mobile About - SIMPLIFIED */
+    .about-visual {
+        display: none !important; /* Hide team grid on mobile for cleaner look */
+    }
+    
+    .about-content {
+        display: block !important;
+        text-align: center !important;
+    }
+    
     .about-text h2 {
         font-size: 2rem !important;
         text-align: center !important;
@@ -2366,11 +2383,8 @@ iframe {
         margin-bottom: 30px !important;
     }
     
-    .team-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 20px !important;
-        max-width: 320px !important;
-        margin: 0 auto !important;
+    .about-values {
+        display: none !important; /* Hide detailed values on mobile for cleaner look */
     }
     
     /* Mobile Contact - Professional Form */
