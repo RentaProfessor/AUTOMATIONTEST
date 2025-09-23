@@ -1792,7 +1792,7 @@ iframe {
     }
 }
 
-/* Mobile Touch Scrolling Improvements */
+/* MOBILE TOUCH SCROLLING & PERFORMANCE IMPROVEMENTS */
 @media (max-width: 768px) {
     body {
         -webkit-overflow-scrolling: touch;
@@ -1801,6 +1801,43 @@ iframe {
         position: relative;
         overflow-x: hidden;
         overflow-y: auto;
+        /* Mobile Safari optimization */
+        -webkit-text-size-adjust: 100%;
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    /* PREVENT LAYOUT SHIFTS ON MOBILE */
+    * {
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+    
+    /* TOUCH-FRIENDLY INTERACTIONS */
+    .btn,
+    .nav-menu a,
+    .project-link,
+    .contact-form input,
+    .contact-form textarea,
+    .contact-form button {
+        -webkit-tap-highlight-color: rgba(102, 126, 234, 0.3);
+        touch-action: manipulation;
+        /* Prevent zoom on double-tap */
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+    }
+    
+    /* MOBILE SMOOTH ANIMATIONS */
+    .service-card,
+    .industry-card,
+    .feature-item,
+    .team-member,
+    .contact-item {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        will-change: transform;
     }
     
     /* Ensure smooth scrolling on all mobile sections */
@@ -1808,41 +1845,73 @@ iframe {
     .services,
     .features,
     .portfolio-grid,
-    .contact {
+    .contact,
+    .industries,
+    .about {
         -webkit-overflow-scrolling: touch;
-        /* Remove conflicting overflow properties */
         overflow: visible;
+        /* Prevent layout jumping */
+        contain: layout;
     }
     
     /* Prevent horizontal scroll issues */
     .container {
         overflow-x: hidden;
+        box-sizing: border-box;
+    }
+    
+    /* MOBILE FONT RENDERING OPTIMIZATION */
+    body,
+    .hero-title,
+    .section-header h2,
+    .service-card h3,
+    .feature-item h4 {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
     }
 }
 
-/* Responsive Design */
+/* MOBILE-FIRST RESPONSIVE DESIGN - COMPLETE OVERHAUL */
 @media (max-width: 768px) {
+    /* MOBILE NAVIGATION - CLEAN & ACCESSIBLE */
     .logo-image {
-        height: 50px;
-        max-width: 70px;
-        margin-left: -8px;
-        transform: scale(1.1);
-        clip-path: inset(10% 20% 10% 5%);
+        height: 45px;
+        max-width: 65px;
+        margin-left: -6px;
+        transform: scale(1.05);
+        clip-path: inset(8% 18% 8% 4%);
+    }
+    
+    .nav-container {
+        padding: 12px 20px;
     }
     
     .nav-menu {
         position: fixed;
-        top: 70px;
+        top: 65px;
         left: -100%;
         width: 100%;
-        height: calc(100vh - 70px);
+        height: calc(100vh - 65px);
         background: var(--light-color);
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
-        padding-top: 50px;
+        padding-top: 40px;
         transition: var(--transition);
-        box-shadow: var(--shadow-md);
+        box-shadow: var(--shadow-lg);
+        z-index: 9999;
+    }
+    
+    .nav-menu li {
+        margin: 15px 0;
+    }
+    
+    .nav-menu a {
+        font-size: 1.2rem;
+        padding: 10px 20px;
+        display: block;
+        text-align: center;
     }
     
     .nav-menu.active {
@@ -1851,6 +1920,7 @@ iframe {
     
     .nav-toggle {
         display: flex;
+        z-index: 10000;
     }
     
     .nav-toggle.active span:nth-child(1) {
@@ -1865,71 +1935,292 @@ iframe {
         transform: rotate(-45deg) translate(7px, -6px);
     }
     
+    /* MOBILE HERO SECTION - NATIVE MOBILE DESIGN */
+    .hero {
+        padding: 80px 0 60px;
+        min-height: auto;
+    }
+    
     .hero-container {
         grid-template-columns: 1fr;
         text-align: center;
-        gap: 40px;
+        gap: 30px;
+        padding: 0 20px;
     }
     
     .hero-title {
-        font-size: 2.5rem;
+        font-size: 2.2rem !important;
+        line-height: 1.3 !important;
+        margin-bottom: 20px !important;
+        /* PREVENT TEXT BREAKING AND LINE OVERFLOW */
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
+        hyphens: auto !important;
+        /* ENSURE PROPER SPACING */
+        letter-spacing: -0.5px !important;
+        padding: 0 10px !important;
     }
     
+    /* MOBILE GRADIENT TEXT - PREVENT GLITCHING */
+    .gradient-text {
+        display: inline !important;
+        font-size: inherit !important;
+        line-height: inherit !important;
+        /* PREVENT ANIMATION GLITCHES ON MOBILE */
+        animation: none !important;
+        /* STABLE GRADIENT FOR MOBILE */
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+        /* PREVENT OVERFLOW ISSUES */
+        min-height: auto !important;
+        white-space: nowrap !important;
+        overflow: visible !important;
+    }
+    
+    .hero-description {
+        font-size: 1.1rem !important;
+        line-height: 1.6 !important;
+        margin-bottom: 25px !important;
+        padding: 0 10px !important;
+        max-width: 90% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+    
+    /* MOBILE BUTTONS - TOUCH-FRIENDLY */
     .hero-buttons {
         flex-direction: column;
         align-items: center;
+        gap: 15px;
+        margin-bottom: 40px;
     }
     
+    .hero-buttons .btn {
+        width: 280px;
+        max-width: 90vw;
+        padding: 15px 25px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        text-align: center;
+    }
+    
+    /* MOBILE STATS - OPTIMIZED LAYOUT */
     .hero-stats {
         justify-content: center;
-        gap: 20px;
+        gap: 25px;
+        flex-wrap: wrap;
+        padding: 0 20px;
+    }
+    
+    .stat {
+        min-width: 90px;
+        flex: none;
+    }
+    
+    .stat-number {
+        font-size: 1.6rem !important;
+        margin-bottom: 5px !important;
+    }
+    
+    .stat-label {
+        font-size: 0.85rem !important;
+        line-height: 1.3 !important;
+    }
+    
+    /* MOBILE VISUAL HERO */
+    .hero-visual {
+        order: -1;
+        margin-bottom: 20px;
+    }
+    
+    .ai-animation {
+        width: 200px;
+        height: 200px;
+        margin: 0 auto;
+    }
+    
+    .ai-circle {
+        width: 150px;
+        height: 150px;
+        top: 25px;
+        left: 25px;
+    }
+    
+    /* MOBILE SECTIONS - PROPER SPACING */
+    .services,
+    .features,
+    .industries,
+    .about,
+    .contact {
+        padding: 60px 0 !important;
     }
     
     .features-content,
     .about-content,
     .chat-container {
         grid-template-columns: 1fr;
-        gap: 40px;
+        gap: 30px;
     }
     
+    /* MOBILE TYPOGRAPHY - OPTIMIZED SIZES */
+    .section-header h2 {
+        font-size: 1.8rem !important;
+        line-height: 1.3 !important;
+        margin-bottom: 15px !important;
+        padding: 0 15px !important;
+    }
+    
+    .section-header p {
+        font-size: 1rem !important;
+        line-height: 1.5 !important;
+        padding: 0 15px !important;
+    }
+    
+    /* MOBILE SERVICES GRID */
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+        padding: 0 15px;
+    }
+    
+    .service-card {
+        padding: 30px 25px;
+        margin: 0;
+    }
+    
+    .service-card.featured {
+        transform: none;
+        border: 2px solid var(--primary-color);
+    }
+    
+    .service-card h3 {
+        font-size: 1.3rem !important;
+        margin-bottom: 12px !important;
+    }
+    
+    .service-card p {
+        font-size: 0.95rem !important;
+        line-height: 1.5 !important;
+    }
+    
+    /* MOBILE FEATURES SECTION */
+    .features-text h2 {
+        font-size: 1.8rem !important;
+        line-height: 1.3 !important;
+        text-align: center !important;
+        margin-bottom: 15px !important;
+    }
+    
+    .features-text p {
+        font-size: 1rem !important;
+        text-align: center !important;
+        margin-bottom: 25px !important;
+    }
+    
+    .feature-item {
+        gap: 15px;
+        padding: 15px 0;
+    }
+    
+    .feature-item h4 {
+        font-size: 1.1rem !important;
+        margin-bottom: 6px !important;
+    }
+    
+    .feature-item p {
+        font-size: 0.9rem !important;
+        line-height: 1.5 !important;
+    }
+    
+    /* MOBILE INDUSTRIES GRID */
+    .industries-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 0 15px;
+    }
+    
+    .industry-card {
+        padding: 25px 20px;
+    }
+    
+    .industry-card h3 {
+        font-size: 1.2rem !important;
+        margin-bottom: 10px !important;
+    }
+    
+    .industry-card p {
+        font-size: 0.9rem !important;
+        line-height: 1.5 !important;
+    }
+    
+    /* MOBILE ABOUT SECTION */
+    .about-text h2 {
+        font-size: 1.8rem !important;
+        text-align: center !important;
+        margin-bottom: 15px !important;
+    }
+    
+    .about-intro {
+        font-size: 1.05rem !important;
+        text-align: center !important;
+        margin-bottom: 20px !important;
+    }
+    
+    .about-text p {
+        font-size: 0.95rem !important;
+        line-height: 1.6 !important;
+        text-align: center !important;
+        margin-bottom: 25px !important;
+    }
+    
+    .team-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        max-width: 280px;
+        margin: 0 auto;
+    }
+    
+    /* MOBILE CONTACT SECTION */
     .contact-form-section {
         flex-direction: column;
-        gap: 20px;
+        gap: 25px;
+        align-items: center;
     }
-
+    
+    .contact-form {
+        max-width: 100%;
+        margin: 0 15px;
+        padding: 25px 20px;
+    }
+    
+    .contact-info {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        text-align: center;
+    }
+    
+    .contact-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+    
     .chat-stats {
         justify-content: center;
+        gap: 20px;
     }
 
     .chat-widget-body {
         height: 400px;
     }
     
-    .services-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .service-card.featured {
-        transform: none;
-    }
-    
-    .industries-grid {
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    }
-    
-    .team-grid {
-        grid-template-columns: 1fr;
-        max-width: 200px;
-    }
-    
-
-    
-    .section-header h2 {
-        font-size: 2rem;
-    }
-    
+    /* MOBILE CONTAINER */
     .container {
-        padding: 0 15px;
+        padding: 0 20px;
+        max-width: 100%;
     }
     
     /* Portfolio responsive styles */
@@ -2146,27 +2437,235 @@ iframe {
     }
 }
 
+/* EXTRA SMALL MOBILE DEVICES - OPTIMIZED EXPERIENCE */
 @media (max-width: 480px) {
+    /* MOBILE NAVIGATION - COMPACT */
     .logo-image {
-        height: 45px;
-        max-width: 60px;
-        margin-left: -6px;
-        transform: scale(1.1);
-        clip-path: inset(10% 20% 10% 5%);
+        height: 40px;
+        max-width: 55px;
+        margin-left: -4px;
+        transform: scale(1.0);
+        clip-path: inset(8% 18% 8% 4%);
+    }
+    
+    .nav-container {
+        padding: 10px 15px;
+    }
+    
+    /* MOBILE HERO - ULTRA COMPACT */
+    .hero {
+        padding: 70px 0 50px;
     }
     
     .hero-title {
-        font-size: 2rem;
+        font-size: 1.9rem !important;
+        line-height: 1.25 !important;
+        margin-bottom: 18px !important;
+        padding: 0 5px !important;
+        letter-spacing: -0.3px !important;
     }
     
+    .hero-description {
+        font-size: 1.05rem !important;
+        line-height: 1.5 !important;
+        margin-bottom: 20px !important;
+        padding: 0 5px !important;
+    }
+    
+    .hero-buttons .btn {
+        width: 260px;
+        padding: 14px 20px;
+        font-size: 1.05rem;
+    }
+    
+    /* MOBILE STATS - VERTICAL LAYOUT FOR SMALL SCREENS */
     .hero-stats {
         flex-direction: column;
-        gap: 20px;
+        gap: 18px;
         align-items: center;
+        padding: 0 15px;
     }
     
     .stat {
-        min-width: 120px;
+        min-width: 110px;
+        text-align: center;
+    }
+    
+    .stat-number {
+        font-size: 1.5rem !important;
+    }
+    
+    .stat-label {
+        font-size: 0.8rem !important;
+    }
+    
+    /* MOBILE SECTIONS - COMPACT SPACING */
+    .services,
+    .features,
+    .industries,
+    .about,
+    .contact {
+        padding: 50px 0 !important;
+    }
+    
+    .section-header {
+        margin-bottom: 40px;
+    }
+    
+    .section-header h2 {
+        font-size: 1.6rem !important;
+        margin-bottom: 12px !important;
+        padding: 0 10px !important;
+    }
+    
+    .section-header p {
+        font-size: 0.95rem !important;
+        padding: 0 10px !important;
+    }
+    
+    /* MOBILE SERVICES - COMPACT CARDS */
+    .services-grid {
+        gap: 20px;
+        padding: 0 10px;
+    }
+    
+    .service-card {
+        padding: 25px 20px;
+    }
+    
+    .service-card h3 {
+        font-size: 1.2rem !important;
+        margin-bottom: 10px !important;
+    }
+    
+    .service-card p {
+        font-size: 0.9rem !important;
+        margin-bottom: 15px !important;
+    }
+    
+    .service-features li {
+        font-size: 0.85rem !important;
+        padding: 3px 0 !important;
+    }
+    
+    .service-price {
+        font-size: 1.1rem !important;
+        margin-top: 15px !important;
+    }
+    
+    /* MOBILE FEATURES - SIMPLIFIED */
+    .features-text h2 {
+        font-size: 1.6rem !important;
+    }
+    
+    .features-text p {
+        font-size: 0.95rem !important;
+        margin-bottom: 20px !important;
+    }
+    
+    .feature-item {
+        padding: 12px 0;
+    }
+    
+    .feature-item h4 {
+        font-size: 1.05rem !important;
+    }
+    
+    .feature-item p {
+        font-size: 0.85rem !important;
+    }
+    
+    /* MOBILE INDUSTRIES - SIMPLIFIED GRID */
+    .industries-grid {
+        gap: 15px;
+        padding: 0 10px;
+    }
+    
+    .industry-card {
+        padding: 20px 15px;
+    }
+    
+    .industry-card i {
+        font-size: 2.5rem !important;
+        margin-bottom: 15px !important;
+    }
+    
+    .industry-card h3 {
+        font-size: 1.15rem !important;
+        margin-bottom: 8px !important;
+    }
+    
+    .industry-card p {
+        font-size: 0.85rem !important;
+    }
+    
+    /* MOBILE ABOUT - COMPACT */
+    .about-text h2 {
+        font-size: 1.6rem !important;
+        margin-bottom: 12px !important;
+    }
+    
+    .about-intro {
+        font-size: 1rem !important;
+        margin-bottom: 18px !important;
+    }
+    
+    .about-text p {
+        font-size: 0.9rem !important;
+        margin-bottom: 20px !important;
+    }
+    
+    .about-values .value {
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+    
+    .value h4 {
+        font-size: 1.05rem !important;
+        margin-bottom: 8px !important;
+    }
+    
+    .value p {
+        font-size: 0.85rem !important;
+        line-height: 1.5 !important;
+    }
+    
+    /* MOBILE CONTACT - OPTIMIZED FORM */
+    .contact-form {
+        margin: 0 10px;
+        padding: 20px 15px;
+    }
+    
+    .contact-form h3 {
+        font-size: 1.3rem !important;
+        margin-bottom: 20px !important;
+    }
+    
+    .contact-form input,
+    .contact-form textarea,
+    .contact-form select {
+        padding: 12px 12px !important;
+        font-size: 1rem !important;
+        margin-bottom: 15px !important;
+    }
+    
+    .contact-form .btn {
+        padding: 14px !important;
+        font-size: 1.05rem !important;
+    }
+    
+    .contact-item h4 {
+        font-size: 1.1rem !important;
+        margin-bottom: 8px !important;
+    }
+    
+    .contact-item p {
+        font-size: 0.9rem !important;
+    }
+    
+    /* MOBILE CONTAINER - EXTRA TIGHT */
+    .container {
+        padding: 0 15px;
     }
     
     /* Extra Small Mobile Portfolio Optimizations */

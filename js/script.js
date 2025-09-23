@@ -1,4 +1,4 @@
-// FutureClarity Automation Website JavaScript
+// FutureClarity Technologies Website JavaScript
 // Handles all interactive features and animations
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -10,7 +10,12 @@ document.addEventListener('DOMContentLoaded', function() {
     initTypingEffect();
     initIframeHandling();
     
-    console.log('FutureClarity Automation website loaded successfully!');
+    console.log('FutureClarity Technologies website loaded successfully!');
+    
+    // MOBILE OPTIMIZATION CHECK
+    if (window.innerWidth <= 768) {
+        console.log('Mobile optimization active - text animations disabled for better performance');
+    }
 });
 
 // Navigation functionality
@@ -440,11 +445,23 @@ function highlightActiveNavigation() {
     });
 }
 
-// Typing effect for hero section
+// Typing effect for hero section - MOBILE OPTIMIZED
 function initTypingEffect() {
     const gradientText = document.querySelector('.gradient-text');
     if (!gradientText) return;
     
+    // DISABLE TYPING ANIMATION ON MOBILE TO PREVENT GLITCHES
+    const isMobile = window.innerWidth <= 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    if (isMobile) {
+        // On mobile, just set static text to prevent layout issues
+        gradientText.textContent = 'Professional Web Design';
+        gradientText.style.animation = 'none';
+        gradientText.style.whiteSpace = 'nowrap';
+        return; // Exit early for mobile
+    }
+    
+    // Desktop typing effect continues as normal
     const words = ['Web Design', 'AI Automation', 'Future Clarity'];
     let wordIndex = 1; // Start with second word since first is already displayed
     let charIndex = 0;
@@ -474,7 +491,7 @@ function initTypingEffect() {
         setTimeout(typeEffect, speed);
     }
     
-    // Start typing effect after 2.5 seconds (1-2 seconds longer)
+    // Start typing effect after 2.5 seconds (1-2 seconds longer) - DESKTOP ONLY
     setTimeout(typeEffect, 2500);
 }
 
@@ -708,7 +725,7 @@ function initIframeHandling() {
 }
 
 // Export functions for testing
-window.FutureClarityApp = {
+window.FutureClarityTechnologiesApp = {
     trackEvent,
     showNotification,
     initChatbot,

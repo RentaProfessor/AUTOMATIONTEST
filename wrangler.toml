@@ -1,8 +1,8 @@
-name = "futureclarity-landing"
+name = "futureclarity-technologies-landing"
 compatibility_date = "2024-01-01"
 
 [env.production]
-name = "futureclarity-landing"
+name = "futureclarity-technologies-landing"
 
 [[pages_builds]]
 command = ""
