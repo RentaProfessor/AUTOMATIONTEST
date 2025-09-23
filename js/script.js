@@ -127,8 +127,11 @@ function initAnimations() {
     // Counter animation
     animateCounters();
     
-    // Parallax effect for hero section
+    // Parallax effect for hero section (DESKTOP ONLY)
     window.addEventListener('scroll', function() {
+        // Disable parallax on mobile for better performance
+        if (window.innerWidth <= 768) return;
+        
         const scrolled = window.pageYOffset;
         const hero = document.querySelector('.hero');
         const heroContent = document.querySelector('.hero-content');
@@ -441,10 +444,16 @@ function highlightActiveNavigation() {
     });
 }
 
-// Typing effect for hero section
+// Typing effect for hero section (DESKTOP ONLY)
 function initTypingEffect() {
     const gradientText = document.querySelector('.gradient-text');
     if (!gradientText) return;
+    
+    // DISABLE TYPING EFFECT ON MOBILE TO PREVENT GLITCHES
+    if (window.innerWidth <= 768) {
+        gradientText.textContent = 'Web Design';
+        return;
+    }
     
     const words = ['Web Design', 'AI Automation', 'FutureClarity'];
     let wordIndex = 0;
@@ -452,6 +461,12 @@ function initTypingEffect() {
     let isDeleting = false;
     
     function typeEffect() {
+        // Double-check window size during animation to prevent mobile glitches
+        if (window.innerWidth <= 768) {
+            gradientText.textContent = 'Web Design';
+            return;
+        }
+        
         const currentWord = words[wordIndex];
         
         if (isDeleting) {
