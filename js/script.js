@@ -85,33 +85,46 @@ function initNavigation() {
 
 // Animation and scroll effects
 function initAnimations() {
-    // Intersection Observer for animations
+    // Check if mobile for optimized animations
+    const isMobile = window.innerWidth <= 768;
+    
+    // Intersection Observer for animations - OPTIMIZED FOR MOBILE
     const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
+        threshold: isMobile ? 0.2 : 0.1, // Higher threshold for mobile
+        rootMargin: isMobile ? '0px 0px -20px 0px' : '0px 0px -50px 0px' // Smaller margin for mobile
     };
     
     const observer = new IntersectionObserver(function(entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
+                // Smooth, consistent animation for all elements
                 entry.target.style.opacity = '1';
                 entry.target.style.transform = 'translateY(0)';
                 
-                // Special animations for specific elements
-                if (entry.target.classList.contains('service-card')) {
-                    entry.target.style.animationDelay = `${Math.random() * 0.5}s`;
-                    entry.target.style.animation = 'fadeInUp 0.8s ease-out forwards';
+                // SIMPLIFIED ANIMATIONS FOR MOBILE PERFORMANCE
+                if (isMobile) {
+                    // Single, smooth animation for all elements on mobile
+                    entry.target.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+                } else {
+                    // Special animations for specific elements on desktop only
+                    if (entry.target.classList.contains('service-card')) {
+                        entry.target.style.animationDelay = `${Math.random() * 0.3}s`;
+                        entry.target.style.animation = 'fadeInUp 0.6s ease-out forwards';
+                    }
+                    
+                    if (entry.target.classList.contains('industry-card')) {
+                        entry.target.style.animationDelay = `${Math.random() * 0.2}s`;
+                        entry.target.style.animation = 'fadeInUp 0.5s ease-out forwards';
+                    }
+                    
+                    if (entry.target.classList.contains('feature-item')) {
+                        entry.target.style.animationDelay = `${Math.random() * 0.15}s`;
+                        entry.target.style.animation = 'fadeInRight 0.5s ease-out forwards';
+                    }
                 }
                 
-                if (entry.target.classList.contains('industry-card')) {
-                    entry.target.style.animationDelay = `${Math.random() * 0.3}s`;
-                    entry.target.style.animation = 'fadeInUp 0.6s ease-out forwards';
-                }
-                
-                if (entry.target.classList.contains('feature-item')) {
-                    entry.target.style.animationDelay = `${Math.random() * 0.2}s`;
-                    entry.target.style.animation = 'fadeInRight 0.7s ease-out forwards';
-                }
+                // Unobserve after animation to prevent re-triggering
+                observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
@@ -123,8 +136,10 @@ function initAnimations() {
     
     animatedElements.forEach(el => {
         el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+        el.style.transform = isMobile ? 'translateY(20px)' : 'translateY(30px)';
+        el.style.transition = isMobile ? 
+            'opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)' : 
+            'opacity 0.6s ease-out, transform 0.6s ease-out';
         observer.observe(el);
     });
     
@@ -454,18 +469,33 @@ function initTypingEffect() {
     const isMobile = window.innerWidth <= 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     
     if (isMobile) {
-        // On mobile, just set static text to prevent layout issues
-        gradientText.textContent = 'Web Design';
+        // On mobile, set static text but keep it as "Web & Design" to prevent line breaks
+        gradientText.textContent = 'Web & Design';
         gradientText.style.animation = 'none';
         gradientText.style.whiteSpace = 'nowrap';
+        gradientText.style.fontSize = 'inherit';
+        gradientText.style.lineHeight = 'inherit';
+        // CRITICAL: Ensure proper centering on mobile
+        gradientText.style.display = 'inline-block';
+        gradientText.style.textAlign = 'center';
+        gradientText.style.width = 'auto';
+        gradientText.style.wordBreak = 'keep-all';
+        gradientText.style.hyphens = 'none';
         return; // Exit early for mobile
     }
     
     // Desktop typing effect continues as normal - removed long text
-    const words = ['Web Design', 'AI Automation', 'Technology'];
-    let wordIndex = 0; // Start with first word (Web Design)
+    const words = ['Web & Design', 'AI Automation', 'Technology'];
+    let wordIndex = 0; // Start with first word (Web & Design)
     let charIndex = words[0].length; // Start with full first word displayed
     let isDeleting = false;
+    
+    // ENSURE DESKTOP GRADIENT TEXT IS PROPERLY STYLED
+    gradientText.style.display = 'inline-block';
+    gradientText.style.textAlign = 'center';
+    gradientText.style.width = 'auto';
+    gradientText.style.minWidth = '200px'; // Prevent jitter during typing
+    gradientText.style.whiteSpace = 'nowrap';
     
     function typeEffect() {
         const currentWord = words[wordIndex];

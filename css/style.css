@@ -125,9 +125,19 @@ body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    display: block;
+    display: inline-block;
     min-height: 1.2em;
     line-height: 1.2;
+    /* ENSURE CONSISTENT CENTERING AND PROFESSIONAL APPEARANCE */
+    text-align: center;
+    white-space: nowrap;
+    word-break: keep-all;
+    hyphens: none;
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    /* PREVENT LAYOUT SHIFTS */
+    min-width: 200px;
+    vertical-align: baseline;
 }
 
 /* Navigation */
@@ -171,7 +181,7 @@ body {
     padding: 0;
     border: none;
     outline: none;
-    vertical-align: middle;
+    /* vertical-align: middle; /* Removed - not needed with display: block */
     box-sizing: border-box;
     position: relative;
     transform: scale(1.1);
@@ -319,6 +329,16 @@ body {
     line-height: 1.2;
     margin-bottom: 30px;
     color: var(--text-color);
+    /* ENSURE PERFECT CENTERING ON ALL DEVICES */
+    text-align: center;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 0 20px;
+    /* CONTROL TEXT WRAPPING */
+    word-break: normal;
+    overflow-wrap: break-word;
+    hyphens: manual;
 }
 
 .hero-description {
@@ -1494,7 +1514,7 @@ iframe {
     /* Smooth loading */
     transition: opacity 0.3s ease !important;
     /* Force desktop rendering - prevent mobile detection */
-    user-scalable: no !important;
+    /* user-scalable: no !important; /* CSS property not valid - handled in meta tag */
     /* Prevent zoom and mobile behaviors */
     -webkit-user-scalable: no !important;
     -moz-user-scalable: no !important;
@@ -1866,19 +1886,52 @@ iframe {
     .hero-visual {
         order: -1 !important;
         margin-bottom: 40px !important;
+        /* CRITICAL: Contain the animation to prevent overlay */
+        position: relative !important;
+        z-index: 1 !important;
+        overflow: hidden !important;
     }
     
     .ai-animation {
-        width: 200px !important;
-        height: 200px !important;
+        width: 180px !important;
+        height: 180px !important;
         margin: 0 auto !important;
+        /* CRITICAL: Prevent animation from affecting layout */
+        position: relative !important;
+        z-index: 1 !important;
+        overflow: hidden !important;
     }
     
     .ai-circle {
-        width: 150px !important;
-        height: 150px !important;
-        top: 25px !important;
-        left: 25px !important;
+        width: 120px !important;
+        height: 120px !important;
+        top: 30px !important;
+        left: 30px !important;
+    }
+    
+    /* MOBILE AI DOTS - CONTAINED WITHIN ANIMATION */
+    .ai-dots {
+        position: absolute !important;
+        width: 100% !important;
+        height: 100% !important;
+        overflow: hidden !important;
+        /* CRITICAL: Prevent dots from escaping container */
+        contain: layout style paint !important;
+    }
+    
+    .ai-dots .dot {
+        /* SMALLER ORBIT RADIUS FOR MOBILE */
+        animation: orbit 4s linear infinite !important;
+        transform-origin: center !important;
+    }
+    
+    @keyframes orbit {
+        0% {
+            transform: rotate(0deg) translateX(90px) rotate(0deg) !important;
+        }
+        100% {
+            transform: rotate(360deg) translateX(90px) rotate(-360deg) !important;
+        }
     }
     
     /* MOBILE HERO TEXT - FIX TEXT BREAKING ISSUES */
@@ -1893,6 +1946,13 @@ iframe {
         hyphens: manual !important;
         white-space: normal !important;
         max-width: 100% !important;
+        /* ENSURE PERFECT CENTERING */
+        text-align: center !important;
+        display: block !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        /* CONTROL LINE BREAKS */
+        text-wrap: balance !important;
     }
     
     .hero-title br {
@@ -1912,10 +1972,21 @@ iframe {
         -webkit-background-clip: text !important;
         -webkit-text-fill-color: transparent !important;
         background-clip: text !important;
-        /* PREVENT LAYOUT ISSUES */
-        white-space: normal !important;
+        /* CRITICAL: PREVENT LINE BREAKS */
+        white-space: nowrap !important;
         overflow: visible !important;
         min-height: auto !important;
+        /* ENSURE TEXT STAYS ON ONE LINE */
+        word-break: keep-all !important;
+        text-wrap: nowrap !important;
+        /* ADDITIONAL MOBILE PROTECTION */
+        -webkit-hyphens: none !important;
+        -moz-hyphens: none !important;
+        hyphens: none !important;
+        /* ENSURE CENTERED APPEARANCE */
+        text-align: center !important;
+        display: inline-block !important;
+        width: auto !important;
     }
     
     .hero-description {
@@ -1951,6 +2022,11 @@ iframe {
         gap: 30px !important;
         flex-wrap: wrap !important;
         padding: 0 20px !important;
+        /* CRITICAL: Ensure proper separation from animation */
+        margin-top: 60px !important;
+        position: relative !important;
+        z-index: 10 !important;
+        clear: both !important;
     }
     
     .stat {
@@ -1976,6 +2052,43 @@ iframe {
     .about,
     .contact {
         padding: 80px 0 !important;
+    }
+    
+    /* MOBILE TEXT PROTECTION - COMPREHENSIVE */
+    h1, h2, h3, h4, h5, h6 {
+        text-align: center !important;
+        word-break: normal !important;
+        overflow-wrap: break-word !important;
+        hyphens: auto !important;
+        line-height: 1.3 !important;
+        padding: 0 10px !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* SPECIFIC MOBILE TITLE PROTECTIONS */
+    .section-header h2 {
+        font-size: 1.8rem !important;
+        text-align: center !important;
+        max-width: 100% !important;
+        margin: 0 auto 20px auto !important;
+        padding: 0 15px !important;
+        /* Allow natural breaks but prevent awkward ones */
+        word-break: normal !important;
+        overflow-wrap: break-word !important;
+        text-wrap: balance !important;
+    }
+    
+    /* SERVICE AND INDUSTRY TITLES - PROFESSIONAL APPEARANCE */
+    .industry-card h3,
+    .feature-item h4,
+    .about-text h2 {
+        text-align: center !important;
+        word-break: normal !important;
+        overflow-wrap: break-word !important;
+        hyphens: auto !important;
+        line-height: 1.3 !important;
+        padding: 0 10px !important;
+        max-width: 100% !important;
     }
     
     .container {
@@ -2024,6 +2137,16 @@ iframe {
     .service-card h3 {
         font-size: 1.3rem !important;
         margin-bottom: 15px !important;
+        /* CRITICAL: Prevent title text from breaking inappropriately */
+        text-align: center !important;
+        line-height: 1.3 !important;
+        /* Allow natural breaks only at appropriate points */
+        word-break: normal !important;
+        overflow-wrap: break-word !important;
+        hyphens: auto !important;
+        /* Ensure professional appearance */
+        padding: 0 10px !important;
+        max-width: 100% !important;
     }
     
     .service-card p {
