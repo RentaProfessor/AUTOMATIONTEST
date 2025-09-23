@@ -455,16 +455,16 @@ function initTypingEffect() {
     
     if (isMobile) {
         // On mobile, just set static text to prevent layout issues
-        gradientText.textContent = 'Professional Web Design';
+        gradientText.textContent = 'Web Design';
         gradientText.style.animation = 'none';
         gradientText.style.whiteSpace = 'nowrap';
         return; // Exit early for mobile
     }
     
-    // Desktop typing effect continues as normal
-    const words = ['Web Design', 'AI Automation', 'Future Clarity'];
-    let wordIndex = 1; // Start with second word since first is already displayed
-    let charIndex = 0;
+    // Desktop typing effect continues as normal - removed long text
+    const words = ['Web Design', 'AI Automation', 'Technology'];
+    let wordIndex = 0; // Start with first word (Web Design)
+    let charIndex = words[0].length; // Start with full first word displayed
     let isDeleting = false;
     
     function typeEffect() {
@@ -479,10 +479,12 @@ function initTypingEffect() {
         }
         
         if (!isDeleting && charIndex === currentWord.length) {
+            // Pause at end of word before starting to delete
             setTimeout(() => {
                 isDeleting = true;
             }, 2000);
         } else if (isDeleting && charIndex === 0) {
+            // Move to next word and start typing
             isDeleting = false;
             wordIndex = (wordIndex + 1) % words.length;
         }
@@ -491,8 +493,14 @@ function initTypingEffect() {
         setTimeout(typeEffect, speed);
     }
     
-    // Start typing effect after 2.5 seconds (1-2 seconds longer) - DESKTOP ONLY
-    setTimeout(typeEffect, 2500);
+    // Start typing effect after 2.5 seconds - first word is already displayed
+    setTimeout(() => {
+        // Wait a moment, then start deleting the first word
+        setTimeout(() => {
+            isDeleting = true;
+            typeEffect();
+        }, 2000);
+    }, 1000);
 }
 
 // Event tracking (replace with actual analytics)
