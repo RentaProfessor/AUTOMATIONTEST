@@ -469,8 +469,8 @@ function initTypingEffect() {
     const isMobile = window.innerWidth <= 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     
     if (isMobile) {
-        // On mobile, set static text but keep it as "Web & Design" to prevent line breaks
-        gradientText.textContent = 'Web & Design';
+        // On mobile, set static text - keep it simple as "Web Design"
+        gradientText.textContent = 'Web Design';
         gradientText.style.animation = 'none';
         gradientText.style.whiteSpace = 'nowrap';
         gradientText.style.fontSize = 'inherit';
@@ -484,18 +484,21 @@ function initTypingEffect() {
         return; // Exit early for mobile
     }
     
-    // Desktop typing effect continues as normal - removed long text
-    const words = ['Web & Design', 'AI Automation', 'Technology'];
-    let wordIndex = 0; // Start with first word (Web & Design)
+    // Desktop typing effect - FIXED TO PREVENT LAYOUT SHIFTS
+    const words = ['Web Design', 'AI Automation', 'Technology Solutions'];
+    let wordIndex = 0; // Start with first word (Web Design)
     let charIndex = words[0].length; // Start with full first word displayed
     let isDeleting = false;
     
-    // ENSURE DESKTOP GRADIENT TEXT IS PROPERLY STYLED
+    // CRITICAL: PREVENT LAYOUT SHIFTS WITH FIXED WIDTH
     gradientText.style.display = 'inline-block';
     gradientText.style.textAlign = 'center';
-    gradientText.style.width = 'auto';
-    gradientText.style.minWidth = '200px'; // Prevent jitter during typing
+    gradientText.style.width = '280px'; // FIXED WIDTH to prevent shifts
+    gradientText.style.minWidth = '280px';
+    gradientText.style.maxWidth = '280px';
     gradientText.style.whiteSpace = 'nowrap';
+    gradientText.style.overflow = 'hidden';
+    gradientText.style.verticalAlign = 'baseline';
     
     function typeEffect() {
         const currentWord = words[wordIndex];
