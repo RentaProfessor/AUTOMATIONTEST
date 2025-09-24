@@ -2119,7 +2119,7 @@ iframe {
     
     .hero-container {
         text-align: center !important;
-        padding: 0 20px 40px 20px !important;
+        padding: 0 20px 0 20px !important;
         max-width: 100% !important;
         width: 100% !important;
         height: auto !important;
@@ -2127,8 +2127,8 @@ iframe {
         display: flex !important;
         flex-direction: column !important;
         justify-content: center !important;
-        position: relative !important;
-        top: calc(50% + 20px) !important;
+        position: absolute !important;
+        top: 50% !important;
         left: 50% !important;
         transform: translate(-50%, -50%) !important;
         z-index: 2 !important;
@@ -2136,9 +2136,9 @@ iframe {
         /* PREVENT STRETCHING */
         contain: layout !important;
         box-sizing: border-box !important;
-        /* ENSURE PROPER SPACING FROM NAV */
-        min-height: calc(100% - 100px) !important;
-        padding-top: 100px !important;
+        /* FIT WITHIN VIEWPORT */
+        max-height: 100vh !important;
+        max-height: 100dvh !important;
     }
     
     .hero-content {
@@ -2204,12 +2204,12 @@ iframe {
         letter-spacing: normal !important;
     }
     
-    /* Mobile Buttons - PROPER SPACING FROM STATS */
+    /* Mobile Buttons - COMPACT SPACING FOR BETTER FIT */
     .hero-buttons {
         display: block !important;
         text-align: center !important;
-        margin-bottom: 30px !important;
-        margin-top: 25px !important;
+        margin-bottom: 15px !important;
+        margin-top: 20px !important;
         /* PREVENT STRETCHING */
         contain: layout !important;
     }
@@ -2243,23 +2243,21 @@ iframe {
         box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3) !important;
     }
     
-    /* Mobile Stats - POSITIONED WITHIN VIEWPORT BOTTOM */
+    /* Mobile Stats - POSITIONED BELOW BUTTONS IN FLOW */
     .hero-stats {
         display: block !important;
         text-align: center !important;
         padding: 15px !important;
         background: rgba(255, 255, 255, 0.95) !important;
         border-radius: 10px !important;
-        margin: 15px auto 0 auto !important;
+        margin: 20px auto 0 auto !important;
         box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08) !important;
         border: 1px solid rgba(102, 126, 234, 0.1) !important;
-        position: absolute !important;
-        bottom: 120px !important;
-        left: 50% !important;
-        transform: translateX(-50%) !important;
+        position: static !important;
         z-index: 3 !important;
         width: calc(100% - 40px) !important;
         max-width: 300px !important;
+        transform: none !important;
         will-change: auto !important;
         /* PREVENT STRETCHING */
         contain: layout !important;
