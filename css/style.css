@@ -2089,22 +2089,22 @@ iframe {
         transform: rotate(-45deg) translate(6px, -6px) !important;
     }
     
-    /* Mobile Hero Section - FULLSCREEN WITH BACKGROUND UNDER STATS */
+    /* Mobile Hero Section - EXTENDED HEIGHT WITH BACKGROUND PADDING */
     .hero {
-        padding: 0 !important;
-        height: 100vh !important;
-        height: 100dvh !important;
-        min-height: 100vh !important;
-        min-height: 100dvh !important;
-        max-height: 100vh !important;
-        max-height: 100dvh !important;
+        padding: 0 0 120px 0 !important;
+        height: calc(100vh + 120px) !important;
+        height: calc(100dvh + 120px) !important;
+        min-height: calc(100vh + 120px) !important;
+        min-height: calc(100dvh + 120px) !important;
+        max-height: calc(100vh + 120px) !important;
+        max-height: calc(100dvh + 120px) !important;
         position: relative !important;
         background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
         background-color: #f8fafc !important; /* Safari fallback */
         display: block !important;
-        overflow: visible !important;
+        overflow: hidden !important;
         margin-top: 0 !important;
-        margin-bottom: 0 !important;
+        margin-bottom: -120px !important;
         /* Prevent any scroll effects */
         transform: none !important;
         will-change: auto !important;
@@ -2115,18 +2115,6 @@ iframe {
         resize: none !important;
         /* ACCOUNT FOR NAVBAR */
         padding-top: 0 !important;
-    }
-    
-    /* Create background extension under stats box */
-    .hero::after {
-        content: '' !important;
-        position: absolute !important;
-        bottom: -60px !important;
-        left: 0 !important;
-        right: 0 !important;
-        height: 60px !important;
-        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
-        z-index: 1 !important;
     }
     
     .hero-container {
@@ -2253,14 +2241,14 @@ iframe {
         box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3) !important;
     }
     
-    /* Mobile Stats - FLOATING BOX MOVED UP */
+    /* Mobile Stats - HIGH FLOATING BOX */
     .hero-stats {
         display: block !important;
         text-align: center !important;
         padding: 15px !important;
         background: rgba(255, 255, 255, 0.95) !important;
         border-radius: 10px !important;
-        margin: 15px auto 20px auto !important;
+        margin: 25px auto 0 auto !important;
         box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08) !important;
         border: 1px solid rgba(102, 126, 234, 0.1) !important;
         position: static !important;
