@@ -52,7 +52,7 @@ body {
 
 .section-header {
     text-align: center;
-    margin-bottom: 60px;
+    margin-bottom: 40px;
 }
 
 .section-header h2 {
@@ -1008,12 +1008,16 @@ body {
     display: flex !important;
     flex-direction: row !important;
     justify-content: center !important;
-    gap: 40px !important;
+    flex-wrap: wrap !important;
+    gap: 30px !important;
     margin-top: 40px !important;
     order: 2 !important;
     clear: both !important;
     position: relative !important;
     z-index: 1 !important;
+    max-width: 1000px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
 }
 
 @media (max-width: 900px) {
@@ -1036,6 +1040,9 @@ body {
     display: flex;
     align-items: flex-start;
     gap: 20px;
+    max-width: 300px;
+    flex: 1;
+    min-width: 250px;
 }
 
 .contact-item i {
@@ -1055,6 +1062,11 @@ body {
     color: var(--text-light);
     line-height: 1.6;
     margin: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    max-width: 100%;
 }
 
 
@@ -2030,16 +2042,21 @@ iframe {
         transform: rotate(-45deg) translate(6px, -6px) !important;
     }
     
-    /* Mobile Hero Section - FULL SCREEN SEPARATION */
+    /* Mobile Hero Section - COMPLETE SCREEN COVERAGE */
     .hero {
-        padding: 100px 0 80px !important;
+        padding: 80px 0 0 !important;
+        height: 100vh !important;
+        height: 100dvh !important; /* Dynamic viewport height for mobile */
         min-height: 100vh !important;
-        min-height: 100dvh !important; /* Dynamic viewport height for mobile */
+        min-height: 100dvh !important;
+        max-height: 100vh !important;
+        max-height: 100dvh !important;
         position: relative !important;
         background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
         background-color: #f8fafc !important; /* Safari fallback */
         display: flex !important;
         align-items: center !important;
+        overflow: hidden !important;
         /* Safari-specific fixes for mobile */
         -webkit-transform: translateZ(0) !important;
         transform: translateZ(0) !important;
