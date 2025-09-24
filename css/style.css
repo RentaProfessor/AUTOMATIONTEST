@@ -55,6 +55,10 @@ body {
     margin-bottom: 40px;
 }
 
+.contact .section-header {
+    margin-bottom: 25px;
+}
+
 .section-header h2 {
     font-size: 2.5rem;
     font-weight: 700;
@@ -997,7 +1001,7 @@ body {
     flex-direction: column !important;
     align-items: center !important;
     gap: 40px !important;
-    margin-top: 30px !important;
+    margin-top: 15px !important;
     order: 1 !important;
     position: relative !important;
     z-index: 1 !important;
@@ -2554,11 +2558,27 @@ iframe {
         background: #f8fafc !important;
     }
     
+    .contact .section-header {
+        margin-bottom: 20px !important;
+        padding: 0 20px !important;
+    }
+    
+    .contact .section-header h2 {
+        font-size: 1.8rem !important;
+        margin-bottom: 12px !important;
+    }
+    
+    .contact .section-header p {
+        font-size: 1rem !important;
+        margin-bottom: 0 !important;
+    }
+    
     .contact-form-section {
         flex-direction: column !important;
         gap: 30px !important;
         align-items: center !important;
         padding: 0 20px !important;
+        margin-top: 10px !important;
     }
     
     .contact-form {
