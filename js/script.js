@@ -1003,6 +1003,119 @@ if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
     });
 }
 
+// SAFARI FULLSCREEN BACKGROUND FIX - handles the specific fullscreen dark gray issue
+(function() {
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent) || 
+                     /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
+    
+    if (isSafari) {
+        console.log('Safari fullscreen monitoring initialized');
+        
+        // Function to apply aggressive fullscreen background fix
+        const applyFullscreenFix = () => {
+            const hero = document.querySelector('.hero');
+            if (hero) {
+                console.log('Applying Safari fullscreen background fix');
+                
+                // CRITICAL: Force background re-render for fullscreen mode
+                hero.style.cssText += `
+                    background-color: #f5f7fa !important;
+                    background-image: -webkit-linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+                    background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+                    background: -webkit-linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+                    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+                    -webkit-transform: translateZ(0) scale(1.0001) !important;
+                    transform: translateZ(0) scale(1.0001) !important;
+                    will-change: background, transform !important;
+                `;
+                
+                // Force multiple repaints for fullscreen
+                let repaintCount = 0;
+                const fullscreenRepaint = () => {
+                    if (repaintCount < 3) {
+                        hero.style.transform = `translateZ(0) scale(${1 + (repaintCount * 0.0001)})`;
+                        repaintCount++;
+                        requestAnimationFrame(() => {
+                            hero.style.transform = 'translateZ(0) scale(1.0001)';
+                            if (repaintCount < 3) {
+                                setTimeout(fullscreenRepaint, 50);
+                            }
+                        });
+                    }
+                };
+                fullscreenRepaint();
+            }
+        };
+        
+        // Monitor fullscreen changes
+        document.addEventListener('fullscreenchange', function() {
+            console.log('Fullscreen change detected');
+            setTimeout(applyFullscreenFix, 100);
+            setTimeout(applyFullscreenFix, 300);
+            setTimeout(applyFullscreenFix, 600);
+        });
+        
+        document.addEventListener('webkitfullscreenchange', function() {
+            console.log('WebKit fullscreen change detected');
+            setTimeout(applyFullscreenFix, 100);
+            setTimeout(applyFullscreenFix, 300);
+            setTimeout(applyFullscreenFix, 600);
+        });
+        
+        // Monitor window resize (fullscreen triggers this)
+        let fullscreenResizeTimeout;
+        window.addEventListener('resize', function() {
+            clearTimeout(fullscreenResizeTimeout);
+            fullscreenResizeTimeout = setTimeout(() => {
+                // Check if we're potentially in fullscreen
+                if (window.innerHeight === screen.height || 
+                    Math.abs(window.innerHeight - screen.height) < 100) {
+                    console.log('Potential fullscreen detected via resize');
+                    applyFullscreenFix();
+                }
+            }, 200);
+        });
+        
+        // Periodic check for fullscreen state
+        setInterval(() => {
+            if (document.fullscreenElement || document.webkitFullscreenElement ||
+                window.innerHeight === screen.height) {
+                const hero = document.querySelector('.hero');
+                if (hero) {
+                    const computedStyle = window.getComputedStyle(hero);
+                    const bgColor = computedStyle.backgroundColor;
+                    
+                    // Check if background is dark in fullscreen
+                    if (bgColor.includes('rgb') && bgColor.match(/\d+/g)?.every(val => parseInt(val) < 200)) {
+                        console.log('Dark background detected in fullscreen, fixing');
+                        applyFullscreenFix();
+                    }
+                }
+            }
+        }, 2000);
+        
+        // Apply fix when entering fullscreen programmatically
+        const originalRequestFullscreen = Element.prototype.requestFullscreen;
+        if (originalRequestFullscreen) {
+            Element.prototype.requestFullscreen = function(...args) {
+                const result = originalRequestFullscreen.apply(this, args);
+                setTimeout(applyFullscreenFix, 500);
+                return result;
+            };
+        }
+        
+        // Apply fix when entering webkit fullscreen
+        const originalWebkitRequestFullscreen = Element.prototype.webkitRequestFullscreen;
+        if (originalWebkitRequestFullscreen) {
+            Element.prototype.webkitRequestFullscreen = function(...args) {
+                const result = originalWebkitRequestFullscreen.apply(this, args);
+                setTimeout(applyFullscreenFix, 500);
+                return result;
+            };
+        }
+    }
+})();
+
 // Enhanced iframe handling for portfolio with loading states and crash prevention
 function initIframeHandling() {
     const iframes = document.querySelectorAll('.iframe-container iframe');

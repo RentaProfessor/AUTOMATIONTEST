@@ -358,6 +358,58 @@ body {
     }
 }
 
+/* SAFARI FULLSCREEN SPECIFIC FIXES - Handles fullscreen dark gray background */
+@supports (-webkit-appearance: none) {
+    /* When in fullscreen mode */
+    html:-webkit-full-screen .hero,
+    html:fullscreen .hero {
+        /* Force background re-application in fullscreen */
+        background-color: #f5f7fa !important;
+        background-image: -webkit-linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+        background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+        background: -webkit-linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+        
+        /* Enhanced fullscreen rendering properties */
+        -webkit-transform: translateZ(0) scale(1.0001) !important;
+        transform: translateZ(0) scale(1.0001) !important;
+        -webkit-backface-visibility: hidden !important;
+        backface-visibility: hidden !important;
+        
+        /* Force layer isolation in fullscreen */
+        isolation: isolate !important;
+        contain: layout style paint !important;
+        will-change: background, transform !important;
+        
+        /* Additional Safari fullscreen fixes */
+        -webkit-perspective: 1000px !important;
+        perspective: 1000px !important;
+        -webkit-transform-style: preserve-3d !important;
+        transform-style: preserve-3d !important;
+    }
+    
+    /* Backup fullscreen detection via viewport size */
+    @media screen and (min-height: 800px) {
+        .hero {
+            /* Apply same fixes when viewport suggests fullscreen */
+            background-attachment: scroll !important;
+            background-repeat: no-repeat !important;
+            background-position: center center !important;
+            background-size: 100% 100% !important;
+        }
+    }
+    
+    /* Alternative fullscreen selectors for different Safari versions */
+    :-webkit-full-screen-ancestor .hero,
+    :-webkit-full-screen-document .hero {
+        background: #f5f7fa !important;
+        background: -webkit-linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+        -webkit-transform: translateZ(0) !important;
+        transform: translateZ(0) !important;
+    }
+}
+
 .hero::before {
     content: '';
     position: absolute;
