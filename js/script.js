@@ -27,52 +27,34 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Fix Chrome mobile zoom issues
+// Make Chrome mobile look exactly like Safari mobile
 function fixChromeZoom() {
     // Check if it's Chrome mobile
     const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
     const isMobile = window.innerWidth <= 768;
     
     if (isChrome && isMobile) {
-        // Aggressive zoom and positioning reset
-        function forceReset() {
+        // Simple function to match Safari appearance
+        function matchSafari() {
+            // Force same zoom as Safari
             document.body.style.zoom = '1';
             document.documentElement.style.zoom = '1';
-            document.body.style.webkitTransform = 'scale(1)';
-            document.body.style.transform = 'scale(1)';
-            document.documentElement.style.webkitTransform = 'scale(1)';
-            document.documentElement.style.transform = 'scale(1)';
             
-            // Force positioning reset
-            document.body.style.marginTop = '0';
-            document.body.style.paddingTop = '0';
-            document.documentElement.style.marginTop = '0';
-            document.documentElement.style.paddingTop = '0';
+            // Disable any Chrome scaling
+            document.body.style.webkitTextSizeAdjust = '100%';
+            document.documentElement.style.webkitTextSizeAdjust = '100%';
             
-            // Force scroll to top
+            // Reset positioning to match Safari
             window.scrollTo(0, 0);
-            document.body.scrollTop = 0;
-            document.documentElement.scrollTop = 0;
         }
         
-        // Apply immediately and repeatedly
-        forceReset();
-        setTimeout(forceReset, 50);
-        setTimeout(forceReset, 100);
-        setTimeout(forceReset, 200);
+        // Apply immediately
+        matchSafari();
         
-        // Set viewport meta tag for Chrome
-        let viewport = document.querySelector('meta[name="viewport"]');
-        if (viewport) {
-            viewport.setAttribute('content', 
-                'width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui, viewport-fit=cover'
-            );
-        }
+        // Apply after a brief delay to catch Chrome's defaults
+        setTimeout(matchSafari, 100);
         
-        // Force layout recalculation
-        document.body.offsetHeight;
-        
-        // Additional Chrome zoom prevention
+        // Prevent zoom gestures to maintain Safari-like behavior
         document.addEventListener('gesturestart', function(e) {
             e.preventDefault();
         }, { passive: false });
@@ -95,23 +77,7 @@ function fixChromeZoom() {
             lastTouchEnd = now;
         }, { passive: false });
         
-        // Monitor for Chrome trying to change zoom/position
-        const observer = new MutationObserver(function() {
-            forceReset();
-        });
-        observer.observe(document.body, { 
-            attributes: true, 
-            attributeFilter: ['style'] 
-        });
-        
-        // Force reset on any window events
-        window.addEventListener('resize', forceReset);
-        window.addEventListener('orientationchange', function() {
-            setTimeout(forceReset, 100);
-            setTimeout(forceReset, 500);
-        });
-        
-        console.log('Chrome mobile zoom fix applied');
+        console.log('Chrome mobile matched to Safari appearance');
     }
 }
 
