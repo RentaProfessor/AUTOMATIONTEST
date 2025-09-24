@@ -2998,7 +2998,7 @@ iframe {
         background: #f8f9fa !important;
     }
     
-    /* Mobile iframe - FORCE DESKTOP DISPLAY */
+    /* Mobile iframe - FORCE DESKTOP DISPLAY WITH VIDEO SUPPORT */
     .project-image .iframe-container iframe {
         position: absolute !important;
         top: 0 !important;
@@ -3019,16 +3019,26 @@ iframe {
         zoom: 1 !important;
         -webkit-zoom: 1 !important;
         -webkit-text-size-adjust: none !important;
-        /* Prevent mobile optimization */
-        -webkit-user-scalable: no !important;
+        /* Enhanced mobile video support */
+        -webkit-playsinline: true !important;
         /* Additional mobile overrides */
         min-width: 1200px !important;
         min-height: 800px !important;
         /* Ensure proper opacity transition */
-        transition: opacity 0.5s ease !important;
+        transition: opacity 0.5s ease, pointer-events 0.1s ease !important;
         /* Force full coverage */
         object-fit: cover !important;
         object-position: top left !important;
+    }
+    
+    /* Mobile iframe container - Enhanced for video interaction */
+    .project-image .iframe-container {
+        /* Allow touch events on container for video controls */
+        pointer-events: auto !important;
+        touch-action: manipulation !important;
+        -webkit-touch-callout: none !important;
+        -webkit-user-select: none !important;
+        user-select: none !important;
     }
     
     /* Mobile project overlay - ensure it works over iframe */

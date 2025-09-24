@@ -1212,7 +1212,7 @@ function initIframeHandling() {
         const container = iframe.closest('.iframe-container');
         console.log(`Iframe ${index + 1}:`, iframe.src);
         
-        // MOBILE DESKTOP VIEW ENFORCEMENT - PREVENT RELOADS
+        // MOBILE DESKTOP VIEW ENFORCEMENT - PREVENT RELOADS + VIDEO SUPPORT
         if (isMobile && !iframe.getAttribute('data-mobile-processed')) {
             // Check if desktop parameters are already present to avoid unnecessary reloads
             const currentUrl = new URL(iframe.src);
@@ -1221,16 +1221,29 @@ function initIframeHandling() {
             
             // Only modify URL if desktop parameters are missing
             if (!hasDesktopParams) {
-                console.log('Adding desktop parameters to iframe:', iframe.src);
+                console.log('Adding desktop and video parameters to iframe:', iframe.src);
                 currentUrl.searchParams.set('desktop', '1');
                 currentUrl.searchParams.set('mobile', '0');
                 currentUrl.searchParams.set('width', '1200');
                 currentUrl.searchParams.set('viewport', '1200x800');
                 currentUrl.searchParams.set('force_desktop', '1');
                 
+                // Add mobile video support parameters
+                currentUrl.searchParams.set('autoplay', '1');
+                currentUrl.searchParams.set('muted', '1');
+                currentUrl.searchParams.set('playsinline', '1');
+                currentUrl.searchParams.set('controls', '1');
+                
                 // Update iframe src only if parameters were missing
                 iframe.src = currentUrl.toString();
             }
+            
+            // ENHANCED: Mobile video playback attributes
+            iframe.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture; accelerometer; gyroscope; microphone; camera; midi; encrypted-media');
+            iframe.setAttribute('allowfullscreen', 'true');
+            iframe.setAttribute('webkitallowfullscreen', 'true');
+            iframe.setAttribute('mozallowfullscreen', 'true');
+            iframe.setAttribute('sandbox', 'allow-same-origin allow-scripts allow-popups allow-forms allow-presentation allow-top-navigation');
             
             // Apply mobile-specific iframe attributes for desktop view (non-reloading)
             iframe.setAttribute('data-mobile-desktop', 'true');
@@ -1242,7 +1255,7 @@ function initIframeHandling() {
             iframe.style.setProperty('min-width', '1200px', 'important');
             iframe.style.setProperty('min-height', '800px', 'important');
             
-            console.log('Mobile desktop view configured for iframe (no reload)');
+            console.log('Mobile desktop view with video support configured for iframe');
         }
         
         // Set initial loading state
@@ -1265,10 +1278,32 @@ function initIframeHandling() {
             console.log('Iframe loaded successfully:', this.src);
             clearTimeout(loadingTimeout);
             
-            // MOBILE: Ensure pointer events are disabled after load (non-intrusive)
+            // MOBILE: Enhanced video support after iframe load
             if (isMobile && this.getAttribute('data-mobile-desktop')) {
+                // Keep pointer events disabled for scaling but enable for overlays
                 this.style.setProperty('pointer-events', 'none', 'important');
-                console.log('Mobile iframe interaction disabled after load');
+                
+                // Add mobile video interaction support
+                setTimeout(() => {
+                    try {
+                        // Send message to iframe for mobile video optimization
+                        this.contentWindow?.postMessage({
+                            type: 'mobile_video_optimization',
+                            settings: {
+                                autoplay: true,
+                                muted: true,
+                                playsinline: true,
+                                controls: true,
+                                preload: 'metadata'
+                            }
+                        }, '*');
+                        console.log('Mobile video optimization message sent to iframe');
+                    } catch (e) {
+                        console.log('Cross-origin iframe - video optimization message not sent');
+                    }
+                }, 500);
+                
+                console.log('Mobile iframe with video support configured after load');
             }
             
             // Optimized delay for mobile performance
@@ -1324,9 +1359,40 @@ function initIframeHandling() {
             observer.observe(iframe);
         }
         
-        // Memory cleanup for mobile
+        // MOBILE VIDEO INTERACTION FIX - Enable video controls on mobile
         if (isMobile) {
-            // Add unload listener to clean up resources
+            // Add tap interaction for video controls on mobile
+            container.addEventListener('touchstart', function(e) {
+                if (iframe.getAttribute('data-mobile-desktop')) {
+                    console.log('Mobile tap detected on iframe container');
+                    
+                    // Temporarily enable pointer events for interaction
+                    iframe.style.setProperty('pointer-events', 'auto', 'important');
+                    
+                    // Re-disable after a short delay
+                    setTimeout(() => {
+                        iframe.style.setProperty('pointer-events', 'none', 'important');
+                    }, 3000); // 3 seconds to allow for video interaction
+                }
+            }, { passive: true });
+            
+            // Add touch interaction specifically for video areas
+            container.addEventListener('touchend', function(e) {
+                if (iframe.getAttribute('data-mobile-desktop')) {
+                    try {
+                        // Send click/touch event to iframe for video controls
+                        iframe.contentWindow?.postMessage({
+                            type: 'mobile_touch_event',
+                            x: e.changedTouches[0].clientX,
+                            y: e.changedTouches[0].clientY
+                        }, '*');
+                    } catch (err) {
+                        console.log('Cross-origin iframe - touch event not sent');
+                    }
+                }
+            }, { passive: true });
+            
+            // Memory cleanup for mobile
             window.addEventListener('beforeunload', () => {
                 iframe.src = 'about:blank';
             });
