@@ -34,15 +34,38 @@ function fixChromeZoom() {
     const isMobile = window.innerWidth <= 768;
     
     if (isChrome && isMobile) {
-        // Force zoom to 1
-        document.body.style.zoom = '1';
-        document.documentElement.style.zoom = '1';
+        // Aggressive zoom and positioning reset
+        function forceReset() {
+            document.body.style.zoom = '1';
+            document.documentElement.style.zoom = '1';
+            document.body.style.webkitTransform = 'scale(1)';
+            document.body.style.transform = 'scale(1)';
+            document.documentElement.style.webkitTransform = 'scale(1)';
+            document.documentElement.style.transform = 'scale(1)';
+            
+            // Force positioning reset
+            document.body.style.marginTop = '0';
+            document.body.style.paddingTop = '0';
+            document.documentElement.style.marginTop = '0';
+            document.documentElement.style.paddingTop = '0';
+            
+            // Force scroll to top
+            window.scrollTo(0, 0);
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+        
+        // Apply immediately and repeatedly
+        forceReset();
+        setTimeout(forceReset, 50);
+        setTimeout(forceReset, 100);
+        setTimeout(forceReset, 200);
         
         // Set viewport meta tag for Chrome
         let viewport = document.querySelector('meta[name="viewport"]');
         if (viewport) {
             viewport.setAttribute('content', 
-                'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui'
+                'width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui, viewport-fit=cover'
             );
         }
         
@@ -52,15 +75,15 @@ function fixChromeZoom() {
         // Additional Chrome zoom prevention
         document.addEventListener('gesturestart', function(e) {
             e.preventDefault();
-        });
+        }, { passive: false });
         
         document.addEventListener('gesturechange', function(e) {
             e.preventDefault();
-        });
+        }, { passive: false });
         
         document.addEventListener('gestureend', function(e) {
             e.preventDefault();
-        });
+        }, { passive: false });
         
         // Prevent double-tap zoom
         let lastTouchEnd = 0;
@@ -70,7 +93,23 @@ function fixChromeZoom() {
                 event.preventDefault();
             }
             lastTouchEnd = now;
-        }, false);
+        }, { passive: false });
+        
+        // Monitor for Chrome trying to change zoom/position
+        const observer = new MutationObserver(function() {
+            forceReset();
+        });
+        observer.observe(document.body, { 
+            attributes: true, 
+            attributeFilter: ['style'] 
+        });
+        
+        // Force reset on any window events
+        window.addEventListener('resize', forceReset);
+        window.addEventListener('orientationchange', function() {
+            setTimeout(forceReset, 100);
+            setTimeout(forceReset, 500);
+        });
         
         console.log('Chrome mobile zoom fix applied');
     }

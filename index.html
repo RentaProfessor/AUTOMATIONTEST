@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui, viewport-fit=cover">
     <meta name="description" content="FutureClarity Technologies - Professional web design for small businesses. Custom, responsive websites that help you attract customers and grow your business online.">
     <meta name="keywords" content="web design, small business websites, responsive design, e-commerce websites, professional web design, FutureClarity Technologies">
     <meta name="author" content="FutureClarity Technologies">
@@ -42,6 +42,58 @@
     <link rel="stylesheet" href="css/style.css?v=141">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Immediate Chrome Mobile Fix - Runs Before Page Load -->
+    <script>
+        (function() {
+            // Immediate Chrome detection and fix
+            const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+            const isMobile = window.innerWidth <= 768;
+            
+            if (isChrome && isMobile) {
+                // Force immediate zoom reset
+                document.documentElement.style.zoom = '1';
+                document.documentElement.style.webkitTransform = 'scale(1)';
+                document.documentElement.style.transform = 'scale(1)';
+                
+                // Prevent Chrome's initial positioning
+                document.documentElement.style.marginTop = '0';
+                document.documentElement.style.paddingTop = '0';
+                
+                // Force viewport reset
+                const viewport = document.querySelector('meta[name="viewport"]');
+                if (viewport) {
+                    viewport.setAttribute('content', 
+                        'width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui, viewport-fit=cover'
+                    );
+                }
+                
+                // Immediate body fixes when available
+                if (document.body) {
+                    document.body.style.zoom = '1';
+                    document.body.style.webkitTransform = 'scale(1)';
+                    document.body.style.transform = 'scale(1)';
+                    document.body.style.marginTop = '0';
+                    document.body.style.paddingTop = '0';
+                } else {
+                    // If body isn't ready, apply as soon as it is
+                    const observer = new MutationObserver(function(mutations) {
+                        if (document.body) {
+                            document.body.style.zoom = '1';
+                            document.body.style.webkitTransform = 'scale(1)';
+                            document.body.style.transform = 'scale(1)';
+                            document.body.style.marginTop = '0';
+                            document.body.style.paddingTop = '0';
+                            observer.disconnect();
+                        }
+                    });
+                    observer.observe(document.documentElement, { childList: true });
+                }
+                
+                console.log('Immediate Chrome mobile fix applied');
+            }
+        })();
+    </script>
 </head>
 <body>
     <!-- Navigation -->
