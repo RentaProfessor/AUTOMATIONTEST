@@ -36,6 +36,23 @@ function fixChromeViewportHeight() {
             const vh = window.innerHeight * 0.01;
             // Set the CSS custom property
             document.documentElement.style.setProperty('--vh', `${vh}px`);
+            
+            // Additional Chrome fixes
+            const hero = document.querySelector('.hero');
+            const navbar = document.querySelector('.navbar');
+            
+            if (hero && navbar) {
+                // Ensure hero starts after navbar
+                const navHeight = navbar.offsetHeight;
+                hero.style.marginTop = '0px';
+                hero.style.paddingTop = '0px';
+                
+                // Force Chrome to recalculate layout
+                hero.style.height = `calc(var(--vh, 1vh) * 100 + 80px)`;
+                
+                // Force repaint
+                hero.offsetHeight;
+            }
         }
         
         // Set initial viewport height
@@ -45,13 +62,20 @@ function fixChromeViewportHeight() {
         let resizeTimeout;
         window.addEventListener('resize', function() {
             clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(setViewportHeight, 100);
+            resizeTimeout = setTimeout(setViewportHeight, 150);
         });
         
         // Update on orientation change
         window.addEventListener('orientationchange', function() {
-            setTimeout(setViewportHeight, 500);
+            setTimeout(setViewportHeight, 600);
         });
+        
+        // Update on scroll (Chrome address bar behavior)
+        let scrollTimeout;
+        window.addEventListener('scroll', function() {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(setViewportHeight, 200);
+        }, { passive: true });
         
         console.log('Chrome mobile viewport height fix applied');
     }
