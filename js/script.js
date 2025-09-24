@@ -1,6 +1,72 @@
 // FutureClarity Technologies Website JavaScript
 // Handles all interactive features and animations
 
+// IMMEDIATE Safari background fix - runs before DOMContentLoaded for reload scenarios
+(function() {
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent) || 
+                     /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
+    
+    if (isSafari) {
+        console.log('Immediate Safari background fix initiated');
+        
+        // Function to apply immediate CSS fixes
+        const applyImmediateFix = () => {
+            const style = document.createElement('style');
+            style.id = 'safari-emergency-fix';
+            style.textContent = `
+                .hero {
+                    background-color: #f5f7fa !important;
+                    background-image: -webkit-linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+                    background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+                    background: -webkit-linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+                    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+                    -webkit-transform: translateZ(0) !important;
+                    transform: translateZ(0) !important;
+                    will-change: background !important;
+                }
+            `;
+            
+            // Insert at the very end of head to override everything
+            if (document.head) {
+                document.head.appendChild(style);
+            } else {
+                document.addEventListener('DOMContentLoaded', () => {
+                    document.head.appendChild(style);
+                });
+            }
+        };
+        
+        // Apply immediately if head exists
+        if (document.head) {
+            applyImmediateFix();
+        }
+        
+        // Also apply when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', applyImmediateFix);
+        } else {
+            applyImmediateFix();
+        }
+        
+        // Apply when hero element is available
+        const checkForHero = () => {
+            const hero = document.querySelector('.hero');
+            if (hero) {
+                hero.style.cssText += `
+                    background: #f5f7fa !important;
+                    background: -webkit-linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+                    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+                `;
+                console.log('Immediate Safari hero fix applied');
+            } else {
+                setTimeout(checkForHero, 10);
+            }
+        };
+        
+        checkForHero();
+    }
+})();
+
 document.addEventListener('DOMContentLoaded', function() {
     // Chrome mobile zoom fix - must be first
     fixChromeZoom();
@@ -143,75 +209,118 @@ function fixChromeViewportHeight() {
     }
 }
 
-// Fix Safari hero background rendering issue - ENHANCED FOR RELOAD
+// ULTIMATE Safari hero background fix - handles all reload scenarios
 function fixSafariHeroBackground() {
-    // Detect Safari browser (desktop and mobile)
-    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    // Enhanced Safari detection (including Safari on iOS and macOS)
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent) || 
+                     /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
     
     if (isSafari) {
         const hero = document.querySelector('.hero');
         if (hero) {
-            console.log('Applying Safari hero background fix...');
+            console.log('Applying ULTIMATE Safari hero background fix...');
             
-            // FORCE BACKGROUND RE-RENDER - Multiple approaches for reliability
+            // CRITICAL: Completely reset background properties first
+            hero.style.removeProperty('background');
+            hero.style.removeProperty('background-image');
+            hero.style.removeProperty('background-color');
             
-            // Method 1: Re-apply gradient background explicitly
-            hero.style.backgroundImage = '';
-            hero.style.background = '';
-            
-            // Force immediate reflow
+            // Force immediate layout recalculation
             hero.offsetHeight;
+            hero.offsetWidth;
             
-            // Re-apply gradient with Safari-specific properties
+            // Method 1: AGGRESSIVE background re-application with every Safari prefix
+            const applyBackground = () => {
+                // Set solid fallback first
+                hero.style.setProperty('background-color', '#f5f7fa', 'important');
+                
+                // Apply all possible gradient formats for maximum Safari compatibility
+                hero.style.setProperty('background-image', '-webkit-linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)', 'important');
+                hero.style.setProperty('background-image', '-webkit-gradient(linear, left top, right bottom, from(#f5f7fa), to(#c3cfe2))', 'important');
+                hero.style.setProperty('background', '-webkit-linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)', 'important');
+                hero.style.setProperty('background', 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)', 'important');
+                
+                // Force Safari-specific rendering properties
+                hero.style.setProperty('-webkit-transform', 'translateZ(0)', 'important');
+                hero.style.setProperty('transform', 'translateZ(0)', 'important');
+                hero.style.setProperty('-webkit-backface-visibility', 'hidden', 'important');
+                hero.style.setProperty('backface-visibility', 'hidden', 'important');
+                hero.style.setProperty('-webkit-transform-style', 'preserve-3d', 'important');
+                hero.style.setProperty('transform-style', 'preserve-3d', 'important');
+                
+                // Additional Safari background fix properties
+                hero.style.setProperty('isolation', 'isolate', 'important');
+                hero.style.setProperty('contain', 'layout style paint', 'important');
+                hero.style.setProperty('will-change', 'background', 'important');
+                
+                console.log('Safari background properties applied');
+            };
+            
+            // Apply immediately
+            applyBackground();
+            
+            // Method 2: Multiple timed applications for different Safari reload scenarios
             requestAnimationFrame(() => {
-                hero.style.backgroundColor = '#f5f7fa';
-                hero.style.backgroundImage = '-webkit-linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)';
-                hero.style.background = 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)';
+                applyBackground();
                 
-                // Method 2: Force layer composition
-                hero.style.webkitTransform = 'translateZ(0)';
-                hero.style.transform = 'translateZ(0)';
-                hero.style.webkitBackfaceVisibility = 'hidden';
-                hero.style.backfaceVisibility = 'hidden';
-                
-                // Method 3: Multiple repaints to ensure Safari renders properly
+                // Force multiple repaints with different techniques
                 let repaintCount = 0;
-                const maxRepaints = 3;
+                const maxRepaints = 5;
                 
-                function forceRepaint() {
+                function aggressiveRepaint() {
                     if (repaintCount < maxRepaints) {
-                        const currentOpacity = hero.style.opacity || '1';
-                        hero.style.opacity = repaintCount % 2 === 0 ? '0.999' : '1';
+                        // Technique 1: Opacity flickering
+                        const currentOpacity = getComputedStyle(hero).opacity;
+                        hero.style.opacity = repaintCount % 2 === 0 ? '0.9999' : '1';
+                        
+                        // Technique 2: Transform nudging
+                        hero.style.transform = `translateZ(0) translateY(${repaintCount % 2}px)`;
                         
                         repaintCount++;
                         requestAnimationFrame(() => {
                             hero.style.opacity = currentOpacity;
+                            hero.style.transform = 'translateZ(0)';
+                            
                             if (repaintCount < maxRepaints) {
-                                setTimeout(forceRepaint, 16); // ~1 frame delay
+                                setTimeout(aggressiveRepaint, 20);
                             }
                         });
                     }
                 }
                 
-                forceRepaint();
-                
-                console.log('Safari hero background fix applied');
+                aggressiveRepaint();
             });
             
-            // Method 4: Additional fix after small delay (for page reloads)
+            // Method 3: Delayed verification and re-application
             setTimeout(() => {
-                if (hero.style.backgroundColor !== 'rgb(245, 247, 250)') {
-                    console.log('Re-applying Safari background fix after delay');
-                    hero.style.backgroundColor = '#f5f7fa';
-                    hero.style.backgroundImage = 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)';
+                const computedStyle = window.getComputedStyle(hero);
+                const bgColor = computedStyle.backgroundColor;
+                const bgImage = computedStyle.backgroundImage;
+                
+                // Check if background is still problematic
+                const isBackgroundDark = bgColor.includes('rgb') && 
+                    bgColor.match(/\d+/g)?.every(val => parseInt(val) < 200);
+                
+                const isGradientMissing = !bgImage || bgImage === 'none' || !bgImage.includes('gradient');
+                
+                if (isBackgroundDark || isGradientMissing) {
+                    console.log('Safari background still problematic, applying emergency fix');
+                    applyBackground();
                     
-                    // Force one more repaint
-                    hero.style.willChange = 'background';
-                    requestAnimationFrame(() => {
-                        hero.style.willChange = 'auto';
-                    });
+                    // Emergency DOM manipulation
+                    hero.style.cssText += `
+                        background: #f5f7fa !important;
+                        background: -webkit-linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+                        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+                    `;
                 }
-            }, 200);
+            }, 300);
+            
+            // Method 4: Extended delayed fix for slow Safari scenarios
+            setTimeout(() => {
+                applyBackground();
+                console.log('Final Safari background verification applied');
+            }, 1000);
         }
     }
 }
@@ -808,38 +917,80 @@ document.head.appendChild(style);
 // Initialize on DOM ready
 preloadResources();
 
-// Additional Safari fix on window load - ENHANCED FOR RELOAD SCENARIOS
+// ULTIMATE Safari reload fix - handles all window load scenarios
 window.addEventListener('load', function() {
-    // Safari sometimes needs multiple background fixes after all resources load
-    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent) || 
+                     /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
     
     if (isSafari) {
-        console.log('Window loaded - applying additional Safari fixes');
+        console.log('Window loaded - applying ULTIMATE Safari reload fixes');
         
-        // First fix after 100ms
-        setTimeout(fixSafariHeroBackground, 100);
+        // Immediate fix on load
+        fixSafariHeroBackground();
         
-        // Second fix after 300ms (for slower reloads)
-        setTimeout(fixSafariHeroBackground, 300);
+        // Progressive fixes for different Safari reload scenarios
+        const timeouts = [50, 100, 200, 300, 500, 750, 1000, 1500, 2000];
         
-        // Final fix after 600ms (for cached page reloads)
+        timeouts.forEach((delay, index) => {
+            setTimeout(() => {
+                const hero = document.querySelector('.hero');
+                if (hero) {
+                    const computedStyle = window.getComputedStyle(hero);
+                    const bgColor = computedStyle.backgroundColor;
+                    const bgImage = computedStyle.backgroundImage;
+                    
+                    // Check multiple conditions for problematic backgrounds
+                    const isBackgroundDark = bgColor.includes('rgb') && 
+                        bgColor.match(/\d+/g)?.every(val => parseInt(val) < 200);
+                    
+                    const isGradientMissing = !bgImage || bgImage === 'none' || !bgImage.includes('gradient');
+                    
+                    const isBackgroundGray = bgColor.includes('128') || bgColor.includes('169') || 
+                                           bgColor.includes('136') || bgColor.includes('gray');
+                    
+                    if (isBackgroundDark || isGradientMissing || isBackgroundGray) {
+                        console.log(`Safari background still problematic at ${delay}ms, applying fix #${index + 1}`);
+                        fixSafariHeroBackground();
+                        
+                        // Emergency CSS override for persistent issues
+                        if (delay >= 500) {
+                            hero.style.cssText += `
+                                background-color: #f5f7fa !important;
+                                background-image: -webkit-linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+                                background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+                                background: -webkit-linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+                                background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+                            `;
+                        }
+                    }
+                }
+            }, delay);
+        });
+        
+        // Final verification after all attempts
         setTimeout(() => {
             const hero = document.querySelector('.hero');
             if (hero) {
-                // Check if background is still grey/dark
                 const computedStyle = window.getComputedStyle(hero);
                 const bgColor = computedStyle.backgroundColor;
+                console.log('Final Safari background check:', bgColor);
                 
-                // If background is dark/grey (rgb values all below 200), force fix
-                if (bgColor.includes('rgb')) {
-                    const rgbValues = bgColor.match(/\d+/g);
-                    if (rgbValues && rgbValues.every(val => parseInt(val) < 200)) {
-                        console.log('Safari background still dark, applying emergency fix');
-                        fixSafariHeroBackground();
-                    }
+                if (bgColor.includes('rgb') && bgColor.match(/\d+/g)?.every(val => parseInt(val) < 200)) {
+                    console.warn('Safari background still dark after all attempts, applying nuclear option');
+                    
+                    // Nuclear option: Replace the entire hero element's background via DOM
+                    hero.removeAttribute('style');
+                    hero.style.cssText = `
+                        background: #f5f7fa !important;
+                        background: -webkit-linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+                        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+                        background-color: #f5f7fa !important;
+                        background-image: -webkit-linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+                        background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+                    `;
                 }
             }
-        }, 600);
+        }, 3000);
     }
 });
 

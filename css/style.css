@@ -288,33 +288,74 @@ body {
     transition: var(--transition);
 }
 
-/* Hero Section - ENHANCED SAFARI COMPATIBILITY */
+/* Hero Section - ULTIMATE SAFARI COMPATIBILITY FIX */
 .hero {
     padding: 140px 0 80px;
-    /* Multiple Safari fallbacks for better reload support */
-    background-color: #f5f7fa !important; /* Solid fallback - force important for Safari */
+    /* CRITICAL: Multiple Safari fallbacks for reload support - every possible approach */
+    background-color: #f5f7fa !important; /* Primary solid fallback */
+    
+    /* Safari-specific gradient prefixes with !important to override any caching */
     background-image: -webkit-linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
-    background-image: -moz-linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-    background-image: -o-linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    background-image: -webkit-gradient(linear, left top, right bottom, from(#f5f7fa), to(#c3cfe2)) !important;
+    background-image: -moz-linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+    background-image: -o-linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
     background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+    
+    /* Force Safari to always use the gradient background */
+    background: -webkit-linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
     background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+    
+    /* Position and layout */
     position: relative;
     overflow: hidden;
     margin-top: 0;
-    /* Enhanced Safari-specific rendering fixes */
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    -webkit-perspective: 1000px;
-    perspective: 1000px;
-    /* Force Safari to re-render on page changes */
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    /* Prevent Safari from caching incorrect background */
-    -webkit-background-size: 100% 100%;
-    background-size: 100% 100%;
-    will-change: background-image;
+    
+    /* ENHANCED Safari-specific rendering fixes for reload issues */
+    -webkit-transform: translateZ(0) !important;
+    transform: translateZ(0) !important;
+    -webkit-backface-visibility: hidden !important;
+    backface-visibility: hidden !important;
+    -webkit-perspective: 1000px !important;
+    perspective: 1000px !important;
+    
+    /* Force Safari to never cache background state */
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+    
+    /* Prevent Safari background caching - critical for reload fixes */
+    -webkit-background-size: 100% 100% !important;
+    background-size: 100% 100% !important;
+    background-attachment: scroll !important;
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
+    
+    /* Force recomposition on every load */
+    will-change: background, background-image, background-color !important;
+    
+    /* Additional Safari-specific fixes */
+    -webkit-transform-style: preserve-3d !important;
+    transform-style: preserve-3d !important;
+    
+    /* Force Safari to always render gradients properly */
+    isolation: isolate !important;
+    contain: layout style paint !important;
+}
+
+/* SAFARI EMERGENCY BACKGROUND FIX - Applied via CSS for immediate effect */
+@supports (-webkit-appearance: none) {
+    .hero {
+        /* Safari-only background override */
+        background: #f5f7fa !important;
+        background: -webkit-linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+        
+        /* Force Safari to never use a dark background */
+        background-color: #f5f7fa !important;
+        
+        /* Additional layer composition forcing */
+        -webkit-transform: translate3d(0, 0, 0) !important;
+        transform: translate3d(0, 0, 0) !important;
+    }
 }
 
 .hero::before {
