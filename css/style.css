@@ -2030,13 +2030,16 @@ iframe {
         transform: rotate(-45deg) translate(6px, -6px) !important;
     }
     
-    /* Mobile Hero Section - PROFESSIONAL REDESIGN */
+    /* Mobile Hero Section - FULL SCREEN SEPARATION */
     .hero {
-        padding: 80px 0 60px !important;
-        min-height: auto !important;
+        padding: 100px 0 80px !important;
+        min-height: 100vh !important;
+        min-height: 100dvh !important; /* Dynamic viewport height for mobile */
         position: relative !important;
         background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
         background-color: #f8fafc !important; /* Safari fallback */
+        display: flex !important;
+        align-items: center !important;
         /* Safari-specific fixes for mobile */
         -webkit-transform: translateZ(0) !important;
         transform: translateZ(0) !important;
@@ -2048,9 +2051,15 @@ iframe {
     .hero-container {
         grid-template-columns: 1fr !important;
         text-align: center !important;
-        gap: 30px !important;
+        gap: 25px !important;
         padding: 0 20px !important;
         max-width: 100% !important;
+        width: 100% !important;
+        margin: 0 auto !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
     }
     
     .hero-title {
@@ -2079,23 +2088,25 @@ iframe {
     
     .hero-description {
         font-size: 1rem !important;
-        line-height: 1.6 !important;
-        margin-bottom: 30px !important;
-        padding: 0 10px !important;
-        max-width: 85% !important;
+        line-height: 1.5 !important;
+        margin-bottom: 25px !important;
+        padding: 0 15px !important;
+        max-width: 90% !important;
         margin-left: auto !important;
         margin-right: auto !important;
         color: var(--text-light) !important;
         text-align: center !important;
         font-weight: 400 !important;
+        word-spacing: normal !important;
+        letter-spacing: normal !important;
     }
     
     /* Mobile Buttons - PROFESSIONAL SINGLE CTA */
     .hero-buttons {
         flex-direction: column !important;
         align-items: center !important;
-        gap: 12px !important;
-        margin-bottom: 35px !important;
+        gap: 15px !important;
+        margin-bottom: 30px !important;
     }
     
     /* Show only primary CTA button on mobile */
@@ -2214,13 +2225,15 @@ iframe {
     }
     
     .section-header p {
-        font-size: 0.95rem !important;
+        font-size: 1rem !important;
         line-height: 1.5 !important;
-        padding: 0 10px !important;
-        max-width: 85% !important;
+        padding: 0 20px !important;
+        max-width: 90% !important;
         margin: 0 auto !important;
         color: var(--text-light) !important;
         text-align: center !important;
+        word-spacing: normal !important;
+        letter-spacing: normal !important;
     }
     
     .features-content,
@@ -2348,12 +2361,14 @@ iframe {
     }
     
     .service-card p {
-        font-size: 0.85rem !important;
+        font-size: 0.9rem !important;
         line-height: 1.5 !important;
         margin-bottom: 16px !important;
         color: var(--text-light) !important;
         text-align: center !important;
-        padding: 0 8px !important;
+        padding: 0 10px !important;
+        word-spacing: normal !important;
+        letter-spacing: normal !important;
     }
     
     /* Hide service features on mobile to prevent clutter */
@@ -2425,10 +2440,12 @@ iframe {
     }
     
     .industry-card p {
-        font-size: 0.75rem !important;
-        line-height: 1.3 !important;
+        font-size: 0.8rem !important;
+        line-height: 1.4 !important;
         color: var(--text-light) !important;
         margin: 0 !important;
+        word-spacing: normal !important;
+        letter-spacing: normal !important;
     }
     
     /* Mobile About - MINIMALIST & PROFESSIONAL */
@@ -2459,24 +2476,28 @@ iframe {
         line-height: 1.6 !important;
         text-align: center !important;
         margin-bottom: 20px !important;
-        padding: 0 10px !important;
+        padding: 0 20px !important;
         color: var(--primary-color) !important;
         font-weight: 500 !important;
         max-width: 90% !important;
         margin-left: auto !important;
         margin-right: auto !important;
+        word-spacing: normal !important;
+        letter-spacing: normal !important;
     }
     
     .about-text p {
-        font-size: 0.9rem !important;
+        font-size: 0.95rem !important;
         line-height: 1.6 !important;
         text-align: center !important;
         margin-bottom: 0 !important;
-        padding: 0 10px !important;
+        padding: 0 20px !important;
         color: var(--text-light) !important;
-        max-width: 85% !important;
+        max-width: 90% !important;
         margin-left: auto !important;
         margin-right: auto !important;
+        word-spacing: normal !important;
+        letter-spacing: normal !important;
     }
     
     .about-values {
@@ -2565,39 +2586,49 @@ iframe {
     }
     
     .contact-info {
-        flex-direction: row !important;
-        justify-content: center !important;
-        flex-wrap: wrap !important;
-        gap: 12px !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 16px !important;
         text-align: center !important;
-        padding: 0 !important;
-        margin-top: 20px !important;
+        padding: 0 20px !important;
+        margin-top: 30px !important;
     }
     
     .contact-item {
-        flex-direction: column !important;
-        text-align: center !important;
-        gap: 8px !important;
-        padding: 16px 12px !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        text-align: left !important;
+        gap: 15px !important;
+        padding: 16px 20px !important;
         background: white !important;
-        border-radius: 10px !important;
-        width: calc(50% - 6px) !important;
-        max-width: 140px !important;
-        min-width: 120px !important;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06) !important;
+        border-radius: 12px !important;
+        width: 100% !important;
+        max-width: 300px !important;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08) !important;
         box-sizing: border-box !important;
-        border: 1px solid rgba(102, 126, 234, 0.08) !important;
-        flex: 0 1 auto !important;
+        border: 1px solid rgba(102, 126, 234, 0.1) !important;
     }
     
     .contact-item i {
-        font-size: 1.2rem !important;
+        font-size: 1.5rem !important;
         color: var(--primary-color) !important;
-        margin-bottom: 6px !important;
+        margin: 0 !important;
+        flex-shrink: 0 !important;
+        width: 40px !important;
+        height: 40px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        background: rgba(102, 126, 234, 0.1) !important;
+        border-radius: 10px !important;
+    }
+    
+    .contact-item-content {
+        flex: 1 !important;
     }
     
     .contact-item h4 {
-        font-size: 0.9rem !important;
+        font-size: 1rem !important;
         margin-bottom: 4px !important;
         color: var(--text-color) !important;
         font-weight: 600 !important;
@@ -2605,11 +2636,12 @@ iframe {
     }
     
     .contact-item p {
-        font-size: 0.75rem !important;
+        font-size: 0.85rem !important;
         line-height: 1.3 !important;
         color: var(--text-light) !important;
         margin: 0 !important;
-        text-align: center !important;
+        word-spacing: normal !important;
+        letter-spacing: normal !important;
     }
     
     /* Mobile Container - PROPERLY SCALED */
