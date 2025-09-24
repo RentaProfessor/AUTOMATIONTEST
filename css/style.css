@@ -2089,22 +2089,22 @@ iframe {
         transform: rotate(-45deg) translate(6px, -6px) !important;
     }
     
-    /* Mobile Hero Section - FIXED NO-STRETCH LAYOUT */
+    /* Mobile Hero Section - EXTENDED BACKGROUND */
     .hero {
         padding: 0 !important;
-        height: 100vh !important;
-        height: 100dvh !important;
-        min-height: 100vh !important;
-        min-height: 100dvh !important;
-        max-height: 100vh !important;
-        max-height: 100dvh !important;
+        height: calc(100vh + 30px) !important;
+        height: calc(100dvh + 30px) !important;
+        min-height: calc(100vh + 30px) !important;
+        min-height: calc(100dvh + 30px) !important;
+        max-height: calc(100vh + 30px) !important;
+        max-height: calc(100dvh + 30px) !important;
         position: relative !important;
         background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
         background-color: #f8fafc !important; /* Safari fallback */
         display: block !important;
         overflow: hidden !important;
         margin-top: 0 !important;
-        margin-bottom: 0 !important;
+        margin-bottom: -30px !important;
         /* Prevent any scroll effects */
         transform: none !important;
         will-change: auto !important;
@@ -2241,14 +2241,14 @@ iframe {
         box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3) !important;
     }
     
-    /* Mobile Stats - POSITIONED STATS BOX */
+    /* Mobile Stats - ELEVATED STATS BOX */
     .hero-stats {
         display: block !important;
         text-align: center !important;
         padding: 15px !important;
         background: rgba(255, 255, 255, 0.95) !important;
         border-radius: 10px !important;
-        margin: 25px auto 30px auto !important;
+        margin: 25px auto 50px auto !important;
         box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08) !important;
         border: 1px solid rgba(102, 126, 234, 0.1) !important;
         position: static !important;
