@@ -337,6 +337,10 @@ body {
     transform: none !important;
     position: relative;
     z-index: 2;
+    /* Prevent any scroll-based transforms */
+    will-change: auto !important;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
 .hero-title {
@@ -2146,6 +2150,9 @@ iframe {
         transform: none !important;
         will-change: auto !important;
         position: static !important;
+        /* Lock against any scroll effects */
+        backface-visibility: hidden !important;
+        -webkit-backface-visibility: hidden !important;
     }
     
     .gradient-text {

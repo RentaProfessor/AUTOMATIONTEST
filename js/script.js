@@ -446,56 +446,16 @@ function initScrollEffects() {
     // highlightActiveNavigation();
 }
 
-// Create scroll progress bar (DESKTOP ONLY)
+// Create scroll progress bar - COMPLETELY DISABLED
 function createScrollProgressBar() {
-    // MOBILE PERFORMANCE: Disable scroll progress bar on mobile
-    if (window.innerWidth <= 768) {
-        return;
-    }
-    
-    const progressBar = document.createElement('div');
-    progressBar.className = 'scroll-progress';
-    progressBar.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 0%;
-        height: 3px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        z-index: 9999;
-        transition: width 0.1s ease;
-    `;
-    document.body.appendChild(progressBar);
-    
-    window.addEventListener('scroll', () => {
-        const scrolled = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
-        progressBar.style.width = `${scrolled}%`;
-    });
+    // DISABLED - was causing scroll glitches
+    return;
 }
 
-// Highlight active navigation
+// Highlight active navigation - COMPLETELY DISABLED
 function highlightActiveNavigation() {
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-menu a[href^="#"]');
-    
-    window.addEventListener('scroll', () => {
-        let current = '';
-        
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            if (window.scrollY >= sectionTop - 200) {
-                current = section.getAttribute('id');
-            }
-        });
-        
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === `#${current}`) {
-                link.classList.add('active');
-            }
-        });
-    });
+    // DISABLED - was causing scroll glitches
+    return;
 }
 
 // Typing effect for hero section (DESKTOP ONLY)
@@ -589,16 +549,17 @@ function throttle(func, limit) {
     };
 }
 
-// Performance optimization
+// Performance optimization - SCROLL DISABLED
 const debouncedScroll = debounce(() => {
-    // Expensive scroll operations
+    // DISABLED - was causing scroll glitches
 }, 10);
 
 const throttledResize = throttle(() => {
     // Expensive resize operations
 }, 100);
 
-window.addEventListener('scroll', debouncedScroll);
+// DISABLED scroll listener - was causing parallax glitches
+// window.addEventListener('scroll', debouncedScroll);
 window.addEventListener('resize', throttledResize);
 
 // Add CSS animations
