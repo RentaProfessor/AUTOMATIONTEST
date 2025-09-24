@@ -115,11 +115,11 @@ function fixChromeViewportHeight() {
         // Set initial viewport height
         setViewportHeight();
         
-        // Update on resize (for when Chrome address bar appears/disappears)
+        // Update on resize (for when Chrome address bar appears/disappears) - DEBOUNCED
         let resizeTimeout;
         window.addEventListener('resize', function() {
             clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(setViewportHeight, 150);
+            resizeTimeout = setTimeout(setViewportHeight, 250); // Increased delay to reduce glitching
         });
         
         // Update on orientation change
@@ -127,11 +127,16 @@ function fixChromeViewportHeight() {
             setTimeout(setViewportHeight, 600);
         });
         
-        // Update on scroll (Chrome address bar behavior)
+        // Update on scroll (Chrome address bar behavior) - REDUCED FREQUENCY
         let scrollTimeout;
+        let lastScrollTime = 0;
         window.addEventListener('scroll', function() {
-            clearTimeout(scrollTimeout);
-            scrollTimeout = setTimeout(setViewportHeight, 200);
+            const now = Date.now();
+            if (now - lastScrollTime > 300) { // Throttle to max once per 300ms
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(setViewportHeight, 400);
+                lastScrollTime = now;
+            }
         }, { passive: true });
         
         console.log('Chrome mobile viewport height fix applied');
@@ -779,21 +784,29 @@ function initIframeHandling() {
         const container = iframe.closest('.iframe-container');
         console.log(`Iframe ${index + 1}:`, iframe.src);
         
-        // MOBILE DESKTOP VIEW ENFORCEMENT
-        if (isMobile) {
-            // Force desktop parameters in iframe URL if not already present
-            let iframeUrl = new URL(iframe.src);
-            iframeUrl.searchParams.set('desktop', '1');
-            iframeUrl.searchParams.set('mobile', '0');
-            iframeUrl.searchParams.set('width', '1200');
-            iframeUrl.searchParams.set('viewport', '1200x800');
-            iframeUrl.searchParams.set('force_desktop', '1');
+        // MOBILE DESKTOP VIEW ENFORCEMENT - PREVENT RELOADS
+        if (isMobile && !iframe.getAttribute('data-mobile-processed')) {
+            // Check if desktop parameters are already present to avoid unnecessary reloads
+            const currentUrl = new URL(iframe.src);
+            const hasDesktopParams = currentUrl.searchParams.has('desktop') && 
+                                   currentUrl.searchParams.has('force_desktop');
             
-            // Update iframe src with desktop parameters
-            iframe.src = iframeUrl.toString();
+            // Only modify URL if desktop parameters are missing
+            if (!hasDesktopParams) {
+                console.log('Adding desktop parameters to iframe:', iframe.src);
+                currentUrl.searchParams.set('desktop', '1');
+                currentUrl.searchParams.set('mobile', '0');
+                currentUrl.searchParams.set('width', '1200');
+                currentUrl.searchParams.set('viewport', '1200x800');
+                currentUrl.searchParams.set('force_desktop', '1');
+                
+                // Update iframe src only if parameters were missing
+                iframe.src = currentUrl.toString();
+            }
             
-            // Apply mobile-specific iframe attributes for desktop view
+            // Apply mobile-specific iframe attributes for desktop view (non-reloading)
             iframe.setAttribute('data-mobile-desktop', 'true');
+            iframe.setAttribute('data-mobile-processed', 'true'); // Prevent reprocessing
             iframe.style.setProperty('width', '400%', 'important');
             iframe.style.setProperty('height', '400%', 'important');
             iframe.style.setProperty('transform', 'scale(0.25)', 'important');
@@ -801,7 +814,7 @@ function initIframeHandling() {
             iframe.style.setProperty('min-width', '1200px', 'important');
             iframe.style.setProperty('min-height', '800px', 'important');
             
-            console.log('Mobile desktop view enforced for iframe:', iframe.src);
+            console.log('Mobile desktop view configured for iframe (no reload)');
         }
         
         // Set initial loading state
@@ -824,33 +837,10 @@ function initIframeHandling() {
             console.log('Iframe loaded successfully:', this.src);
             clearTimeout(loadingTimeout);
             
-            // MOBILE: Re-enforce desktop view after load
-            if (isMobile) {
-                this.style.setProperty('width', '400%', 'important');
-                this.style.setProperty('height', '400%', 'important');
-                this.style.setProperty('transform', 'scale(0.25)', 'important');
-                this.style.setProperty('transform-origin', 'top left', 'important');
-                this.style.setProperty('min-width', '1200px', 'important');
-                this.style.setProperty('min-height', '800px', 'important');
+            // MOBILE: Ensure pointer events are disabled after load (non-intrusive)
+            if (isMobile && this.getAttribute('data-mobile-desktop')) {
                 this.style.setProperty('pointer-events', 'none', 'important');
-                
-                // Inject desktop viewport meta tag into iframe if possible
-                try {
-                    const iframeDoc = this.contentDocument || this.contentWindow.document;
-                    if (iframeDoc) {
-                        let viewportMeta = iframeDoc.querySelector('meta[name="viewport"]');
-                        if (!viewportMeta) {
-                            viewportMeta = iframeDoc.createElement('meta');
-                            viewportMeta.name = 'viewport';
-                            iframeDoc.head.appendChild(viewportMeta);
-                        }
-                        viewportMeta.content = 'width=1200, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
-                    }
-                } catch (e) {
-                    console.log('Cannot access iframe content (cross-origin):', e.message);
-                }
-                
-                console.log('Mobile desktop view re-enforced after load');
+                console.log('Mobile iframe interaction disabled after load');
             }
             
             // Optimized delay for mobile performance
