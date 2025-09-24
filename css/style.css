@@ -2089,22 +2089,22 @@ iframe {
         transform: rotate(-45deg) translate(6px, -6px) !important;
     }
     
-    /* Mobile Hero Section - SIMPLE FULLSCREEN WITHOUT OVERFLOW */
+    /* Mobile Hero Section - FULL COVERAGE NO WHITE LIP */
     .hero {
         padding: 0 !important;
-        height: 100vh !important;
-        height: 100dvh !important;
-        min-height: 100vh !important;
-        min-height: 100dvh !important;
-        max-height: 100vh !important;
-        max-height: 100dvh !important;
+        height: calc(100vh + 1px) !important;
+        height: calc(100dvh + 1px) !important;
+        min-height: calc(100vh + 1px) !important;
+        min-height: calc(100dvh + 1px) !important;
+        max-height: calc(100vh + 1px) !important;
+        max-height: calc(100dvh + 1px) !important;
         position: relative !important;
         background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
         background-color: #f8fafc !important; /* Safari fallback */
         display: block !important;
         overflow: hidden !important;
         margin-top: 0 !important;
-        margin-bottom: 0 !important;
+        margin-bottom: -1px !important;
         /* Prevent any scroll effects */
         transform: none !important;
         will-change: auto !important;
@@ -2128,7 +2128,7 @@ iframe {
         flex-direction: column !important;
         justify-content: center !important;
         position: relative !important;
-        top: 50% !important;
+        top: calc(50% + 20px) !important;
         left: 50% !important;
         transform: translate(-50%, -50%) !important;
         z-index: 2 !important;
@@ -2136,9 +2136,9 @@ iframe {
         /* PREVENT STRETCHING */
         contain: layout !important;
         box-sizing: border-box !important;
-        /* ENSURE PROPER SPACING */
-        min-height: calc(100% - 80px) !important;
-        padding-top: 80px !important;
+        /* ENSURE PROPER SPACING FROM NAV */
+        min-height: calc(100% - 100px) !important;
+        padding-top: 100px !important;
     }
     
     .hero-content {
