@@ -334,6 +334,9 @@ body {
 
 .hero-content {
     animation: fadeInUp 1s ease-out;
+    transform: none !important;
+    position: relative;
+    z-index: 2;
 }
 
 .hero-title {
@@ -2117,6 +2120,14 @@ iframe {
         flex-direction: column !important;
         justify-content: center !important;
         align-items: center !important;
+        position: relative !important;
+        z-index: 2 !important;
+    }
+    
+    .hero-content {
+        transform: none !important;
+        position: static !important;
+        will-change: auto !important;
     }
     
     .hero-title {

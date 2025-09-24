@@ -179,16 +179,16 @@ function initAnimations() {
     // Counter animation
     animateCounters();
     
-    // Parallax effect for hero section (DESKTOP ONLY)
-    window.addEventListener('scroll', function() {
-        const scrolled = window.pageYOffset;
-        const hero = document.querySelector('.hero');
-        const heroContent = document.querySelector('.hero-content');
-        
-        if (hero && heroContent) {
-            heroContent.style.transform = `translateY(${scrolled * 0.1}px)`;
-        }
-    });
+    // Parallax effect DISABLED - was causing glitchy scroll behavior
+    // window.addEventListener('scroll', function() {
+    //     const scrolled = window.pageYOffset;
+    //     const hero = document.querySelector('.hero');
+    //     const heroContent = document.querySelector('.hero-content');
+    //     
+    //     if (hero && heroContent) {
+    //         heroContent.style.transform = `translateY(${scrolled * 0.1}px)`;
+    //     }
+    // });
 }
 
 // Counter animation
