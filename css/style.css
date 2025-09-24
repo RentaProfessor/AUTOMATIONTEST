@@ -2089,29 +2089,29 @@ iframe {
         transform: rotate(-45deg) translate(6px, -6px) !important;
     }
     
-    /* Mobile Hero Section - FULL COVERAGE NO WHITE LIP */
+    /* Mobile Hero Section - EXTENDED BELOW STATS BOX */
     .hero {
-        padding: 0 !important;
-        height: calc(100vh + 1px) !important;
-        height: calc(100dvh + 1px) !important;
-        min-height: calc(100vh + 1px) !important;
-        min-height: calc(100dvh + 1px) !important;
-        max-height: calc(100vh + 1px) !important;
-        max-height: calc(100dvh + 1px) !important;
+        padding: 0 0 80px 0 !important;
+        height: calc(100vh + 80px) !important;
+        height: calc(100dvh + 80px) !important;
+        min-height: calc(100vh + 80px) !important;
+        min-height: calc(100dvh + 80px) !important;
+        max-height: calc(100vh + 80px) !important;
+        max-height: calc(100dvh + 80px) !important;
         position: relative !important;
         background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
         background-color: #f8fafc !important; /* Safari fallback */
         display: block !important;
-        overflow: hidden !important;
+        overflow: visible !important;
         margin-top: 0 !important;
-        margin-bottom: -1px !important;
+        margin-bottom: -80px !important;
         /* Prevent any scroll effects */
         transform: none !important;
         will-change: auto !important;
         /* Ensure no gaps */
         box-sizing: border-box !important;
         /* LOCK DIMENSIONS - NO STRETCHING */
-        contain: layout !important;
+        contain: none !important;
         resize: none !important;
         /* ACCOUNT FOR NAVBAR */
         padding-top: 0 !important;
@@ -2406,10 +2406,10 @@ iframe {
         word-spacing: -0.05em !important;
     }
     
-    /* Mobile Services - PROPER SPACING FROM HERO */
+    /* Mobile Services - POSITIONED AFTER HERO EXTENSION */
     .services {
         padding: 40px 0 40px !important;
-        margin-top: 0 !important;
+        margin-top: 80px !important;
         position: relative !important;
         z-index: 2 !important;
         background: var(--light-color) !important;
