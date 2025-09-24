@@ -2048,15 +2048,15 @@ iframe {
         transform: rotate(-45deg) translate(6px, -6px) !important;
     }
     
-    /* Mobile Hero Section - COMPLETE SCREEN COVERAGE */
+    /* Mobile Hero Section - EXTENDED COVERAGE */
     .hero {
-        padding: 80px 0 40px !important;
-        height: 100vh !important;
-        height: 100dvh !important; /* Dynamic viewport height for mobile */
-        min-height: 100vh !important;
-        min-height: 100dvh !important;
-        max-height: 100vh !important;
-        max-height: 100dvh !important;
+        padding: 80px 0 80px !important;
+        height: 110vh !important;
+        height: 110dvh !important; /* Extended viewport height for mobile */
+        min-height: 110vh !important;
+        min-height: 110dvh !important;
+        max-height: 110vh !important;
+        max-height: 110dvh !important;
         position: relative !important;
         background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
         background-color: #f8fafc !important; /* Safari fallback */
@@ -2064,7 +2064,7 @@ iframe {
         align-items: center !important;
         overflow: hidden !important;
         /* Ensure no white space appears below hero */
-        margin-bottom: 0 !important;
+        margin-bottom: -10vh !important;
         /* Safari-specific fixes for mobile */
         -webkit-transform: translateZ(0) !important;
         transform: translateZ(0) !important;
@@ -2134,8 +2134,8 @@ iframe {
         margin-bottom: 30px !important;
     }
     
-    /* Show only primary CTA button on mobile */
-    .hero-buttons .btn:not(:first-child) {
+    /* Show primary and portfolio buttons on mobile */
+    .hero-buttons .btn:nth-child(n+3) {
         display: none !important;
     }
     
@@ -2309,8 +2309,11 @@ iframe {
     
     /* Mobile Services - PROFESSIONAL REDESIGN */
     .services {
-        padding: 40px 0 50px !important;
-        margin-top: -20px !important;
+        padding: 60px 0 50px !important;
+        margin-top: 0 !important;
+        position: relative !important;
+        z-index: 2 !important;
+        background: var(--light-color) !important;
     }
     
     .services .section-header {
