@@ -1,7 +1,7 @@
 // FutureClarity Technologies Website JavaScript
 // Handles all interactive features and animations
 
-// IMMEDIATE Safari background fix - runs before DOMContentLoaded for reload scenarios
+// IMMEDIATE Safari background fix - enhanced for URL re-entry scenarios
 (function() {
     const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent) || 
                      /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
@@ -9,7 +9,14 @@
     if (isSafari) {
         console.log('Immediate Safari background fix initiated');
         
-        // Function to apply immediate CSS fixes
+        // Detect navigation type to handle URL re-entry vs reload differently
+        const navigationType = performance.getEntriesByType('navigation')[0]?.type || 'navigate';
+        const isUrlReentry = navigationType === 'navigate' && !document.referrer;
+        const isReload = navigationType === 'reload';
+        
+        console.log('Safari navigation type:', navigationType, 'URL re-entry:', isUrlReentry, 'Reload:', isReload);
+        
+        // Function to apply immediate CSS fixes - enhanced for URL re-entry
         const applyImmediateFix = () => {
             const style = document.createElement('style');
             style.id = 'safari-emergency-fix';
@@ -48,15 +55,33 @@
             applyImmediateFix();
         }
         
-        // Apply when hero element is available
+        // Enhanced hero element checking for URL re-entry
         const checkForHero = () => {
             const hero = document.querySelector('.hero');
             if (hero) {
-                hero.style.cssText += `
-                    background: #f5f7fa !important;
-                    background: -webkit-linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
-                    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
-                `;
+                // For URL re-entry, apply more aggressive fixes
+                if (isUrlReentry) {
+                    console.log('Applying enhanced URL re-entry fix');
+                    hero.style.cssText += `
+                        background-color: #f5f7fa !important;
+                        background-image: -webkit-linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+                        background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+                        background: -webkit-linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+                        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+                        -webkit-transform: translateZ(0) scale(1.0001) !important;
+                        transform: translateZ(0) scale(1.0001) !important;
+                        -webkit-backface-visibility: hidden !important;
+                        backface-visibility: hidden !important;
+                        isolation: isolate !important;
+                        contain: layout style paint !important;
+                    `;
+                } else {
+                    hero.style.cssText += `
+                        background: #f5f7fa !important;
+                        background: -webkit-linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+                        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+                    `;
+                }
                 console.log('Immediate Safari hero fix applied');
             } else {
                 setTimeout(checkForHero, 10);
@@ -64,6 +89,42 @@
         };
         
         checkForHero();
+        
+        // Additional fix specifically for URL re-entry after a delay
+        if (isUrlReentry) {
+            setTimeout(() => {
+                const hero = document.querySelector('.hero');
+                if (hero) {
+                    console.log('Applying delayed URL re-entry background fix');
+                    const computedStyle = window.getComputedStyle(hero);
+                    const bgColor = computedStyle.backgroundColor;
+                    
+                    // Check if background is problematic after URL re-entry
+                    if (!bgColor || bgColor === 'rgba(0, 0, 0, 0)' || 
+                        (bgColor.includes('rgb') && bgColor.match(/\d+/g)?.every(val => parseInt(val) < 200))) {
+                        
+                        // Nuclear option for URL re-entry
+                        hero.style.cssText = `
+                            background-color: #f5f7fa !important;
+                            background-image: -webkit-linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+                            background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+                            background: -webkit-linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+                            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+                            padding: 140px 0 80px !important;
+                            position: relative !important;
+                            overflow: hidden !important;
+                            margin-top: 0 !important;
+                            -webkit-transform: translateZ(0) !important;
+                            transform: translateZ(0) !important;
+                            -webkit-backface-visibility: hidden !important;
+                            backface-visibility: hidden !important;
+                            will-change: background !important;
+                        `;
+                        console.log('Nuclear URL re-entry fix applied');
+                    }
+                }
+            }, 250);
+        }
     }
 })();
 
@@ -209,7 +270,7 @@ function fixChromeViewportHeight() {
     }
 }
 
-// ULTIMATE Safari hero background fix - handles all reload scenarios
+// ULTIMATE Safari hero background fix - handles all reload scenarios including URL re-entry
 function fixSafariHeroBackground() {
     // Enhanced Safari detection (including Safari on iOS and macOS)
     const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent) || 
@@ -219,6 +280,12 @@ function fixSafariHeroBackground() {
         const hero = document.querySelector('.hero');
         if (hero) {
             console.log('Applying ULTIMATE Safari hero background fix...');
+            
+            // Detect if this is a URL re-entry scenario
+            const navigationType = performance.getEntriesByType('navigation')[0]?.type || 'navigate';
+            const isUrlReentry = navigationType === 'navigate' && !document.referrer;
+            
+            console.log('Safari fix - Navigation type:', navigationType, 'URL re-entry:', isUrlReentry);
             
             // CRITICAL: Completely reset background properties first
             hero.style.removeProperty('background');
@@ -240,9 +307,16 @@ function fixSafariHeroBackground() {
                 hero.style.setProperty('background', '-webkit-linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)', 'important');
                 hero.style.setProperty('background', 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)', 'important');
                 
+                // Enhanced transform for URL re-entry scenarios
+                if (isUrlReentry) {
+                    hero.style.setProperty('-webkit-transform', 'translateZ(0) scale(1.0001)', 'important');
+                    hero.style.setProperty('transform', 'translateZ(0) scale(1.0001)', 'important');
+                } else {
+                    hero.style.setProperty('-webkit-transform', 'translateZ(0)', 'important');
+                    hero.style.setProperty('transform', 'translateZ(0)', 'important');
+                }
+                
                 // Force Safari-specific rendering properties
-                hero.style.setProperty('-webkit-transform', 'translateZ(0)', 'important');
-                hero.style.setProperty('transform', 'translateZ(0)', 'important');
                 hero.style.setProperty('-webkit-backface-visibility', 'hidden', 'important');
                 hero.style.setProperty('backface-visibility', 'hidden', 'important');
                 hero.style.setProperty('-webkit-transform-style', 'preserve-3d', 'important');
@@ -253,7 +327,7 @@ function fixSafariHeroBackground() {
                 hero.style.setProperty('contain', 'layout style paint', 'important');
                 hero.style.setProperty('will-change', 'background', 'important');
                 
-                console.log('Safari background properties applied');
+                console.log('Safari background properties applied (URL re-entry:', isUrlReentry, ')');
             };
             
             // Apply immediately
@@ -928,8 +1002,16 @@ window.addEventListener('load', function() {
         // Immediate fix on load
         fixSafariHeroBackground();
         
-        // Progressive fixes for different Safari reload scenarios
-        const timeouts = [50, 100, 200, 300, 500, 750, 1000, 1500, 2000];
+        // Progressive fixes for different Safari reload scenarios - enhanced for URL re-entry
+        const navigationType = performance.getEntriesByType('navigation')[0]?.type || 'navigate';
+        const isUrlReentry = navigationType === 'navigate' && !document.referrer;
+        
+        // More aggressive timing for URL re-entry scenarios
+        const timeouts = isUrlReentry ? 
+            [25, 50, 100, 150, 200, 300, 400, 500, 750, 1000, 1250, 1500, 2000, 2500] :
+            [50, 100, 200, 300, 500, 750, 1000, 1500, 2000];
+        
+        console.log('Safari load fix - URL re-entry detected:', isUrlReentry, 'Using', timeouts.length, 'timeout intervals');
         
         timeouts.forEach((delay, index) => {
             setTimeout(() => {
