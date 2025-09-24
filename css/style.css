@@ -2243,21 +2243,23 @@ iframe {
         box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3) !important;
     }
     
-    /* Mobile Stats - PROPERLY POSITIONED BETWEEN BUTTONS AND BOTTOM */
+    /* Mobile Stats - POSITIONED WITHIN VIEWPORT BOTTOM */
     .hero-stats {
         display: block !important;
         text-align: center !important;
         padding: 15px !important;
         background: rgba(255, 255, 255, 0.95) !important;
         border-radius: 10px !important;
-        margin: 25px auto 0 auto !important;
+        margin: 15px auto 0 auto !important;
         box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08) !important;
         border: 1px solid rgba(102, 126, 234, 0.1) !important;
-        position: static !important;
+        position: absolute !important;
+        bottom: 120px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
         z-index: 3 !important;
         width: calc(100% - 40px) !important;
         max-width: 300px !important;
-        transform: none !important;
         will-change: auto !important;
         /* PREVENT STRETCHING */
         contain: layout !important;
