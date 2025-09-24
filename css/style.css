@@ -2119,14 +2119,16 @@ iframe {
     
     .hero-container {
         text-align: center !important;
-        padding: 0 20px !important;
+        padding: 0 20px 40px 20px !important;
         max-width: 100% !important;
         width: 100% !important;
         height: auto !important;
         margin: 0 auto !important;
-        display: block !important;
-        position: absolute !important;
-        top: calc(50% + 50px) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        position: relative !important;
+        top: 50% !important;
         left: 50% !important;
         transform: translate(-50%, -50%) !important;
         z-index: 2 !important;
@@ -2134,9 +2136,9 @@ iframe {
         /* PREVENT STRETCHING */
         contain: layout !important;
         box-sizing: border-box !important;
-        /* ENSURE VISIBILITY BELOW NAVBAR */
-        margin-top: 0 !important;
-        padding-top: 0 !important;
+        /* ENSURE PROPER SPACING */
+        min-height: calc(100% - 80px) !important;
+        padding-top: 80px !important;
     }
     
     .hero-content {
@@ -2202,11 +2204,11 @@ iframe {
         letter-spacing: normal !important;
     }
     
-    /* Mobile Buttons - NO STRETCH LAYOUT */
+    /* Mobile Buttons - PROPER SPACING FROM STATS */
     .hero-buttons {
         display: block !important;
         text-align: center !important;
-        margin-bottom: 20px !important;
+        margin-bottom: 30px !important;
         margin-top: 25px !important;
         /* PREVENT STRETCHING */
         contain: layout !important;
@@ -2241,23 +2243,21 @@ iframe {
         box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3) !important;
     }
     
-    /* Mobile Stats - FLOATING BOX MOVED UP FROM BOTTOM */
+    /* Mobile Stats - PROPERLY POSITIONED BETWEEN BUTTONS AND BOTTOM */
     .hero-stats {
         display: block !important;
         text-align: center !important;
         padding: 15px !important;
         background: rgba(255, 255, 255, 0.95) !important;
         border-radius: 10px !important;
-        margin: 15px auto 0 auto !important;
+        margin: 25px auto 0 auto !important;
         box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08) !important;
         border: 1px solid rgba(102, 126, 234, 0.1) !important;
-        position: absolute !important;
-        bottom: 60px !important;
-        left: 50% !important;
-        transform: translateX(-50%) !important;
+        position: static !important;
         z-index: 3 !important;
         width: calc(100% - 40px) !important;
         max-width: 300px !important;
+        transform: none !important;
         will-change: auto !important;
         /* PREVENT STRETCHING */
         contain: layout !important;
