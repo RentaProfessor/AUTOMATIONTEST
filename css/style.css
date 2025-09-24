@@ -2083,19 +2083,20 @@ iframe {
         transform: rotate(-45deg) translate(6px, -6px) !important;
     }
     
-    /* Mobile Hero Section - COMPLETE PAGE COVERAGE */
+    /* Mobile Hero Section - NATURAL FULLSCREEN */
     .hero {
-        padding: 90px 0 60px !important;
-        height: 110vh !important;
-        height: 110dvh !important;
-        min-height: 110vh !important;
-        min-height: 110dvh !important;
+        padding: 80px 0 40px !important;
+        height: 100vh !important;
+        height: 100dvh !important;
+        min-height: 100vh !important;
+        min-height: 100dvh !important;
         max-height: none !important;
         position: relative !important;
         background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
         background-color: #f8fafc !important; /* Safari fallback */
         display: flex !important;
         align-items: center !important;
+        justify-content: center !important;
         overflow: hidden !important;
         margin-top: 0 !important;
         margin-bottom: 0 !important;
@@ -2107,15 +2108,15 @@ iframe {
     .hero-container {
         grid-template-columns: 1fr !important;
         text-align: center !important;
-        gap: 30px !important;
+        gap: 20px !important;
         padding: 0 20px !important;
         max-width: 100% !important;
         width: 100% !important;
-        height: 100% !important;
+        height: auto !important;
         margin: 0 auto !important;
         display: flex !important;
         flex-direction: column !important;
-        justify-content: space-between !important;
+        justify-content: center !important;
         align-items: center !important;
         position: static !important;
         z-index: 2 !important;
@@ -2132,7 +2133,7 @@ iframe {
         flex-direction: column !important;
         justify-content: center !important;
         align-items: center !important;
-        flex: 1 !important;
+        flex: none !important;
         width: 100% !important;
     }
     
@@ -2218,16 +2219,17 @@ iframe {
         display: flex !important;
         justify-content: space-evenly !important;
         gap: 15px !important;
-        padding: 20px !important;
+        padding: 15px !important;
         background: rgba(255, 255, 255, 0.95) !important;
         border-radius: 10px !important;
-        margin: 20px !important;
+        margin: 15px auto 0 auto !important;
         box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08) !important;
         border: 1px solid rgba(102, 126, 234, 0.1) !important;
         position: static !important;
         z-index: 3 !important;
         flex-shrink: 0 !important;
         width: calc(100% - 40px) !important;
+        max-width: 300px !important;
         transform: none !important;
         will-change: auto !important;
     }
