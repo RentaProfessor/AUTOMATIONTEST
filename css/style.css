@@ -2089,22 +2089,22 @@ iframe {
         transform: rotate(-45deg) translate(6px, -6px) !important;
     }
     
-    /* Mobile Hero Section - EXTENDED HEIGHT WITH BACKGROUND PADDING */
+    /* Mobile Hero Section - SIMPLE FULLSCREEN WITH SMALL EXTENSION */
     .hero {
-        padding: 0 0 120px 0 !important;
-        height: calc(100vh + 120px) !important;
-        height: calc(100dvh + 120px) !important;
-        min-height: calc(100vh + 120px) !important;
-        min-height: calc(100dvh + 120px) !important;
-        max-height: calc(100vh + 120px) !important;
-        max-height: calc(100dvh + 120px) !important;
+        padding: 0 0 40px 0 !important;
+        height: calc(100vh + 40px) !important;
+        height: calc(100dvh + 40px) !important;
+        min-height: calc(100vh + 40px) !important;
+        min-height: calc(100dvh + 40px) !important;
+        max-height: calc(100vh + 40px) !important;
+        max-height: calc(100dvh + 40px) !important;
         position: relative !important;
         background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
         background-color: #f8fafc !important; /* Safari fallback */
         display: block !important;
         overflow: hidden !important;
         margin-top: 0 !important;
-        margin-bottom: -120px !important;
+        margin-bottom: -40px !important;
         /* Prevent any scroll effects */
         transform: none !important;
         will-change: auto !important;
@@ -2241,14 +2241,14 @@ iframe {
         box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3) !important;
     }
     
-    /* Mobile Stats - HIGH FLOATING BOX */
+    /* Mobile Stats - PROPERLY POSITIONED FLOATING BOX */
     .hero-stats {
         display: block !important;
         text-align: center !important;
         padding: 15px !important;
         background: rgba(255, 255, 255, 0.95) !important;
         border-radius: 10px !important;
-        margin: 25px auto 0 auto !important;
+        margin: 25px auto 30px auto !important;
         box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08) !important;
         border: 1px solid rgba(102, 126, 234, 0.1) !important;
         position: static !important;
