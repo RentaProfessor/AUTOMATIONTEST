@@ -2,6 +2,9 @@
 // Handles all interactive features and animations
 
 document.addEventListener('DOMContentLoaded', function() {
+    // Chrome mobile zoom fix - must be first
+    fixChromeZoom();
+    
     // Chrome mobile viewport height fix
     fixChromeViewportHeight();
     
@@ -23,6 +26,55 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Mobile optimization active - text animations disabled for better performance');
     }
 });
+
+// Fix Chrome mobile zoom issues
+function fixChromeZoom() {
+    // Check if it's Chrome mobile
+    const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+    const isMobile = window.innerWidth <= 768;
+    
+    if (isChrome && isMobile) {
+        // Force zoom to 1
+        document.body.style.zoom = '1';
+        document.documentElement.style.zoom = '1';
+        
+        // Set viewport meta tag for Chrome
+        let viewport = document.querySelector('meta[name="viewport"]');
+        if (viewport) {
+            viewport.setAttribute('content', 
+                'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui'
+            );
+        }
+        
+        // Force layout recalculation
+        document.body.offsetHeight;
+        
+        // Additional Chrome zoom prevention
+        document.addEventListener('gesturestart', function(e) {
+            e.preventDefault();
+        });
+        
+        document.addEventListener('gesturechange', function(e) {
+            e.preventDefault();
+        });
+        
+        document.addEventListener('gestureend', function(e) {
+            e.preventDefault();
+        });
+        
+        // Prevent double-tap zoom
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function(event) {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+        
+        console.log('Chrome mobile zoom fix applied');
+    }
+}
 
 // Fix Chrome mobile viewport height issues
 function fixChromeViewportHeight() {

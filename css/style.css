@@ -2935,6 +2935,24 @@ iframe {
 /* Chrome Mobile Specific Fixes */
 @supports (-webkit-appearance: none) and (not (color-scheme: light dark)) {
     @media (max-width: 768px) {
+        /* Chrome Zoom and Scale Fix */
+        html {
+            -webkit-text-size-adjust: 100% !important;
+            -webkit-zoom: 1 !important;
+            zoom: 1 !important;
+        }
+        
+        body {
+            -webkit-text-size-adjust: 100% !important;
+            zoom: 1 !important;
+            -webkit-zoom: 1 !important;
+            /* Chrome scale fix */
+            min-zoom: 1 !important;
+            max-zoom: 1 !important;
+            user-scalable: no !important;
+            -webkit-user-scalable: no !important;
+        }
+        
         /* Chrome Navigation Bar Fix */
         .navbar {
             position: fixed !important;
@@ -2948,15 +2966,22 @@ iframe {
             -webkit-backdrop-filter: blur(20px) !important;
             box-shadow: 0 2px 20px rgba(0, 0, 0, 0.15) !important;
             /* Chrome rendering optimization */
-            -webkit-transform: translate3d(0, 0, 0) !important;
-            transform: translate3d(0, 0, 0) !important;
+            -webkit-transform: translate3d(0, 0, 0) scale(1) !important;
+            transform: translate3d(0, 0, 0) scale(1) !important;
             will-change: transform !important;
+            /* Chrome zoom fix */
+            zoom: 1 !important;
+            -webkit-zoom: 1 !important;
         }
         
         .nav-container {
-            padding: 15px 20px !important;
+            padding: 12px 15px !important;
             max-width: 100% !important;
             box-sizing: border-box !important;
+        }
+        
+        .nav-logo h2 {
+            font-size: 1.6rem !important;
         }
         
         .hero {
@@ -2965,58 +2990,64 @@ iframe {
             min-height: calc(var(--vh, 1vh) * 100 + 80px) !important;
             max-height: calc(var(--vh, 1vh) * 100 + 80px) !important;
             /* Chrome rendering fix */
-            -webkit-transform: translateZ(0) !important;
-            transform: translateZ(0) !important;
+            -webkit-transform: translateZ(0) scale(1) !important;
+            transform: translateZ(0) scale(1) !important;
             /* Account for Chrome nav bar */
             margin-top: 0 !important;
             padding-top: 0 !important;
+            /* Chrome zoom fix */
+            zoom: 1 !important;
+            -webkit-zoom: 1 !important;
         }
         
         .hero-container {
             /* Chrome flexbox improvements */
             -webkit-align-items: center !important;
             align-items: center !important;
-            /* Chrome spacing fix - more aggressive */
-            padding: 90px 20px 20px 20px !important;
+            /* Chrome spacing fix - adjusted for proper zoom */
+            padding: 80px 15px 15px 15px !important;
             top: 0 !important;
             bottom: 60px !important;
             /* Chrome positioning fix */
             -webkit-transform: none !important;
             transform: none !important;
+            /* Chrome zoom fix */
+            zoom: 1 !important;
+            -webkit-zoom: 1 !important;
         }
         
         .hero-title {
-            /* Chrome text sizing */
-            font-size: 1.9rem !important;
-            margin-bottom: 12px !important;
+            /* Chrome text sizing - larger since zoom is fixed */
+            font-size: 2.1rem !important;
+            margin-bottom: 15px !important;
             margin-top: 10px !important;
         }
         
         .hero-description {
-            /* Chrome description sizing */
-            font-size: 0.9rem !important;
-            margin-bottom: 18px !important;
+            /* Chrome description sizing - larger since zoom is fixed */
+            font-size: 1rem !important;
+            margin-bottom: 20px !important;
         }
         
         .hero-buttons {
             /* Chrome button spacing */
-            margin-top: 12px !important;
-            margin-bottom: 8px !important;
+            margin-top: 15px !important;
+            margin-bottom: 10px !important;
         }
         
         .hero-stats {
             /* Chrome positioning fix */
-            margin: 6px auto 0 auto !important;
-            max-width: 260px !important;
-            padding: 10px !important;
+            margin: 8px auto 0 auto !important;
+            max-width: 280px !important;
+            padding: 12px !important;
         }
         
         .stat-number {
-            font-size: 1.2rem !important;
+            font-size: 1.3rem !important;
         }
         
         .stat-label {
-            font-size: 0.7rem !important;
+            font-size: 0.75rem !important;
         }
     }
 }
