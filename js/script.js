@@ -143,31 +143,75 @@ function fixChromeViewportHeight() {
     }
 }
 
-// Fix Safari hero background rendering issue
+// Fix Safari hero background rendering issue - ENHANCED FOR RELOAD
 function fixSafariHeroBackground() {
-    // Detect Safari browser
+    // Detect Safari browser (desktop and mobile)
     const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
     
     if (isSafari) {
         const hero = document.querySelector('.hero');
         if (hero) {
-            // Force redraw by temporarily changing and restoring a property
-            const originalTransform = hero.style.transform;
-            hero.style.transform = 'translateZ(0)';
+            console.log('Applying Safari hero background fix...');
             
-            // Use requestAnimationFrame to ensure the change is applied
+            // FORCE BACKGROUND RE-RENDER - Multiple approaches for reliability
+            
+            // Method 1: Re-apply gradient background explicitly
+            hero.style.backgroundImage = '';
+            hero.style.background = '';
+            
+            // Force immediate reflow
+            hero.offsetHeight;
+            
+            // Re-apply gradient with Safari-specific properties
             requestAnimationFrame(() => {
-                hero.style.transform = originalTransform;
+                hero.style.backgroundColor = '#f5f7fa';
+                hero.style.backgroundImage = '-webkit-linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)';
+                hero.style.background = 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)';
                 
-                // Also force a repaint by briefly changing opacity
-                requestAnimationFrame(() => {
-                    const originalOpacity = hero.style.opacity || '1';
-                    hero.style.opacity = '0.99';
-                    requestAnimationFrame(() => {
-                        hero.style.opacity = originalOpacity;
-                    });
-                });
+                // Method 2: Force layer composition
+                hero.style.webkitTransform = 'translateZ(0)';
+                hero.style.transform = 'translateZ(0)';
+                hero.style.webkitBackfaceVisibility = 'hidden';
+                hero.style.backfaceVisibility = 'hidden';
+                
+                // Method 3: Multiple repaints to ensure Safari renders properly
+                let repaintCount = 0;
+                const maxRepaints = 3;
+                
+                function forceRepaint() {
+                    if (repaintCount < maxRepaints) {
+                        const currentOpacity = hero.style.opacity || '1';
+                        hero.style.opacity = repaintCount % 2 === 0 ? '0.999' : '1';
+                        
+                        repaintCount++;
+                        requestAnimationFrame(() => {
+                            hero.style.opacity = currentOpacity;
+                            if (repaintCount < maxRepaints) {
+                                setTimeout(forceRepaint, 16); // ~1 frame delay
+                            }
+                        });
+                    }
+                }
+                
+                forceRepaint();
+                
+                console.log('Safari hero background fix applied');
             });
+            
+            // Method 4: Additional fix after small delay (for page reloads)
+            setTimeout(() => {
+                if (hero.style.backgroundColor !== 'rgb(245, 247, 250)') {
+                    console.log('Re-applying Safari background fix after delay');
+                    hero.style.backgroundColor = '#f5f7fa';
+                    hero.style.backgroundImage = 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)';
+                    
+                    // Force one more repaint
+                    hero.style.willChange = 'background';
+                    requestAnimationFrame(() => {
+                        hero.style.willChange = 'auto';
+                    });
+                }
+            }, 200);
         }
     }
 }
@@ -764,11 +808,49 @@ document.head.appendChild(style);
 // Initialize on DOM ready
 preloadResources();
 
-// Additional Safari fix on window load
+// Additional Safari fix on window load - ENHANCED FOR RELOAD SCENARIOS
 window.addEventListener('load', function() {
-    // Safari sometimes needs a second background fix after all resources load
-    setTimeout(fixSafariHeroBackground, 100);
+    // Safari sometimes needs multiple background fixes after all resources load
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    
+    if (isSafari) {
+        console.log('Window loaded - applying additional Safari fixes');
+        
+        // First fix after 100ms
+        setTimeout(fixSafariHeroBackground, 100);
+        
+        // Second fix after 300ms (for slower reloads)
+        setTimeout(fixSafariHeroBackground, 300);
+        
+        // Final fix after 600ms (for cached page reloads)
+        setTimeout(() => {
+            const hero = document.querySelector('.hero');
+            if (hero) {
+                // Check if background is still grey/dark
+                const computedStyle = window.getComputedStyle(hero);
+                const bgColor = computedStyle.backgroundColor;
+                
+                // If background is dark/grey (rgb values all below 200), force fix
+                if (bgColor.includes('rgb')) {
+                    const rgbValues = bgColor.match(/\d+/g);
+                    if (rgbValues && rgbValues.every(val => parseInt(val) < 200)) {
+                        console.log('Safari background still dark, applying emergency fix');
+                        fixSafariHeroBackground();
+                    }
+                }
+            }
+        }, 600);
+    }
 });
+
+// Emergency Safari fix for page visibility changes (handles reload edge cases)
+if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
+    document.addEventListener('visibilitychange', function() {
+        if (!document.hidden) {
+            setTimeout(fixSafariHeroBackground, 50);
+        }
+    });
+}
 
 // Enhanced iframe handling for portfolio with loading states and crash prevention
 function initIframeHandling() {
