@@ -1158,8 +1158,8 @@ if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
             }, 200);
         });
         
-        // Periodic check for fullscreen state
-        setInterval(() => {
+        // Periodic check for fullscreen state - WITH CLEANUP TRACKING
+        const fullscreenInterval = setInterval(() => {
             if (document.fullscreenElement || document.webkitFullscreenElement ||
                 window.innerHeight === screen.height) {
                 const hero = document.querySelector('.hero');
@@ -1175,6 +1175,10 @@ if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
                 }
             }
         }, 2000);
+        
+        // CRASH PREVENTION: Track interval for cleanup
+        if (!window.safariIntervals) window.safariIntervals = [];
+        window.safariIntervals.push(fullscreenInterval);
         
         // Apply fix when entering fullscreen programmatically
         const originalRequestFullscreen = Element.prototype.requestFullscreen;
@@ -1203,10 +1207,21 @@ function initIframeHandling() {
     const iframes = document.querySelectorAll('.iframe-container iframe');
     console.log('Found iframes:', iframes.length);
     
+    // CRASH PREVENTION: Global cleanup tracking
+    if (!window.iframeCleanupHandlers) {
+        window.iframeCleanupHandlers = [];
+        window.iframeTimeouts = [];
+        window.iframeIntervals = [];
+        window.iframeObservers = [];
+    }
+    
     // Mobile performance optimization: limit concurrent iframe loads
     const isMobile = window.innerWidth <= 768;
     let loadedCount = 0;
     const maxConcurrentLoads = isMobile ? 2 : 4;
+    
+    // CRASH PREVENTION: Clear any existing handlers first
+    cleanupIframeResources();
     
     iframes.forEach((iframe, index) => {
         const container = iframe.closest('.iframe-container');
@@ -1273,6 +1288,9 @@ function initIframeHandling() {
                 }
             }
         }, 5000); // 5 second timeout (reduced from 10s for mobile performance)
+        
+        // CRASH PREVENTION: Track timeout for cleanup
+        window.iframeTimeouts.push(loadingTimeout);
         
         // Handle iframe load success
         iframe.addEventListener('load', function() {
@@ -1359,12 +1377,15 @@ function initIframeHandling() {
             });
             
             observer.observe(iframe);
+            
+            // CRASH PREVENTION: Track observer for cleanup
+            window.iframeObservers.push(observer);
         }
         
         // MOBILE VIDEO INTERACTION FIX - Enable video controls on mobile
         if (isMobile) {
-            // Add tap interaction for video controls on mobile
-            container.addEventListener('touchstart', function(e) {
+            // CRASH PREVENTION: Create trackable event handlers
+            const touchStartHandler = function(e) {
                 if (iframe.getAttribute('data-mobile-desktop')) {
                     console.log('Mobile tap detected on iframe container');
                     
@@ -1372,14 +1393,16 @@ function initIframeHandling() {
                     iframe.style.setProperty('pointer-events', 'auto', 'important');
                     
                     // Re-disable after a short delay
-                    setTimeout(() => {
+                    const timeout = setTimeout(() => {
                         iframe.style.setProperty('pointer-events', 'none', 'important');
                     }, 3000); // 3 seconds to allow for video interaction
+                    
+                    // Track timeout for cleanup
+                    window.iframeTimeouts.push(timeout);
                 }
-            }, { passive: true });
+            };
             
-            // Add touch interaction specifically for video areas
-            container.addEventListener('touchend', function(e) {
+            const touchEndHandler = function(e) {
                 if (iframe.getAttribute('data-mobile-desktop')) {
                     console.log('Mobile touch end detected - enabling video interaction');
                     
@@ -1409,17 +1432,161 @@ function initIframeHandling() {
                     }
                     
                     // Keep pointer events enabled longer for video interaction
-                    setTimeout(() => {
+                    const timeout = setTimeout(() => {
                         iframe.style.setProperty('pointer-events', 'none', 'important');
                         console.log('Mobile iframe pointer events disabled after extended interaction period');
                     }, 5000); // Extended to 5 seconds for better video control access
+                    
+                    // Track timeout for cleanup
+                    window.iframeTimeouts.push(timeout);
                 }
-            }, { passive: true });
+            };
             
-            // Memory cleanup for mobile
-            window.addEventListener('beforeunload', () => {
-                iframe.src = 'about:blank';
+            // Add event listeners
+            container.addEventListener('touchstart', touchStartHandler, { passive: true });
+            container.addEventListener('touchend', touchEndHandler, { passive: true });
+            
+            // CRASH PREVENTION: Track handlers for cleanup
+            window.iframeCleanupHandlers.push({
+                element: container,
+                type: 'touchstart',
+                handler: touchStartHandler
             });
+            window.iframeCleanupHandlers.push({
+                element: container,
+                type: 'touchend',
+                handler: touchEndHandler
+            });
+        }
+    });
+    
+    // CRASH PREVENTION: Set up periodic memory cleanup
+    setupPeriodicCleanup();
+}
+
+// CRASH PREVENTION: Comprehensive resource cleanup function
+function cleanupIframeResources() {
+    console.log('Cleaning up iframe resources to prevent crashes');
+    
+    // Clear all tracked timeouts
+    if (window.iframeTimeouts) {
+        window.iframeTimeouts.forEach(timeout => {
+            clearTimeout(timeout);
+        });
+        window.iframeTimeouts = [];
+    }
+    
+    // Clear all tracked intervals
+    if (window.iframeIntervals) {
+        window.iframeIntervals.forEach(interval => {
+            clearInterval(interval);
+        });
+        window.iframeIntervals = [];
+    }
+    
+    // Disconnect all tracked observers
+    if (window.iframeObservers) {
+        window.iframeObservers.forEach(observer => {
+            if (observer && observer.disconnect) {
+                observer.disconnect();
+            }
+        });
+        window.iframeObservers = [];
+    }
+    
+    // Remove all tracked event listeners
+    if (window.iframeCleanupHandlers) {
+        window.iframeCleanupHandlers.forEach(handler => {
+            if (handler.element && handler.type && handler.handler) {
+                handler.element.removeEventListener(handler.type, handler.handler);
+            }
+        });
+        window.iframeCleanupHandlers = [];
+    }
+    
+    // Clean up Safari intervals
+    if (window.safariIntervals) {
+        window.safariIntervals.forEach(interval => {
+            clearInterval(interval);
+        });
+        window.safariIntervals = [];
+    }
+    
+    console.log('Iframe resource cleanup completed');
+}
+
+// CRASH PREVENTION: Set up periodic memory cleanup
+function setupPeriodicCleanup() {
+    // Clean up resources every 5 minutes to prevent memory accumulation
+    const cleanupInterval = setInterval(() => {
+        console.log('Performing periodic cleanup to prevent crashes');
+        
+        // Force garbage collection of inactive iframes
+        const iframes = document.querySelectorAll('iframe');
+        iframes.forEach(iframe => {
+            if (!iframe.getAttribute('data-loaded') && iframe.style.opacity === '0') {
+                // Reset src for inactive iframes to free memory
+                const originalSrc = iframe.src;
+                iframe.src = 'about:blank';
+                setTimeout(() => {
+                    iframe.src = originalSrc;
+                }, 100);
+            }
+        });
+        
+        // Clean up any orphaned timeouts/intervals
+        if (window.iframeTimeouts && window.iframeTimeouts.length > 10) {
+            console.log('Cleaning up excess timeouts');
+            window.iframeTimeouts = window.iframeTimeouts.slice(-5); // Keep only last 5
+        }
+        
+        // Memory usage monitoring
+        if (performance.memory) {
+            const memoryInfo = performance.memory;
+            console.log('Memory usage:', {
+                used: Math.round(memoryInfo.usedJSHeapSize / 1024 / 1024) + 'MB',
+                total: Math.round(memoryInfo.totalJSHeapSize / 1024 / 1024) + 'MB',
+                limit: Math.round(memoryInfo.jsHeapSizeLimit / 1024 / 1024) + 'MB'
+            });
+            
+            // If memory usage is high, force more aggressive cleanup
+            if (memoryInfo.usedJSHeapSize / memoryInfo.jsHeapSizeLimit > 0.8) {
+                console.warn('High memory usage detected, performing aggressive cleanup');
+                cleanupIframeResources();
+                
+                // Force iframe refresh if memory is critical
+                const iframes = document.querySelectorAll('iframe');
+                iframes.forEach(iframe => {
+                    iframe.src = iframe.src; // Force refresh
+                });
+            }
+        }
+    }, 300000); // 5 minutes
+    
+    // Track this interval too
+    if (!window.iframeIntervals) window.iframeIntervals = [];
+    window.iframeIntervals.push(cleanupInterval);
+    
+    // Clean up everything when page unloads
+    const unloadHandler = () => {
+        console.log('Page unloading, cleaning up all resources');
+        cleanupIframeResources();
+        
+        // Clear all iframes to prevent memory leaks
+        const iframes = document.querySelectorAll('iframe');
+        iframes.forEach(iframe => {
+            iframe.src = 'about:blank';
+        });
+    };
+    
+    window.addEventListener('beforeunload', unloadHandler);
+    window.addEventListener('pagehide', unloadHandler);
+    
+    // Also clean up when visibility changes (mobile background/foreground)
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            console.log('Page hidden, performing cleanup');
+            cleanupIframeResources();
         }
     });
 }
