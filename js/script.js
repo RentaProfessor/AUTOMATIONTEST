@@ -779,6 +779,31 @@ function initIframeHandling() {
         const container = iframe.closest('.iframe-container');
         console.log(`Iframe ${index + 1}:`, iframe.src);
         
+        // MOBILE DESKTOP VIEW ENFORCEMENT
+        if (isMobile) {
+            // Force desktop parameters in iframe URL if not already present
+            let iframeUrl = new URL(iframe.src);
+            iframeUrl.searchParams.set('desktop', '1');
+            iframeUrl.searchParams.set('mobile', '0');
+            iframeUrl.searchParams.set('width', '1200');
+            iframeUrl.searchParams.set('viewport', '1200x800');
+            iframeUrl.searchParams.set('force_desktop', '1');
+            
+            // Update iframe src with desktop parameters
+            iframe.src = iframeUrl.toString();
+            
+            // Apply mobile-specific iframe attributes for desktop view
+            iframe.setAttribute('data-mobile-desktop', 'true');
+            iframe.style.setProperty('width', '400%', 'important');
+            iframe.style.setProperty('height', '400%', 'important');
+            iframe.style.setProperty('transform', 'scale(0.25)', 'important');
+            iframe.style.setProperty('transform-origin', 'top left', 'important');
+            iframe.style.setProperty('min-width', '1200px', 'important');
+            iframe.style.setProperty('min-height', '800px', 'important');
+            
+            console.log('Mobile desktop view enforced for iframe:', iframe.src);
+        }
+        
         // Set initial loading state
         iframe.style.opacity = '0';
         
@@ -798,6 +823,35 @@ function initIframeHandling() {
         iframe.addEventListener('load', function() {
             console.log('Iframe loaded successfully:', this.src);
             clearTimeout(loadingTimeout);
+            
+            // MOBILE: Re-enforce desktop view after load
+            if (isMobile) {
+                this.style.setProperty('width', '400%', 'important');
+                this.style.setProperty('height', '400%', 'important');
+                this.style.setProperty('transform', 'scale(0.25)', 'important');
+                this.style.setProperty('transform-origin', 'top left', 'important');
+                this.style.setProperty('min-width', '1200px', 'important');
+                this.style.setProperty('min-height', '800px', 'important');
+                this.style.setProperty('pointer-events', 'none', 'important');
+                
+                // Inject desktop viewport meta tag into iframe if possible
+                try {
+                    const iframeDoc = this.contentDocument || this.contentWindow.document;
+                    if (iframeDoc) {
+                        let viewportMeta = iframeDoc.querySelector('meta[name="viewport"]');
+                        if (!viewportMeta) {
+                            viewportMeta = iframeDoc.createElement('meta');
+                            viewportMeta.name = 'viewport';
+                            iframeDoc.head.appendChild(viewportMeta);
+                        }
+                        viewportMeta.content = 'width=1200, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
+                    }
+                } catch (e) {
+                    console.log('Cannot access iframe content (cross-origin):', e.message);
+                }
+                
+                console.log('Mobile desktop view re-enforced after load');
+            }
             
             // Optimized delay for mobile performance
             setTimeout(() => {
@@ -822,7 +876,7 @@ function initIframeHandling() {
                     <div style="display: flex; align-items: center; justify-content: center; height: 100%; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); color: #666; flex-direction: column; gap: 10px; border-radius: 10px;">
                         <i class="fas fa-exclamation-triangle" style="font-size: 2rem; color: #ffc107;"></i>
                         <p style="margin: 0; font-weight: 500;">Preview Unavailable</p>
-                        <a href="${this.src}" target="_blank" style="color: var(--primary-color); text-decoration: none; font-weight: 500; padding: 8px 16px; border: 2px solid var(--primary-color); border-radius: 6px; transition: all 0.3s ease;">
+                        <a href="${this.src.split('?')[0]}" target="_blank" style="color: var(--primary-color); text-decoration: none; font-weight: 500; padding: 8px 16px; border: 2px solid var(--primary-color); border-radius: 6px; transition: all 0.3s ease;">
                             View Live Site <i class="fas fa-external-link-alt"></i>
                         </a>
                     </div>

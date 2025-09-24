@@ -2878,6 +2878,78 @@ iframe {
     .project-image {
         height: 250px !important;
         border-radius: 15px 15px 0 0 !important;
+        position: relative !important;
+        overflow: hidden !important;
+        background: #f8f9fa !important;
+    }
+    
+    /* Mobile iframe container - FULL DESKTOP VIEW */
+    .project-image .iframe-container {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        overflow: hidden !important;
+        border-radius: 15px 15px 0 0 !important;
+        background: #f8f9fa !important;
+    }
+    
+    /* Mobile iframe - FORCE DESKTOP DISPLAY */
+    .project-image .iframe-container iframe {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 400% !important;  /* Scale up to show full desktop */
+        height: 400% !important; /* Scale up to show full desktop */
+        border: none !important;
+        border-radius: 15px 15px 0 0 !important;
+        /* Force desktop rendering regardless of device */
+        pointer-events: none !important;
+        /* Scale down to fit container while showing full desktop view */
+        transform: scale(0.25) !important;
+        transform-origin: top left !important;
+        /* Ensure crisp rendering */
+        image-rendering: -webkit-optimize-contrast !important;
+        image-rendering: crisp-edges !important;
+        /* Force desktop viewport */
+        zoom: 1 !important;
+        -webkit-zoom: 1 !important;
+        -webkit-text-size-adjust: none !important;
+        /* Prevent mobile optimization */
+        -webkit-user-scalable: no !important;
+        /* Additional mobile overrides */
+        min-width: 1200px !important;
+        min-height: 800px !important;
+        /* Ensure proper opacity transition */
+        transition: opacity 0.5s ease !important;
+        /* Force full coverage */
+        object-fit: cover !important;
+        object-position: top left !important;
+    }
+    
+    /* Mobile project overlay - ensure it works over iframe */
+    .project-overlay {
+        pointer-events: auto !important;
+        z-index: 10 !important;
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        background: rgba(102, 126, 234, 0.9) !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        opacity: 0 !important;
+        transition: opacity 0.3s ease !important;
+        border-radius: 15px 15px 0 0 !important;
+    }
+    
+    .project-card:hover .project-overlay {
+        opacity: 1 !important;
     }
     
     .project-content {
@@ -2965,7 +3037,6 @@ iframe {
             zoom: 1 !important;
             -webkit-zoom: 1 !important;
             -webkit-text-size-adjust: 100% !important;
-            user-scalable: no !important;
             -webkit-user-scalable: no !important;
         }
     }
