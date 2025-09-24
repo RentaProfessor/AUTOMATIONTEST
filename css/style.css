@@ -2404,10 +2404,10 @@ iframe {
         word-spacing: -0.05em !important;
     }
     
-    /* Mobile Services - SEAMLESS ATTACHMENT */
+    /* Mobile Services - PULLED UP FOR BETTER FIT */
     .services {
-        padding: 0 0 50px !important;
-        margin-top: -1px !important;
+        padding: 0 0 40px !important;
+        margin-top: -20px !important;
         position: relative !important;
         z-index: 2 !important;
         background: var(--light-color) !important;
@@ -2420,7 +2420,7 @@ iframe {
     
     .services .section-header {
         margin-bottom: 25px !important;
-        padding: 40px 20px 0 20px !important;
+        padding: 20px 20px 0 20px !important;
     }
     
     .services .section-header h2 {
@@ -2547,9 +2547,9 @@ iframe {
         display: none !important;
     }
     
-    /* Mobile Industries - MINIMALIST APPROACH */
+    /* Mobile Industries - COMPACT SPACING */
     .industries {
-        padding: 40px 0 !important;
+        padding: 30px 0 35px !important;
         background: #f8fafc !important;
     }
     
@@ -2612,9 +2612,9 @@ iframe {
         letter-spacing: normal !important;
     }
     
-    /* Mobile About - MINIMALIST & PROFESSIONAL */
+    /* Mobile About - COMPACT SPACING */
     .about {
-        padding: 50px 0 !important;
+        padding: 35px 0 40px !important;
         background: white !important;
     }
     
@@ -2668,9 +2668,9 @@ iframe {
         display: none !important;
     }
     
-    /* Mobile Contact - PROFESSIONAL REDESIGN */
+    /* Mobile Contact - COMPACT SPACING */
     .contact {
-        padding: 50px 0 !important;
+        padding: 35px 0 45px !important;
         background: #f8fafc !important;
     }
     
