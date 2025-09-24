@@ -423,27 +423,27 @@ function showNotification(message, type = 'info') {
     });
 }
 
-// Scroll effects
+// Scroll effects - DISABLED TO PREVENT PULLING
 function initScrollEffects() {
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
+    // Smooth scrolling for anchor links - DISABLED
+    // document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    //     anchor.addEventListener('click', function (e) {
+    //         e.preventDefault();
+    //         const target = document.querySelector(this.getAttribute('href'));
+    //         if (target) {
+    //             target.scrollIntoView({
+    //                 behavior: 'smooth',
+    //                 block: 'start'
+    //             });
+    //         }
+    //     });
+    // });
     
-    // Progress bar on scroll
-    createScrollProgressBar();
+    // Progress bar on scroll - DISABLED
+    // createScrollProgressBar();
     
-    // Active navigation highlighting
-    highlightActiveNavigation();
+    // Active navigation highlighting - DISABLED
+    // highlightActiveNavigation();
 }
 
 // Create scroll progress bar (DESKTOP ONLY)
