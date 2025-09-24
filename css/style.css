@@ -2089,18 +2089,20 @@ iframe {
         transform: rotate(-45deg) translate(6px, -6px) !important;
     }
     
-    /* Mobile Hero Section - EXTENDED BELOW STATS BOX */
+    /* Mobile Hero Section - CHROME & SAFARI COMPATIBLE */
     .hero {
         padding: 0 0 80px 0 !important;
+        /* Chrome fallback first */
         height: calc(100vh + 80px) !important;
-        height: calc(100dvh + 80px) !important;
         min-height: calc(100vh + 80px) !important;
-        min-height: calc(100dvh + 80px) !important;
         max-height: calc(100vh + 80px) !important;
+        /* Safari enhancement */
+        height: calc(100dvh + 80px) !important;
+        min-height: calc(100dvh + 80px) !important;
         max-height: calc(100dvh + 80px) !important;
         position: relative !important;
         background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
-        background-color: #f8fafc !important; /* Safari fallback */
+        background-color: #f8fafc !important; /* Chrome fallback */
         display: block !important;
         overflow: visible !important;
         margin-top: 0 !important;
@@ -2108,13 +2110,18 @@ iframe {
         /* Prevent any scroll effects */
         transform: none !important;
         will-change: auto !important;
-        /* Ensure no gaps */
+        /* Ensure no gaps - Chrome needs this */
         box-sizing: border-box !important;
+        /* Chrome mobile fix */
+        -webkit-box-sizing: border-box !important;
         /* LOCK DIMENSIONS - NO STRETCHING */
         contain: none !important;
         resize: none !important;
         /* ACCOUNT FOR NAVBAR */
         padding-top: 0 !important;
+        /* Chrome mobile viewport fix */
+        -webkit-transform: translateZ(0) !important;
+        transform: translateZ(0) !important;
     }
     
     .hero-container {
@@ -2124,8 +2131,11 @@ iframe {
         width: 100% !important;
         height: 100% !important;
         margin: 0 auto !important;
+        display: -webkit-flex !important;
         display: flex !important;
+        -webkit-flex-direction: column !important;
         flex-direction: column !important;
+        -webkit-justify-content: space-evenly !important;
         justify-content: space-evenly !important;
         position: absolute !important;
         top: 0 !important;
@@ -2138,6 +2148,12 @@ iframe {
         /* PREVENT STRETCHING */
         contain: layout !important;
         box-sizing: border-box !important;
+        /* Chrome mobile compatibility */
+        -webkit-box-sizing: border-box !important;
+        -webkit-transform: translateZ(0) !important;
+        /* Chrome flexbox fallback */
+        -webkit-flex: 1 !important;
+        flex: 1 !important;
     }
     
     .hero-content {
@@ -2913,6 +2929,33 @@ iframe {
         flex-direction: column !important;
         align-items: center !important;
         gap: 15px !important;
+    }
+}
+
+/* Chrome Mobile Specific Fixes */
+@supports (-webkit-appearance: none) and (not (color-scheme: light dark)) {
+    @media (max-width: 768px) {
+        .hero {
+            /* Chrome mobile needs explicit viewport height */
+            height: 100vh !important;
+            height: calc(var(--vh, 1vh) * 100 + 80px) !important;
+            min-height: 100vh !important;
+            min-height: calc(var(--vh, 1vh) * 100 + 80px) !important;
+        }
+        
+        .hero-container {
+            /* Chrome flexbox improvements */
+            -webkit-align-items: center !important;
+            align-items: center !important;
+            /* Chrome spacing fix */
+            padding: 70px 20px 30px 20px !important;
+        }
+        
+        .hero-stats {
+            /* Chrome positioning fix */
+            margin: 8px auto 0 auto !important;
+            max-width: 270px !important;
+        }
     }
 }
 
