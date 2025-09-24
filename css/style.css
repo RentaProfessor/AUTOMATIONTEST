@@ -2119,26 +2119,25 @@ iframe {
     
     .hero-container {
         text-align: center !important;
-        padding: 0 20px 0 20px !important;
+        padding: 80px 20px 40px 20px !important;
         max-width: 100% !important;
         width: 100% !important;
-        height: auto !important;
+        height: 100% !important;
         margin: 0 auto !important;
         display: flex !important;
         flex-direction: column !important;
-        justify-content: center !important;
+        justify-content: space-evenly !important;
         position: absolute !important;
-        top: 50% !important;
-        left: 50% !important;
-        transform: translate(-50%, -50%) !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 80px !important;
+        transform: none !important;
         z-index: 2 !important;
         will-change: auto !important;
         /* PREVENT STRETCHING */
         contain: layout !important;
         box-sizing: border-box !important;
-        /* FIT WITHIN VIEWPORT */
-        max-height: 100vh !important;
-        max-height: 100dvh !important;
     }
     
     .hero-content {
@@ -2156,10 +2155,10 @@ iframe {
     }
     
     .hero-title {
-        font-size: 2.2rem !important;
-        line-height: 1.3 !important;
-        margin-bottom: 20px !important;
-        margin-top: 20px !important;
+        font-size: 2rem !important;
+        line-height: 1.2 !important;
+        margin-bottom: 15px !important;
+        margin-top: 0 !important;
         word-wrap: break-word !important;
         overflow-wrap: break-word !important;
         padding: 0 10px !important;
@@ -2190,9 +2189,9 @@ iframe {
     }
     
     .hero-description {
-        font-size: 1rem !important;
-        line-height: 1.5 !important;
-        margin-bottom: 25px !important;
+        font-size: 0.95rem !important;
+        line-height: 1.4 !important;
+        margin-bottom: 20px !important;
         padding: 0 15px !important;
         max-width: 90% !important;
         margin-left: auto !important;
@@ -2204,12 +2203,12 @@ iframe {
         letter-spacing: normal !important;
     }
     
-    /* Mobile Buttons - COMPACT SPACING FOR BETTER FIT */
+    /* Mobile Buttons - VERY COMPACT FOR OPTIMAL FIT */
     .hero-buttons {
         display: block !important;
         text-align: center !important;
-        margin-bottom: 15px !important;
-        margin-top: 20px !important;
+        margin-bottom: 10px !important;
+        margin-top: 15px !important;
         /* PREVENT STRETCHING */
         contain: layout !important;
     }
@@ -2243,20 +2242,20 @@ iframe {
         box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3) !important;
     }
     
-    /* Mobile Stats - POSITIONED BELOW BUTTONS IN FLOW */
+    /* Mobile Stats - COMPACT FINAL ELEMENT */
     .hero-stats {
         display: block !important;
         text-align: center !important;
-        padding: 15px !important;
+        padding: 12px !important;
         background: rgba(255, 255, 255, 0.95) !important;
         border-radius: 10px !important;
-        margin: 20px auto 0 auto !important;
+        margin: 10px auto 0 auto !important;
         box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08) !important;
         border: 1px solid rgba(102, 126, 234, 0.1) !important;
         position: static !important;
         z-index: 3 !important;
         width: calc(100% - 40px) !important;
-        max-width: 300px !important;
+        max-width: 280px !important;
         transform: none !important;
         will-change: auto !important;
         /* PREVENT STRETCHING */
