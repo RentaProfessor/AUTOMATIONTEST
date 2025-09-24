@@ -1228,11 +1228,12 @@ function initIframeHandling() {
                 currentUrl.searchParams.set('viewport', '1200x800');
                 currentUrl.searchParams.set('force_desktop', '1');
                 
-                // Add mobile video support parameters
-                currentUrl.searchParams.set('autoplay', '1');
+                // Add mobile video support parameters - NO AUTOPLAY to prevent pause button issue
+                currentUrl.searchParams.set('autoplay', '0');
                 currentUrl.searchParams.set('muted', '1');
                 currentUrl.searchParams.set('playsinline', '1');
                 currentUrl.searchParams.set('controls', '1');
+                currentUrl.searchParams.set('preload', 'metadata');
                 
                 // Update iframe src only if parameters were missing
                 iframe.src = currentUrl.toString();
@@ -1286,15 +1287,16 @@ function initIframeHandling() {
                 // Add mobile video interaction support
                 setTimeout(() => {
                     try {
-                        // Send message to iframe for mobile video optimization
+                        // Send message to iframe for mobile video optimization - NO AUTOPLAY
                         this.contentWindow?.postMessage({
                             type: 'mobile_video_optimization',
                             settings: {
-                                autoplay: true,
+                                autoplay: false,
                                 muted: true,
                                 playsinline: true,
                                 controls: true,
-                                preload: 'metadata'
+                                preload: 'metadata',
+                                paused: true
                             }
                         }, '*');
                         console.log('Mobile video optimization message sent to iframe');
@@ -1379,16 +1381,38 @@ function initIframeHandling() {
             // Add touch interaction specifically for video areas
             container.addEventListener('touchend', function(e) {
                 if (iframe.getAttribute('data-mobile-desktop')) {
+                    console.log('Mobile touch end detected - enabling video interaction');
+                    
+                    // Enable pointer events for a longer period for video interaction
+                    iframe.style.setProperty('pointer-events', 'auto', 'important');
+                    
                     try {
-                        // Send click/touch event to iframe for video controls
+                        // Send more comprehensive touch event to iframe for video controls
                         iframe.contentWindow?.postMessage({
                             type: 'mobile_touch_event',
+                            action: 'touch_end',
                             x: e.changedTouches[0].clientX,
-                            y: e.changedTouches[0].clientY
+                            y: e.changedTouches[0].clientY,
+                            timestamp: Date.now(),
+                            videoAction: 'toggle_play_pause'
                         }, '*');
+                        
+                        // Also send a focus event to help with video interaction
+                        iframe.contentWindow?.postMessage({
+                            type: 'mobile_video_focus',
+                            action: 'enable_interaction'
+                        }, '*');
+                        
+                        console.log('Mobile video interaction messages sent');
                     } catch (err) {
                         console.log('Cross-origin iframe - touch event not sent');
                     }
+                    
+                    // Keep pointer events enabled longer for video interaction
+                    setTimeout(() => {
+                        iframe.style.setProperty('pointer-events', 'none', 'important');
+                        console.log('Mobile iframe pointer events disabled after extended interaction period');
+                    }, 5000); // Extended to 5 seconds for better video control access
                 }
             }, { passive: true });
             
