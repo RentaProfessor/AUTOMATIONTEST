@@ -2089,22 +2089,22 @@ iframe {
         transform: rotate(-45deg) translate(6px, -6px) !important;
     }
     
-    /* Mobile Hero Section - SIMPLE FULLSCREEN WITH SMALL EXTENSION */
+    /* Mobile Hero Section - SIMPLE FULLSCREEN WITHOUT OVERFLOW */
     .hero {
-        padding: 0 0 40px 0 !important;
-        height: calc(100vh + 40px) !important;
-        height: calc(100dvh + 40px) !important;
-        min-height: calc(100vh + 40px) !important;
-        min-height: calc(100dvh + 40px) !important;
-        max-height: calc(100vh + 40px) !important;
-        max-height: calc(100dvh + 40px) !important;
+        padding: 0 !important;
+        height: 100vh !important;
+        height: 100dvh !important;
+        min-height: 100vh !important;
+        min-height: 100dvh !important;
+        max-height: 100vh !important;
+        max-height: 100dvh !important;
         position: relative !important;
         background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
         background-color: #f8fafc !important; /* Safari fallback */
         display: block !important;
         overflow: hidden !important;
         margin-top: 0 !important;
-        margin-bottom: -40px !important;
+        margin-bottom: 0 !important;
         /* Prevent any scroll effects */
         transform: none !important;
         will-change: auto !important;
@@ -2241,21 +2241,23 @@ iframe {
         box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3) !important;
     }
     
-    /* Mobile Stats - PROPERLY POSITIONED FLOATING BOX */
+    /* Mobile Stats - FLOATING BOX MOVED UP FROM BOTTOM */
     .hero-stats {
         display: block !important;
         text-align: center !important;
         padding: 15px !important;
         background: rgba(255, 255, 255, 0.95) !important;
         border-radius: 10px !important;
-        margin: 25px auto 30px auto !important;
+        margin: 15px auto 0 auto !important;
         box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08) !important;
         border: 1px solid rgba(102, 126, 234, 0.1) !important;
-        position: static !important;
+        position: absolute !important;
+        bottom: 60px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
         z-index: 3 !important;
         width: calc(100% - 40px) !important;
         max-width: 300px !important;
-        transform: none !important;
         will-change: auto !important;
         /* PREVENT STRETCHING */
         contain: layout !important;
@@ -2404,18 +2406,18 @@ iframe {
         word-spacing: -0.05em !important;
     }
     
-    /* Mobile Services - PULLED UP FOR BETTER FIT */
+    /* Mobile Services - PROPER SPACING FROM HERO */
     .services {
-        padding: 0 0 40px !important;
-        margin-top: -20px !important;
+        padding: 40px 0 40px !important;
+        margin-top: 0 !important;
         position: relative !important;
         z-index: 2 !important;
         background: var(--light-color) !important;
         border-radius: 0 !important;
-        /* Ensure seamless connection */
+        /* Ensure proper separation from hero */
         transform: translateY(0) !important;
-        /* Force connection to hero */
-        border-top: 1px solid var(--light-color) !important;
+        /* Clean separation from hero */
+        border-top: none !important;
     }
     
     .services .section-header {
