@@ -534,10 +534,10 @@ body {
 }
 
 .dot:nth-child(1) { animation-delay: 0s; top: 0; left: 50%; }
-.dot:nth-child(2) { animation-delay: 0.8s; top: 25%; right: 0; }
-.dot:nth-child(3) { animation-delay: 1.6s; bottom: 25%; right: 0; }
-.dot:nth-child(4) { animation-delay: 2.4s; bottom: 0; left: 50%; }
-.dot:nth-child(5) { animation-delay: 3.2s; top: 25%; left: 0; }
+.dot:nth-child(2) { animation-delay: 0.1s; top: 25%; right: 0; }
+.dot:nth-child(3) { animation-delay: 0.2s; bottom: 25%; right: 0; }
+.dot:nth-child(4) { animation-delay: 0.3s; bottom: 0; left: 50%; }
+.dot:nth-child(5) { animation-delay: 0.4s; top: 25%; left: 0; }
 
 /* Services Section */
 .services {
