@@ -1,6 +1,50 @@
 // FutureClarity Technologies Website JavaScript
 // Handles all interactive features and animations
 
+// IMMEDIATE Portfolio page white overlay fix - runs before any other code
+(function() {
+    // Check if this is the portfolio page
+    const isPortfolioPage = document.body.classList.contains('portfolio-page') || 
+                           window.location.pathname.includes('portfolio') ||
+                           document.querySelector('#portfolio-hero');
+    
+    if (isPortfolioPage) {
+        console.log('Immediate portfolio page white overlay fix initiated');
+        
+        // Apply immediate CSS fix to prevent white overlay
+        const style = document.createElement('style');
+        style.id = 'portfolio-immediate-fix';
+        style.textContent = `
+            .portfolio-page .hero::before,
+            .portfolio-page #portfolio-hero::before,
+            #portfolio-hero.hero::before {
+                display: none !important;
+                content: none !important;
+                background: none !important;
+                background-color: transparent !important;
+                background-image: none !important;
+                opacity: 0 !important;
+                visibility: hidden !important;
+                position: absolute !important;
+                top: -9999px !important;
+                left: -9999px !important;
+                width: 0 !important;
+                height: 0 !important;
+                z-index: -1 !important;
+            }
+        `;
+        
+        // Insert immediately
+        if (document.head) {
+            document.head.appendChild(style);
+        } else {
+            document.addEventListener('DOMContentLoaded', () => {
+                document.head.appendChild(style);
+            });
+        }
+    }
+})();
+
 // IMMEDIATE Safari background fix - enhanced for URL re-entry scenarios
 (function() {
     const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent) || 
@@ -330,14 +374,24 @@ function fixPortfolioPageOverlay() {
             if (heroBefore) {
                 // Force remove the pseudo-element by setting its content to none
                 const style = document.createElement('style');
+                style.id = 'portfolio-hero-fix';
                 style.textContent = `
-                    .portfolio-page .hero::before {
+                    .portfolio-page .hero::before,
+                    .portfolio-page #portfolio-hero::before,
+                    #portfolio-hero.hero::before {
                         display: none !important;
                         content: none !important;
                         background: none !important;
+                        background-color: transparent !important;
                         background-image: none !important;
                         opacity: 0 !important;
                         visibility: hidden !important;
+                        position: absolute !important;
+                        top: -9999px !important;
+                        left: -9999px !important;
+                        width: 0 !important;
+                        height: 0 !important;
+                        z-index: -1 !important;
                     }
                 `;
                 document.head.appendChild(style);

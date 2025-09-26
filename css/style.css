@@ -421,6 +421,37 @@ body {
     opacity: 0.3;
 }
 
+/* CRITICAL: Remove hero pseudo-element overlay on portfolio page - ALL SCREEN SIZES */
+.portfolio-page .hero::before,
+.portfolio-page #portfolio-hero::before,
+#portfolio-hero.hero::before {
+    display: none !important;
+    content: none !important;
+    background: none !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    position: absolute !important;
+    top: -9999px !important;
+    left: -9999px !important;
+    width: 0 !important;
+    height: 0 !important;
+    z-index: -1 !important;
+}
+
+/* CRITICAL: Ensure portfolio page hero section has proper background */
+.portfolio-page .hero,
+.portfolio-page #portfolio-hero,
+#portfolio-hero.hero {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
+    background-color: #f8fafc !important;
+    background-image: none !important;
+    position: relative !important;
+    z-index: 1 !important;
+    overflow: visible !important;
+}
+
 .hero-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -3158,6 +3189,25 @@ iframe {
         position: relative !important;
         z-index: 1 !important;
         overflow: visible !important;
+    }
+    
+    /* CRITICAL: Remove hero pseudo-element overlay on portfolio page - ENHANCED */
+    .portfolio-page .hero::before,
+    .portfolio-page #portfolio-hero::before,
+    #portfolio-hero.hero::before {
+        display: none !important;
+        content: none !important;
+        background: none !important;
+        background-color: transparent !important;
+        background-image: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        position: absolute !important;
+        top: -9999px !important;
+        left: -9999px !important;
+        width: 0 !important;
+        height: 0 !important;
+        z-index: -1 !important;
     }
     
     /* Fix portfolio page body and html to prevent white overlay */
