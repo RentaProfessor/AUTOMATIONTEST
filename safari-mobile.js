@@ -1,5 +1,31 @@
 // Safari Mobile Optimized JavaScript - Minimal and reliable
 
+// IMMEDIATE Safari zoom fix - runs before DOM load
+(function() {
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent) || 
+                     /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
+    const isMobile = window.innerWidth <= 768;
+    
+    if (isSafari && isMobile) {
+        // Immediate zoom fix
+        document.documentElement.style.zoom = '1';
+        document.documentElement.style.webkitZoom = '1';
+        document.documentElement.style.webkitTextSizeAdjust = '100%';
+        document.documentElement.style.textSizeAdjust = '100%';
+        
+        if (document.body) {
+            document.body.style.zoom = '1';
+            document.body.style.webkitZoom = '1';
+        }
+        
+        // Fix viewport immediately
+        const viewport = document.querySelector('meta[name="viewport"]');
+        if (viewport) {
+            viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover');
+        }
+    }
+})();
+
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Safari Mobile JS loaded');
     
@@ -93,15 +119,47 @@ function initSafariMobileFixes() {
 }
 
 function applySafariMobileFixes() {
+    // CRITICAL: Fix zoom immediately
+    document.documentElement.style.zoom = '1';
+    document.documentElement.style.webkitZoom = '1';
+    document.documentElement.style.webkitTextSizeAdjust = '100%';
+    document.documentElement.style.textSizeAdjust = '100%';
+    
+    if (document.body) {
+        document.body.style.zoom = '1';
+        document.body.style.webkitZoom = '1';
+        document.body.style.webkitTextSizeAdjust = '100%';
+        document.body.style.textSizeAdjust = '100%';
+    }
+    
     // Fix viewport height for Safari mobile
     const vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
     
-    // Ensure hero section proper height
+    // Ensure navbar is visible and properly positioned
+    const navbar = document.querySelector('.navbar');
+    if (navbar) {
+        navbar.style.position = 'fixed';
+        navbar.style.top = '0';
+        navbar.style.left = '0';
+        navbar.style.right = '0';
+        navbar.style.zIndex = '9999';
+        navbar.style.width = '100%';
+        navbar.style.zoom = '1';
+        navbar.style.webkitZoom = '1';
+        navbar.style.display = 'block';
+        navbar.style.visibility = 'visible';
+    }
+    
+    // Ensure hero section proper height and spacing
     const hero = document.querySelector('.hero');
     if (hero) {
         // Use actual viewport height instead of 100vh
         hero.style.minHeight = `${window.innerHeight}px`;
+        hero.style.zoom = '1';
+        hero.style.webkitZoom = '1';
+        hero.style.position = 'relative';
+        hero.style.overflow = 'visible';
     }
     
     // Fix safe area insets
@@ -109,32 +167,51 @@ function applySafariMobileFixes() {
     const safeAreaBottom = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--safe-area-inset-bottom')) || 0;
     
     // Update navbar height with safe area
-    const navbar = document.querySelector('.navbar');
     if (navbar) {
         navbar.style.paddingTop = `${safeAreaTop}px`;
+        navbar.style.height = `${70 + safeAreaTop}px`;
     }
     
-    // Update hero padding to account for navbar + safe area
+    // Update hero padding to account for navbar + safe area + extra space for text
     if (hero) {
         const navbarHeight = 70; // Base navbar height
-        const topPadding = navbarHeight + safeAreaTop + 40; // 40px extra spacing
+        const topPadding = navbarHeight + safeAreaTop + 80; // 80px extra spacing to prevent text cutoff
         const bottomPadding = safeAreaBottom + 40;
         
         hero.style.paddingTop = `${topPadding}px`;
         hero.style.paddingBottom = `${bottomPadding}px`;
+        hero.style.marginTop = '0';
+    }
+    
+    // Fix hero content to ensure it's visible
+    const heroContent = document.querySelector('.hero-content');
+    if (heroContent) {
+        heroContent.style.zoom = '1';
+        heroContent.style.webkitZoom = '1';
+        heroContent.style.position = 'relative';
+        heroContent.style.zIndex = '2';
+        heroContent.style.visibility = 'visible';
+        heroContent.style.opacity = '1';
     }
     
     // Prevent zoom on input focus (Safari mobile specific issue)
     const inputs = document.querySelectorAll('input, textarea, select');
     inputs.forEach(input => {
         input.style.fontSize = '16px';
+        input.style.zoom = '1';
+        input.style.webkitZoom = '1';
     });
     
-    // Fix background attachment issues in Safari
-    const heroBackground = document.querySelector('.hero::before');
-    if (heroBackground) {
-        heroBackground.style.backgroundAttachment = 'scroll';
-    }
+    // Ensure all elements have proper zoom
+    const allElements = document.querySelectorAll('*');
+    allElements.forEach(element => {
+        if (element.style) {
+            element.style.zoom = '1';
+            element.style.webkitZoom = '1';
+        }
+    });
+    
+    console.log('Safari mobile fixes applied - zoom reset, navbar positioned, hero spaced');
 }
 
 // Smooth scrolling for anchor links - Safari compatible
