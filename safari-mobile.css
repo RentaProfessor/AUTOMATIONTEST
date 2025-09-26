@@ -147,8 +147,8 @@ body {
     justify-content: center;
     background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
     position: relative;
-    padding-top: calc(var(--navbar-height) + var(--safe-area-top) + 60px);
-    padding-bottom: calc(var(--safe-area-bottom) + 60px);
+    padding-top: calc(var(--navbar-height) + var(--safe-area-top) + 30px);
+    padding-bottom: calc(var(--safe-area-bottom) + 30px);
     overflow: hidden;
 }
 
@@ -820,7 +820,7 @@ body {
     .hero {
         min-height: 100vh;
         min-height: 100dvh; /* Dynamic viewport height for Safari mobile */
-        padding: calc(var(--navbar-height) + 80px) 0 60px;
+        padding: calc(var(--navbar-height) + 40px) 0 30px;
         display: flex;
         align-items: center;
         justify-content: center;
