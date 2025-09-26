@@ -2038,6 +2038,21 @@ iframe {
         -webkit-text-size-adjust: 100% !important;
     }
     
+    /* CRITICAL: Prevent white overlay issues on mobile */
+    html, body {
+        background-color: transparent !important;
+        background: transparent !important;
+        /* Ensure no white backgrounds appear */
+        background-image: none !important;
+        background-attachment: scroll !important;
+    }
+    
+    /* Prevent any element from creating white overlays */
+    .navbar, .nav-menu, .hero, .services, .features, .about, .contact {
+        background-color: transparent !important;
+        background: transparent !important;
+    }
+    
     body {
         -webkit-overflow-scrolling: touch !important;
         overflow-x: hidden !important;
@@ -2053,6 +2068,13 @@ iframe {
         min-width: 100vw !important;
         contain: layout size !important;
         resize: none !important;
+        /* CRITICAL: Prevent white overlay issues */
+        background-color: transparent !important;
+        background: transparent !important;
+        /* Ensure proper mobile scrolling */
+        height: auto !important;
+        min-height: 100vh !important;
+        min-height: 100dvh !important;
     }
     
     /* Mobile Navigation - ENHANCED FIXED POSITIONING */
@@ -2074,6 +2096,9 @@ iframe {
         /* Better mobile support */
         -webkit-transform: translate3d(0, 0, 0) !important;
         transform: translate3d(0, 0, 0) !important;
+        /* CRITICAL: Prevent Safari cutoff with safe area support */
+        padding-top: env(safe-area-inset-top, 0px) !important;
+        min-height: calc(70px + env(safe-area-inset-top, 0px)) !important;
     }
     
     .nav-container {
@@ -2103,7 +2128,7 @@ iframe {
         flex-direction: column !important;
         justify-content: flex-start !important;
         align-items: center !important;
-        padding: 120px 20px 80px 20px !important;
+        padding: 100px 20px 40px 20px !important;
         transition: left 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
         box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15) !important;
         z-index: 10000 !important;
@@ -2121,18 +2146,23 @@ iframe {
         /* Ensure proper scroll behavior */
         overscroll-behavior: contain !important;
         -webkit-overscroll-behavior: contain !important;
-        /* Add scroll indicator styles */
-        background-image: 
-            linear-gradient(rgba(255,255,255,0.98) 30%, rgba(255,255,255,0.9)),
-            linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.98) 70%) !important;
-        background-position: top, bottom !important;
-        background-size: 100% 40px, 100% 40px !important;
-        background-repeat: no-repeat !important;
-        background-attachment: local, local !important;
+        /* Remove problematic background gradients that cause white overlay */
+        background-image: none !important;
+        background-attachment: scroll !important;
     }
     
     .nav-menu.active {
         left: 0 !important;
+        /* CRITICAL: Ensure proper z-index and no white overlay */
+        z-index: 10000 !important;
+        background: rgba(255, 255, 255, 0.98) !important;
+        backdrop-filter: blur(20px) !important;
+        -webkit-backdrop-filter: blur(20px) !important;
+        /* Ensure menu is above everything else */
+        position: fixed !important;
+        /* Prevent any white background issues */
+        background-image: none !important;
+        background-attachment: scroll !important;
     }
     
     .nav-menu li {
@@ -2192,16 +2222,23 @@ iframe {
             /* Prevent Safari scroll bounce issues */
             overscroll-behavior-y: contain !important;
             -webkit-overscroll-behavior-y: contain !important;
-            /* CRITICAL: Prevent Safari menu cutoff */
+            /* CRITICAL: Prevent Safari menu cutoff - use safe area insets */
             -webkit-transform: translate3d(0, 0, 0) !important;
             transform: translate3d(0, 0, 0) !important;
-            /* Force Safari to respect full viewport */
+            /* Force Safari to respect full viewport with safe area */
             min-height: 100vh !important;
             min-height: 100dvh !important;
-            /* Ensure proper positioning */
-            inset: 0 !important;
+            min-height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom)) !important;
+            /* Ensure proper positioning with safe area support */
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            bottom: 0 !important;
             /* Prevent any margin/padding issues */
             box-sizing: border-box !important;
+            /* Add safe area padding for notched devices */
+            padding-top: max(100px, env(safe-area-inset-top, 0px) + 80px) !important;
+            padding-bottom: max(40px, env(safe-area-inset-bottom, 0px) + 20px) !important;
         }
         
         .nav-menu li {
@@ -2213,12 +2250,16 @@ iframe {
         
         /* Specific fix for Safari mobile viewport issues */
         .nav-menu.active {
-            /* Force Safari to show full menu */
+            /* Force Safari to show full menu with proper safe area handling */
             top: 0 !important;
             bottom: 0 !important;
             left: 0 !important;
             right: 0 !important;
             position: fixed !important;
+            /* Ensure menu covers entire screen including safe areas */
+            width: 100vw !important;
+            height: 100vh !important;
+            height: 100dvh !important;
         }
     }
     
@@ -2261,6 +2302,11 @@ iframe {
         transition: all 0.3s ease !important;
         position: relative !important;
         transform: translateZ(0) !important;
+        /* CRITICAL: Ensure toggle is always above menu overlay */
+        background: transparent !important;
+        /* Prevent any white background issues */
+        background-color: transparent !important;
+        background-image: none !important;
     }
     
     .nav-toggle:hover {
@@ -2296,10 +2342,14 @@ iframe {
         height: calc(100vh + 80px) !important;
         min-height: calc(100vh + 80px) !important;
         max-height: calc(100vh + 80px) !important;
-        /* Safari enhancement */
+        /* Safari enhancement with safe area support */
         height: calc(100dvh + 80px) !important;
         min-height: calc(100dvh + 80px) !important;
         max-height: calc(100dvh + 80px) !important;
+        /* CRITICAL: Account for safe area insets to prevent cutoff */
+        height: calc(100vh - env(safe-area-inset-top, 0px) + 80px) !important;
+        min-height: calc(100vh - env(safe-area-inset-top, 0px) + 80px) !important;
+        max-height: calc(100vh - env(safe-area-inset-top, 0px) + 80px) !important;
         position: relative !important;
         background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
         background-color: #f8fafc !important; /* Chrome fallback */
@@ -2317,8 +2367,8 @@ iframe {
         /* LOCK DIMENSIONS - NO STRETCHING */
         contain: none !important;
         resize: none !important;
-        /* ACCOUNT FOR NAVBAR */
-        padding-top: 0 !important;
+        /* ACCOUNT FOR NAVBAR AND SAFE AREA */
+        padding-top: calc(env(safe-area-inset-top, 0px) + 80px) !important;
         /* Chrome mobile viewport fix */
         -webkit-transform: translateZ(0) !important;
         transform: translateZ(0) !important;

@@ -138,25 +138,49 @@ function isMobileViewport() {
 function lockBodyScrollMobile() {
     if (!isMobileViewport()) return;
     if (document.body.style.position === 'fixed') return; // already locked
+    
+    // Save current scroll position
     FC_SAVED_SCROLL_Y = window.scrollY || window.pageYOffset || 0;
+    
+    // Apply minimal scroll lock without causing white overlay
     document.body.style.overflow = 'hidden';
     document.body.style.position = 'fixed';
     document.body.style.top = `-${FC_SAVED_SCROLL_Y}px`;
+    document.body.style.left = '0';
+    document.body.style.right = '0';
     document.body.style.width = '100%';
+    document.body.style.height = '100%';
+    
+    // Prevent touch scrolling but allow menu scrolling
     document.body.style.touchAction = 'none';
-    document.body.style.webkitOverflowScrolling = 'touch';
+    document.body.style.webkitOverflowScrolling = 'auto';
+    
+    // Ensure no white background appears
+    document.body.style.backgroundColor = 'transparent';
+    document.documentElement.style.backgroundColor = 'transparent';
 }
 
 function unlockBodyScrollMobile() {
     if (!isMobileViewport()) return;
+    
+    // Get saved scroll position
     const topVal = document.body.style.top;
+    const saved = topVal ? -parseInt(topVal, 10) || 0 : FC_SAVED_SCROLL_Y;
+    
+    // Restore all body styles
     document.body.style.overflow = '';
     document.body.style.position = '';
     document.body.style.top = '';
+    document.body.style.left = '';
+    document.body.style.right = '';
     document.body.style.width = '';
+    document.body.style.height = '';
     document.body.style.touchAction = '';
     document.body.style.webkitOverflowScrolling = '';
-    const saved = topVal ? -parseInt(topVal, 10) || 0 : FC_SAVED_SCROLL_Y;
+    document.body.style.backgroundColor = '';
+    document.documentElement.style.backgroundColor = '';
+    
+    // Restore scroll position
     window.scrollTo(0, saved);
 }
 
@@ -240,6 +264,16 @@ function fixChromeZoom() {
             // Disable any Chrome scaling
             document.body.style.webkitTextSizeAdjust = '100%';
             document.documentElement.style.webkitTextSizeAdjust = '100%';
+            
+            // Fix Chrome mobile scrolling issues
+            document.body.style.overflow = 'auto';
+            document.body.style.position = 'relative';
+            document.body.style.height = 'auto';
+            document.body.style.minHeight = '100vh';
+            
+            // Prevent Chrome from creating white overlays
+            document.body.style.backgroundColor = 'transparent';
+            document.documentElement.style.backgroundColor = 'transparent';
         }
         
         // Apply immediately
@@ -248,9 +282,18 @@ function fixChromeZoom() {
         // Apply after a brief delay to catch Chrome's defaults
         setTimeout(matchSafari, 100);
         
-        // Avoid intercepting gesture or touch events to reduce side effects on Chrome mobile
+        // Additional Chrome mobile fixes
+        setTimeout(() => {
+            // Ensure Chrome doesn't create white overlays during scroll
+            document.body.style.background = 'transparent';
+            document.documentElement.style.background = 'transparent';
+            
+            // Fix Chrome mobile viewport issues
+            const vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }, 200);
         
-        console.log('Chrome mobile matched to Safari appearance');
+        console.log('Chrome mobile matched to Safari appearance with scroll fixes');
     }
 }
 
@@ -265,6 +308,18 @@ function fixChromeViewportHeight() {
             // Only set a CSS variable for reference; avoid forcing hero height
             const vh = window.innerHeight * 0.01;
             document.documentElement.style.setProperty('--vh', `${vh}px`);
+            
+            // CRITICAL: Fix Chrome mobile scrolling issues
+            document.body.style.overflow = 'auto';
+            document.body.style.position = 'relative';
+            document.body.style.height = 'auto';
+            document.body.style.minHeight = '100vh';
+            document.body.style.backgroundColor = 'transparent';
+            document.documentElement.style.backgroundColor = 'transparent';
+            
+            // Prevent Chrome from creating white overlays
+            document.body.style.background = 'transparent';
+            document.documentElement.style.background = 'transparent';
         }
         
         // Set initial viewport height
@@ -282,9 +337,16 @@ function fixChromeViewportHeight() {
             setTimeout(setViewportHeight, 600);
         });
         
-        // No scroll listeners needed; avoid layout thrashing
+        // CRITICAL: Fix Chrome mobile scroll lock issues
+        window.addEventListener('scroll', function() {
+            // Prevent Chrome from creating white overlays during scroll
+            if (document.body.style.position === 'fixed') {
+                document.body.style.backgroundColor = 'transparent';
+                document.documentElement.style.backgroundColor = 'transparent';
+            }
+        }, { passive: true });
         
-        console.log('Chrome mobile viewport height fix applied');
+        console.log('Chrome mobile viewport height and scroll fixes applied');
     }
 }
 
@@ -425,10 +487,39 @@ function forceCloseMobileMenu() {
     if (navToggle && navMenu) {
         console.log('Force closing mobile menu to clear white overlay');
         
-        // Unified close routine
-        closeMenuIfOpen(navToggle, navMenu);
+        // Force close all menu states
+        navToggle.classList.remove('active');
+        navMenu.classList.remove('active');
         
-        console.log('Mobile menu force closed');
+        // Clear all inline styles that could cause white overlay
+        navMenu.style.left = '-100%';
+        navMenu.style.transform = '';
+        navMenu.style.height = '';
+        navMenu.style.maxHeight = '';
+        navMenu.style.minHeight = '';
+        navMenu.style.width = '';
+        navMenu.style.top = '';
+        navMenu.style.bottom = '';
+        navMenu.style.right = '';
+        navMenu.style.position = '';
+        navMenu.style.zIndex = '';
+        navMenu.style.visibility = 'hidden';
+        navMenu.style.pointerEvents = 'none';
+        navMenu.setAttribute('aria-hidden', 'true');
+        
+        // Force unlock body scroll
+        unlockBodyScrollMobile();
+        
+        // Clear any white background that might be stuck
+        document.body.style.backgroundColor = '';
+        document.documentElement.style.backgroundColor = '';
+        document.body.style.background = '';
+        document.documentElement.style.background = '';
+        
+        // Force a repaint to clear any stuck overlays
+        document.body.offsetHeight;
+        
+        console.log('Mobile menu force closed and white overlay cleared');
     }
 }
 
@@ -509,12 +600,14 @@ function initNavigation() {
         navToggle.addEventListener('click', function() {
             // Only apply mobile menu logic on mobile devices
             if (window.innerWidth <= 768) {
+                const isOpening = !navMenu.classList.contains('active');
+                
                 navToggle.classList.toggle('active');
                 navMenu.classList.toggle('active');
 
-                // Manage body scroll to prevent background scrolling while allowing menu scroll
-                if (navMenu.classList.contains('active')) {
+                if (isOpening) {
                     // Menu is opening
+                    console.log('Opening mobile menu');
                     lockBodyScrollMobile();
                     showMenu(navMenu);
                     
@@ -529,17 +622,28 @@ function initNavigation() {
                         if (isSafari && navMenu.classList.contains('active')) {
                             // Force Safari to recalculate viewport and menu position
                             const viewportHeight = window.innerHeight;
+                            const viewportWidth = window.innerWidth;
+                            
+                            // Apply comprehensive Safari fixes
                             navMenu.style.height = viewportHeight + 'px';
                             navMenu.style.maxHeight = viewportHeight + 'px';
+                            navMenu.style.width = viewportWidth + 'px';
                             navMenu.style.top = '0px';
+                            navMenu.style.left = '0px';
+                            navMenu.style.right = '0px';
+                            navMenu.style.bottom = '0px';
                             
                             // Force a repaint to ensure Safari shows the full menu
                             navMenu.offsetHeight; // Trigger reflow
                             navMenu.style.transform = 'translate3d(0, 0, 0)';
                             
+                            // Additional Safari-specific positioning
+                            navMenu.style.position = 'fixed';
+                            navMenu.style.zIndex = '10000';
+                            
                             console.log('Applied Safari viewport correction for menu cutoff');
                         }
-                    }, 500);
+                    }, 100); // Reduced delay for faster response
                 } else {
                     // Menu is closing - restore body scroll and clear inline styles
                     console.log('Closing mobile menu via toggle');
