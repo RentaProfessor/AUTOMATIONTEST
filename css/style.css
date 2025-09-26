@@ -2565,80 +2565,18 @@ iframe {
     contain: layout style !important;
 }
 
-/* NUCLEAR Safari fix - force Safari to behave */
+/* GENTLE Safari fix - minimal approach */
 @supports (-webkit-appearance: none) {
     @media (max-width: 768px) {
         .hero {
-            /* NUCLEAR: Force exact padding with no calculations */
-            padding-top: 55px !important;
-            padding-bottom: 15px !important;
-            margin-top: 0 !important;
-            position: relative !important;
-            z-index: 1 !important;
-            
-            /* NUCLEAR: Force Safari rendering properties */
-            -webkit-transform: translateZ(0) !important;
-            transform: translateZ(0) !important;
-            -webkit-backface-visibility: hidden !important;
-            backface-visibility: hidden !important;
-            -webkit-perspective: 1000px !important;
-            perspective: 1000px !important;
-            -webkit-transform-style: preserve-3d !important;
-            transform-style: preserve-3d !important;
-            isolation: isolate !important;
-            contain: layout style paint !important;
-            will-change: auto !important;
-            
-            /* NUCLEAR: Prevent any height calculations */
-            height: auto !important;
-            min-height: auto !important;
-            max-height: none !important;
-            overflow: hidden !important;
-        }
-        
-        .hero-content {
-            /* NUCLEAR: Force hero content stability */
-            opacity: 1 !important;
-            visibility: visible !important;
-            transform: none !important;
-            -webkit-transform: none !important;
-            animation: none !important;
-            -webkit-animation: none !important;
-            transition: none !important;
-            -webkit-transition: none !important;
-            will-change: auto !important;
-            position: static !important;
-            display: block !important;
-            margin: 0 auto !important;
-            padding: 0 !important;
-            
-            /* NUCLEAR: Force Safari rendering */
-            -webkit-backface-visibility: hidden !important;
-            backface-visibility: hidden !important;
-            contain: layout style !important;
-            -webkit-transform: translateZ(0) !important;
-            transform: translateZ(0) !important;
-            -webkit-perspective: 1000px !important;
-            perspective: 1000px !important;
+            /* Simple: Just set the padding */
+            padding-top: 55px;
+            padding-bottom: 15px;
+            margin-top: 0;
         }
     }
-        /* Force immediate visibility */
-        opacity: 1 !important;
-        visibility: visible !important;
-        /* Prevent any movement or layout shifts */
-        contain: layout !important;
-        box-sizing: border-box !important;
-        /* Override any inherited animation properties */
-        animation-name: none !important;
-        animation-duration: 0s !important;
-        animation-delay: 0s !important;
-        animation-fill-mode: none !important;
-        animation-play-state: running !important;
-        animation-iteration-count: 1 !important;
-        animation-direction: normal !important;
-        animation-timing-function: ease !important;
-    }
-    
+}
+
     .hero-title {
         font-size: 2rem !important;
         line-height: 1.2 !important;
