@@ -414,36 +414,170 @@ function initNavigation() {
             if (href && href.startsWith('#')) {
                 e.preventDefault();
                 
-                // Close mobile menu if open
-                navToggle.classList.remove('active');
-                navMenu.classList.remove('active');
-                
-                const targetSection = document.querySelector(href);
-                if (targetSection) {
-                    const offsetTop = targetSection.offsetTop - 70; // Account for fixed navbar
+                // MOBILE ONLY: Close mobile menu if open and restore body scroll
+                if (window.innerWidth <= 768 && navMenu.classList.contains('active')) {
+                    navToggle.classList.remove('active');
+                    navMenu.classList.remove('active');
                     
-                    window.scrollTo({
-                        top: offsetTop,
-                        behavior: 'smooth'
-                    });
+                    // Restore body scroll (mobile only)
+                    const scrollY = document.body.style.top;
+                    document.body.style.overflow = '';
+                    document.body.style.position = '';
+                    document.body.style.top = '';
+                    document.body.style.width = '';
+                    
+                    // Navigate to section after restoring scroll
+                    const targetSection = document.querySelector(href);
+                    if (targetSection) {
+                        const currentScroll = parseInt(scrollY || '0') * -1;
+                        window.scrollTo(0, currentScroll);
+                        
+                        // Small delay to ensure scroll is restored before smooth scroll
+                        setTimeout(() => {
+                            const offsetTop = targetSection.offsetTop - 70; // Account for fixed navbar
+                            window.scrollTo({
+                                top: offsetTop,
+                                behavior: 'smooth'
+                            });
+                        }, 100);
+                    } else {
+                        window.scrollTo(0, parseInt(scrollY || '0') * -1);
+                    }
+                } else {
+                    // Regular navigation for desktop OR when menu is not open
+                    const targetSection = document.querySelector(href);
+                    if (targetSection) {
+                        const offsetTop = targetSection.offsetTop - 70; // Account for fixed navbar
+                        
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
                 }
             }
         });
     });
     
-    // Mobile menu toggle
+    // Mobile menu toggle with proper scroll management (MOBILE ONLY)
     if (navToggle) {
         navToggle.addEventListener('click', function() {
-            navToggle.classList.toggle('active');
-            navMenu.classList.toggle('active');
+            // Only apply mobile menu logic on mobile devices
+            if (window.innerWidth <= 768) {
+                navToggle.classList.toggle('active');
+                navMenu.classList.toggle('active');
+                
+                // Manage body scroll to prevent background scrolling while allowing menu scroll
+                if (navMenu.classList.contains('active')) {
+                    // Menu is opening - prevent body scroll but allow menu scroll
+                    document.body.style.overflow = 'hidden';
+                    document.body.style.position = 'fixed';
+                    document.body.style.top = `-${window.scrollY}px`;
+                    document.body.style.width = '100%';
+                    
+                    // AGGRESSIVE CHROME MOBILE FIXES
+                    const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+                    if (isChrome) {
+                        // More aggressive scroll prevention for Chrome mobile
+                        document.body.style.touchAction = 'none';
+                        document.body.style.webkitOverflowScrolling = 'auto';
+                        document.documentElement.style.overflow = 'hidden';
+                        document.documentElement.style.position = 'fixed';
+                        document.documentElement.style.width = '100%';
+                        document.documentElement.style.height = '100%';
+                        console.log('Applied aggressive Chrome mobile menu fixes');
+                    }
+                    
+                    // Add scroll indicators for mobile menu after animation
+                    setTimeout(() => {
+                        addMobileMenuScrollIndicators();
+                    }, 500);
+                } else {
+                    // Menu is closing - restore body scroll
+                    const scrollY = document.body.style.top;
+                    document.body.style.overflow = '';
+                    document.body.style.position = '';
+                    document.body.style.top = '';
+                    document.body.style.width = '';
+                    
+                    // AGGRESSIVE CHROME MOBILE RESTORE
+                    const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+                    if (isChrome) {
+                        document.body.style.touchAction = '';
+                        document.body.style.webkitOverflowScrolling = '';
+                        document.documentElement.style.overflow = '';
+                        document.documentElement.style.position = '';
+                        document.documentElement.style.width = '';
+                        document.documentElement.style.height = '';
+                        console.log('Restored from aggressive Chrome mobile menu fixes');
+                    }
+                    
+                    window.scrollTo(0, parseInt(scrollY || '0') * -1);
+                }
+            }
         });
     }
     
-    // Close mobile menu when clicking outside
+    // Function to add scroll indicators to mobile menu
+    function addMobileMenuScrollIndicators() {
+        if (!navMenu || window.innerWidth > 768) return;
+        
+        // Check if menu content is scrollable
+        const isScrollable = navMenu.scrollHeight > navMenu.clientHeight;
+        
+        if (isScrollable) {
+            console.log('Mobile menu is scrollable - adding visual indicators');
+            
+            // Add visual feedback to show menu is scrollable
+            navMenu.style.borderTop = '3px solid rgba(102, 126, 234, 0.3)';
+            navMenu.style.borderBottom = '3px solid rgba(102, 126, 234, 0.3)';
+            
+            // Add scroll event listener for fade effects
+            navMenu.addEventListener('scroll', function() {
+                const scrollTop = this.scrollTop;
+                const scrollHeight = this.scrollHeight;
+                const clientHeight = this.clientHeight;
+                const scrollBottom = scrollHeight - clientHeight - scrollTop;
+                
+                // Fade top border when scrolled from top
+                const topOpacity = Math.min(scrollTop / 50, 0.5);
+                this.style.borderTopColor = `rgba(102, 126, 234, ${0.3 + topOpacity})`;
+                
+                // Fade bottom border when scrolled to bottom
+                const bottomOpacity = Math.min(scrollBottom / 50, 0.5);
+                this.style.borderBottomColor = `rgba(102, 126, 234, ${0.3 + bottomOpacity})`;
+            });
+        }
+    }
+    
+    // Close mobile menu when clicking outside (MOBILE ONLY)
     document.addEventListener('click', function(event) {
-        if (!navToggle.contains(event.target) && !navMenu.contains(event.target)) {
-            navToggle.classList.remove('active');
-            navMenu.classList.remove('active');
+        // Only apply on mobile devices
+        if (window.innerWidth <= 768 && !navToggle.contains(event.target) && !navMenu.contains(event.target)) {
+            if (navMenu.classList.contains('active')) {
+                navToggle.classList.remove('active');
+                navMenu.classList.remove('active');
+                
+                // Restore body scroll
+                const scrollY = document.body.style.top;
+                document.body.style.overflow = '';
+                document.body.style.position = '';
+                document.body.style.top = '';
+                document.body.style.width = '';
+                
+                // AGGRESSIVE CHROME MOBILE RESTORE
+                const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+                if (isChrome) {
+                    document.body.style.touchAction = '';
+                    document.body.style.webkitOverflowScrolling = '';
+                    document.documentElement.style.overflow = '';
+                    document.documentElement.style.position = '';
+                    document.documentElement.style.width = '';
+                    document.documentElement.style.height = '';
+                }
+                
+                window.scrollTo(0, parseInt(scrollY || '0') * -1);
+            }
         }
     });
     

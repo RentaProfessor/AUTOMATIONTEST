@@ -2101,14 +2101,29 @@ iframe {
         backdrop-filter: blur(20px) !important;
         -webkit-backdrop-filter: blur(20px) !important;
         flex-direction: column !important;
-        justify-content: center !important;
+        justify-content: flex-start !important;
         align-items: center !important;
-        padding-top: 0 !important;
+        padding: 80px 20px 40px 20px !important;
         transition: left 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
         box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15) !important;
         z-index: 10000 !important;
         transform: translateZ(0) !important;
         will-change: transform !important;
+        /* CRITICAL: Enable scrolling within the menu */
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        -webkit-overflow-scrolling: touch !important;
+        /* Ensure proper scroll behavior */
+        overscroll-behavior: contain !important;
+        -webkit-overscroll-behavior: contain !important;
+        /* Add scroll indicator styles */
+        background-image: 
+            linear-gradient(rgba(255,255,255,0.98) 30%, rgba(255,255,255,0.9)),
+            linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.98) 70%) !important;
+        background-position: top, bottom !important;
+        background-size: 100% 40px, 100% 40px !important;
+        background-repeat: no-repeat !important;
+        background-attachment: local, local !important;
     }
     
     .nav-menu.active {
@@ -2116,10 +2131,17 @@ iframe {
     }
     
     .nav-menu li {
-        margin: 25px 0 !important;
+        margin: 15px 0 !important;
         opacity: 0 !important;
         transform: translateY(20px) !important;
         animation: slideInMenu 0.3s ease forwards !important;
+        width: 100% !important;
+        text-align: center !important;
+        /* Ensure menu items are visible and touchable */
+        min-height: 60px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
     }
     
     .nav-menu.active li {
@@ -2133,9 +2155,29 @@ iframe {
     .nav-menu.active li:nth-child(4) { animation-delay: 0.4s !important; }
     .nav-menu.active li:nth-child(5) { animation-delay: 0.5s !important; }
     
+    /* Add a subtle scroll indicator for the mobile menu */
+    .nav-menu::before {
+        content: '' !important;
+        position: sticky !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        height: 2px !important;
+        background: linear-gradient(90deg, transparent, var(--primary-color), transparent) !important;
+        opacity: 0.3 !important;
+        z-index: 1 !important;
+        margin-bottom: 20px !important;
+        border-radius: 1px !important;
+    }
+    
+    /* Enhance the last menu item to show more content if scrollable */
+    .nav-menu li:last-child {
+        margin-bottom: 60px !important;
+    }
+    
     .nav-menu a {
-        font-size: 1.4rem !important;
-        padding: 20px 40px !important;
+        font-size: 1.3rem !important;
+        padding: 16px 32px !important;
         display: block !important;
         text-align: center !important;
         color: var(--text-color) !important;
@@ -2143,6 +2185,16 @@ iframe {
         border-radius: 12px !important;
         transition: all 0.3s ease !important;
         min-width: 200px !important;
+        width: 100% !important;
+        max-width: 280px !important;
+        /* Ensure proper touch targets */
+        min-height: 48px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        /* Better scrolling interaction */
+        -webkit-tap-highlight-color: rgba(102, 126, 234, 0.3) !important;
+        touch-action: manipulation !important;
     }
     
     .nav-menu a:hover {
