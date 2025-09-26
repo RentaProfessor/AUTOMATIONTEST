@@ -1,7 +1,7 @@
 // FutureClarity Technologies Website JavaScript
 // Handles all interactive features and animations
 
-    // Mobile Safari spacing fix - STABLE VERSION (prevents shifting)
+    // NUCLEAR Safari fix - gives Safari exactly what it wants
     (function() {
         const isMobile = window.innerWidth <= 768 || 
                          /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
@@ -12,46 +12,100 @@
                          /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
         
         if (isMobile && isSafari) {
-            // STABLE fix - prevents shifting by using consistent spacing
-            const fixHeroSpacing = () => {
+            console.log('NUCLEAR Safari fix activated');
+            
+            // NUCLEAR OPTION: Force Safari to behave with aggressive CSS injection
+            const nuclearFix = () => {
                 const hero = document.querySelector('.hero');
+                const heroContent = document.querySelector('.hero-content');
+                
                 if (hero) {
-                    // Use consistent 55px + safe area spacing (no dynamic changes)
-                    const safeAreaTop = getComputedStyle(document.documentElement).getPropertyValue('--safe-area-inset-top') || '0px';
-                    const safeAreaValue = parseInt(safeAreaTop) || 0;
-                    const navbarHeight = 55 + safeAreaValue;
+                    // NUCLEAR: Force Safari to use exact viewport calculations
+                    const viewportHeight = window.innerHeight;
+                    const navbarHeight = 55; // Fixed value, no calculations
                     
-                    // Apply stable spacing that won't shift
-                    hero.style.paddingTop = `${navbarHeight}px`;
-                    hero.style.paddingBottom = '15px';
-                    hero.style.marginTop = '0';
-                    hero.style.position = 'relative';
-                    hero.style.zIndex = '1';
-                    
-                    // Prevent any layout shifts
-                    hero.style.transform = 'none';
-                    hero.style.willChange = 'auto';
-                    hero.style.backfaceVisibility = 'hidden';
-                    hero.style.webkitBackfaceVisibility = 'hidden';
+                    // NUCLEAR: Override everything with !important
+                    hero.style.cssText = `
+                        padding-top: ${navbarHeight}px !important;
+                        padding-bottom: 15px !important;
+                        margin-top: 0 !important;
+                        position: relative !important;
+                        z-index: 1 !important;
+                        transform: none !important;
+                        will-change: auto !important;
+                        backface-visibility: hidden !important;
+                        -webkit-backface-visibility: hidden !important;
+                        contain: layout style paint !important;
+                        -webkit-transform: translateZ(0) !important;
+                        transform: translateZ(0) !important;
+                        -webkit-perspective: 1000px !important;
+                        perspective: 1000px !important;
+                        -webkit-transform-style: preserve-3d !important;
+                        transform-style: preserve-3d !important;
+                        isolation: isolate !important;
+                        overflow: hidden !important;
+                        height: auto !important;
+                        min-height: auto !important;
+                        max-height: none !important;
+                    `;
+                }
+                
+                if (heroContent) {
+                    // NUCLEAR: Force hero content to be completely stable
+                    heroContent.style.cssText = `
+                        opacity: 1 !important;
+                        visibility: visible !important;
+                        transform: none !important;
+                        -webkit-transform: none !important;
+                        animation: none !important;
+                        -webkit-animation: none !important;
+                        transition: none !important;
+                        -webkit-transition: none !important;
+                        will-change: auto !important;
+                        position: static !important;
+                        display: block !important;
+                        margin: 0 auto !important;
+                        padding: 0 !important;
+                        backface-visibility: hidden !important;
+                        -webkit-backface-visibility: hidden !important;
+                        contain: layout style !important;
+                        -webkit-transform: translateZ(0) !important;
+                        transform: translateZ(0) !important;
+                        -webkit-perspective: 1000px !important;
+                        perspective: 1000px !important;
+                    `;
                 }
             };
             
-            // Apply immediately and prevent re-application
-            let fixApplied = false;
-            const applyStableFix = () => {
-                if (!fixApplied) {
-                    fixApplied = true;
-                    fixHeroSpacing();
-                }
+            // NUCLEAR: Apply immediately and lock it down
+            nuclearFix();
+            
+            // NUCLEAR: Apply multiple times to ensure Safari gets the message
+            setTimeout(nuclearFix, 0);
+            setTimeout(nuclearFix, 10);
+            setTimeout(nuclearFix, 50);
+            setTimeout(nuclearFix, 100);
+            
+            // NUCLEAR: Lock on DOM ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', nuclearFix, { once: true });
+            }
+            
+            // NUCLEAR: Lock on window load
+            window.addEventListener('load', nuclearFix, { once: true });
+            
+            // NUCLEAR: Prevent any future changes
+            const lockDown = () => {
+                nuclearFix();
+                // Force a repaint
+                document.body.offsetHeight;
             };
             
-            // Apply immediately
-            applyStableFix();
+            // NUCLEAR: Lock on any viewport changes
+            window.addEventListener('resize', lockDown);
+            window.addEventListener('orientationchange', lockDown);
             
-            // Only reapply on orientation change, not resize
-            window.addEventListener('orientationchange', () => {
-                setTimeout(applyStableFix, 100);
-            });
+            console.log('NUCLEAR Safari fix applied and locked');
         }
     
     if (isMobile) {

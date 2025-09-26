@@ -27,6 +27,9 @@
     /* Mobile Safari spacing fix - safe area insets */
     --safe-area-inset-top: env(safe-area-inset-top, 0px);
     --navbar-height: calc(55px + var(--safe-area-inset-top));
+    
+    /* NUCLEAR Safari fix - force stable layout */
+    --safari-hero-padding: 55px;
 }
 
 html {
@@ -2556,10 +2559,69 @@ iframe {
         display: block !important;
         width: 100% !important;
         text-align: center !important;
-        /* Prevent shifting on mobile Safari */
-        backface-visibility: hidden !important;
-        -webkit-backface-visibility: hidden !important;
-        contain: layout style !important;
+    /* Prevent shifting on mobile Safari */
+    backface-visibility: hidden !important;
+    -webkit-backface-visibility: hidden !important;
+    contain: layout style !important;
+}
+
+/* NUCLEAR Safari fix - force Safari to behave */
+@supports (-webkit-appearance: none) {
+    @media (max-width: 768px) {
+        .hero {
+            /* NUCLEAR: Force exact padding with no calculations */
+            padding-top: 55px !important;
+            padding-bottom: 15px !important;
+            margin-top: 0 !important;
+            position: relative !important;
+            z-index: 1 !important;
+            
+            /* NUCLEAR: Force Safari rendering properties */
+            -webkit-transform: translateZ(0) !important;
+            transform: translateZ(0) !important;
+            -webkit-backface-visibility: hidden !important;
+            backface-visibility: hidden !important;
+            -webkit-perspective: 1000px !important;
+            perspective: 1000px !important;
+            -webkit-transform-style: preserve-3d !important;
+            transform-style: preserve-3d !important;
+            isolation: isolate !important;
+            contain: layout style paint !important;
+            will-change: auto !important;
+            
+            /* NUCLEAR: Prevent any height calculations */
+            height: auto !important;
+            min-height: auto !important;
+            max-height: none !important;
+            overflow: hidden !important;
+        }
+        
+        .hero-content {
+            /* NUCLEAR: Force hero content stability */
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: none !important;
+            -webkit-transform: none !important;
+            animation: none !important;
+            -webkit-animation: none !important;
+            transition: none !important;
+            -webkit-transition: none !important;
+            will-change: auto !important;
+            position: static !important;
+            display: block !important;
+            margin: 0 auto !important;
+            padding: 0 !important;
+            
+            /* NUCLEAR: Force Safari rendering */
+            -webkit-backface-visibility: hidden !important;
+            backface-visibility: hidden !important;
+            contain: layout style !important;
+            -webkit-transform: translateZ(0) !important;
+            transform: translateZ(0) !important;
+            -webkit-perspective: 1000px !important;
+            perspective: 1000px !important;
+        }
+    }
         /* Force immediate visibility */
         opacity: 1 !important;
         visibility: visible !important;
