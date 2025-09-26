@@ -39,111 +39,7 @@
     <meta property="twitter:description" content="Transform your business with AI-powered automation solutions. Custom chatbots, workflow optimization, and intelligent systems.">
     <meta property="twitter:image" content="https://futureclarity.ai/assets/twitter-image.png">
     <title>FutureClarity Technologies - AI Solutions for Modern Business</title>
-    <link rel="stylesheet" href="safari-mobile.css?v=209">
-    
-    <!-- CRITICAL: Immediate mobile Safari spacing fix - runs before any animations (one-time guard) -->
-    <script>
-        (function() {
-            // Detect mobile Safari immediately
-            const isMobile = window.innerWidth <= 768 || 
-                             /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
-                             ('ontouchstart' in window) ||
-                             (navigator.maxTouchPoints > 0);
-            
-            const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent) || 
-                             /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
-            
-            if (isMobile && isSafari) {
-                // IMMEDIATE fix - prevent any visual glitches
-                let safariFixApplied = false;
-                const fixImmediately = () => {
-                    if (safariFixApplied) return;
-                    safariFixApplied = true;
-                    // Fix hero section spacing immediately
-                    const hero = document.querySelector('.hero');
-                    if (hero) {
-                        const safeAreaTop = getComputedStyle(document.documentElement).getPropertyValue('--safe-area-inset-top') || '0px';
-                        const safeAreaValue = parseInt(safeAreaTop) || 0;
-                        const navbarHeight = 70 + safeAreaValue;
-                        
-                        hero.style.paddingTop = `${navbarHeight}px`;
-                        hero.style.paddingBottom = '15px';
-                        hero.style.marginTop = '0';
-                        hero.style.position = 'relative';
-                        hero.style.zIndex = '1';
-                    }
-                    
-                    // Fix hero content immediately
-                    const heroContent = document.querySelector('.hero-content');
-                    if (heroContent) {
-                        heroContent.style.animation = 'none';
-                        heroContent.style.webkitAnimation = 'none';
-                        heroContent.style.transition = 'none';
-                        heroContent.style.webkitTransition = 'none';
-                        heroContent.style.opacity = '1';
-                        heroContent.style.visibility = 'visible';
-                        heroContent.style.transform = 'none';
-                        heroContent.style.webkitTransform = 'none';
-                        heroContent.style.willChange = 'auto';
-                        heroContent.style.position = 'static';
-                        heroContent.style.display = 'block';
-                    }
-                    
-                    // Fix gradient text immediately
-                    const gradientText = document.querySelector('.gradient-text');
-                    if (gradientText) {
-                        gradientText.style.animation = 'none';
-                        gradientText.style.webkitAnimation = 'none';
-                        gradientText.style.transition = 'none';
-                        gradientText.style.webkitTransition = 'none';
-                        gradientText.style.opacity = '1';
-                        gradientText.style.visibility = 'visible';
-                        gradientText.style.transform = 'none';
-                        gradientText.style.webkitTransform = 'none';
-                        gradientText.style.willChange = 'auto';
-                    }
-                };
-                
-                // Run once either now or on DOM ready
-                if (document.readyState === 'loading') {
-                    document.addEventListener('DOMContentLoaded', fixImmediately, { once: true });
-                } else {
-                    fixImmediately();
-                }
-            }
-        })();
-    </script>
-    
-    <!-- Force Chrome to match Safari mobile appearance -->
-    <script>
-        (function() {
-            const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
-            const isMobile = window.innerWidth <= 768;
-            
-            if (isChrome && isMobile) {
-                // Simple immediate fix to match Safari
-                document.documentElement.style.zoom = '1';
-                document.documentElement.style.webkitTextSizeAdjust = '100%';
-                
-                // When body is available, apply same fixes
-                if (document.body) {
-                    document.body.style.zoom = '1';
-                    document.body.style.webkitTextSizeAdjust = '100%';
-                } else {
-                    const observer = new MutationObserver(function() {
-                        if (document.body) {
-                            document.body.style.zoom = '1';
-                            document.body.style.webkitTextSizeAdjust = '100%';
-                            observer.disconnect();
-                        }
-                    });
-                    observer.observe(document.documentElement, { childList: true });
-                }
-                
-                console.log('Chrome mobile matched to Safari');
-            }
-        })();
-    </script>
+    <link rel="stylesheet" href="safari-mobile.css?v=213">
 </head>
 <body>
     <!-- Navigation -->
@@ -543,6 +439,6 @@
 
 
 
-    <script src="safari-mobile.js?v=212"></script>
+    <script src="safari-mobile.js?v=213"></script>
 </body>
 </html> 
