@@ -324,6 +324,24 @@ function fixPortfolioPageOverlay() {
             portfolioHero.style.position = 'relative';
             portfolioHero.style.zIndex = '1';
             portfolioHero.style.overflow = 'visible';
+            
+            // CRITICAL: Remove the hero pseudo-element that creates white overlay
+            const heroBefore = window.getComputedStyle(portfolioHero, '::before');
+            if (heroBefore) {
+                // Force remove the pseudo-element by setting its content to none
+                const style = document.createElement('style');
+                style.textContent = `
+                    .portfolio-page .hero::before {
+                        display: none !important;
+                        content: none !important;
+                        background: none !important;
+                        background-image: none !important;
+                        opacity: 0 !important;
+                        visibility: hidden !important;
+                    }
+                `;
+                document.head.appendChild(style);
+            }
         }
         
         // Fix all portfolio sections

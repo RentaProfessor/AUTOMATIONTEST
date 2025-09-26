@@ -3178,6 +3178,53 @@ iframe {
         background-image: none !important;
     }
     
+    /* NUCLEAR OPTION: Force remove any white overlays */
+    .portfolio-page::before,
+    .portfolio-page::after {
+        display: none !important;
+        content: none !important;
+    }
+    
+    .portfolio-page *::before,
+    .portfolio-page *::after {
+        background: transparent !important;
+        background-color: transparent !important;
+        background-image: none !important;
+    }
+    
+    /* CRITICAL: Remove hero pseudo-element overlay on portfolio page */
+    .portfolio-page .hero::before {
+        display: none !important;
+        content: none !important;
+        background: none !important;
+        background-image: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+    }
+    
+    /* Ensure mobile menu doesn't interfere with portfolio page */
+    .portfolio-page .nav-menu {
+        z-index: 9999 !important;
+    }
+    
+    .portfolio-page .nav-menu.active {
+        z-index: 9999 !important;
+    }
+    
+    /* Force all portfolio page elements to be visible */
+    .portfolio-page {
+        visibility: visible !important;
+        opacity: 1 !important;
+        display: block !important;
+        position: relative !important;
+        z-index: 1 !important;
+    }
+    
+    .portfolio-page * {
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+    
     .portfolio-page .navbar {
         background: rgba(255, 255, 255, 0.96) !important;
         background-color: rgba(255, 255, 255, 0.96) !important;
