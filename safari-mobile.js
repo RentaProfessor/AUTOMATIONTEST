@@ -144,10 +144,10 @@ function initNavigation() {
             // Close menu first
             closeMenu();
             
-            // Wait for menu to close, then scroll
+            // Shorter wait, then scroll immediately
             setTimeout(() => {
                 scrollToSection(targetSection);
-            }, 300);
+            }, 100);
         });
     });
     
@@ -158,36 +158,44 @@ function initNavigation() {
         }
     });
     
-    // Smooth scroll to section function
+    // Simple, reliable scroll to section function
     function scrollToSection(targetSection) {
-        const navbar = document.querySelector('.navbar');
-        const navbarHeight = navbar ? navbar.offsetHeight : 70;
-        const safeAreaTop = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--safe-area-inset-top')) || 0;
-        const offset = navbarHeight + safeAreaTop + 20; // 20px buffer
+        console.log(`Starting scroll to section: ${targetSection.id}`);
         
-        const targetPosition = targetSection.getBoundingClientRect().top + window.pageYOffset - offset;
-        const startPosition = window.pageYOffset;
-        const distance = targetPosition - startPosition;
-        const duration = 800; // Smooth scroll duration
-        let startTime = null;
+        // Simple fixed offset - no complex calculations
+        const offset = 100; // Fixed 100px offset for navbar + spacing
         
-        function scrollAnimation(currentTime) {
-            if (startTime === null) startTime = currentTime;
-            const timeElapsed = currentTime - startTime;
-            const progress = Math.min(timeElapsed / duration, 1);
+        // Get the current position of the target section
+        const rect = targetSection.getBoundingClientRect();
+        const targetPosition = Math.max(0, window.pageYOffset + rect.top - offset);
+        
+        console.log(`Target position calculated: ${targetPosition}`);
+        
+        // Try native smooth scroll first
+        try {
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
             
-            // Easing function (ease-out)
-            const ease = 1 - Math.pow(1 - progress, 3);
+            // Verify scroll worked after short delay
+            setTimeout(() => {
+                const currentScroll = window.pageYOffset;
+                const difference = Math.abs(currentScroll - targetPosition);
+                console.log(`Scroll verification - Current: ${currentScroll}, Target: ${targetPosition}, Diff: ${difference}`);
+                
+                // If scroll didn't work properly, force it
+                if (difference > 100) {
+                    console.log('Scroll failed, forcing immediate scroll');
+                    window.scrollTo(0, targetPosition);
+                }
+            }, 500);
             
-            window.scrollTo(0, startPosition + distance * ease);
-            
-            if (progress < 1) {
-                requestAnimationFrame(scrollAnimation);
-            }
+        } catch (error) {
+            console.log('Native smooth scroll failed, using fallback');
+            // Immediate fallback
+            window.scrollTo(0, targetPosition);
         }
-        
-        requestAnimationFrame(scrollAnimation);
-        console.log(`Scrolling to section: ${targetSection.id}`);
     }
     
     // Handle orientation change
