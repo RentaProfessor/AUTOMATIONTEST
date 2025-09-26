@@ -158,38 +158,39 @@ function initNavigation() {
         }
     });
     
-    // Quick and smooth scroll to section function
+    // Simple and reliable scroll function
     function scrollToSection(targetSection) {
-        console.log(`Starting scroll to section: ${targetSection.id}`);
+        console.log(`=== SCROLL DEBUG ===`);
+        console.log(`Target section: ${targetSection.id}`);
         
-        // Calculate precise position to put section heading at top of screen
-        const navbarHeight = 90; // Fixed navbar height
-        const extraSpacing = 20; // Small buffer for visual spacing
-        const offset = navbarHeight + extraSpacing; // Total offset
+        // Get the absolute position of the target section from the top of the document
+        let elementTop = 0;
+        let element = targetSection;
         
-        // Get the current position of the target section
-        const rect = targetSection.getBoundingClientRect();
-        const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const targetPosition = Math.max(0, currentScrollTop + rect.top - offset);
+        // Calculate absolute position from top of document
+        do {
+            elementTop += element.offsetTop || 0;
+            element = element.offsetParent;
+        } while (element);
         
-        console.log(`Section: ${targetSection.id}, Target position: ${targetPosition}`);
+        console.log(`Element absolute top: ${elementTop}px`);
+        console.log(`Current scroll position: ${window.pageYOffset}px`);
         
-        // Quick smooth scroll - best of both worlds
-        window.scrollTo({
-            top: targetPosition,
-            behavior: 'smooth'
-        });
+        // Simple offset for navbar
+        const offset = 100;
+        const targetPosition = Math.max(0, elementTop - offset);
         
-        // Fallback for immediate scroll if needed
+        console.log(`Target scroll position: ${targetPosition}px`);
+        console.log(`Distance to scroll: ${targetPosition - window.pageYOffset}px`);
+        
+        // Force immediate scroll - no smooth behavior to ensure it works
+        window.scrollTo(0, targetPosition);
+        
+        // Check if it worked
         setTimeout(() => {
-            const currentPosition = window.pageYOffset || document.documentElement.scrollTop;
-            if (Math.abs(currentPosition - targetPosition) > 50) {
-                console.log('Smooth scroll didn\'t work, using instant scroll');
-                window.scrollTo(0, targetPosition);
-            }
-        }, 300);
-        
-        console.log(`Scrolled to section: ${targetSection.id}`);
+            console.log(`Final scroll position: ${window.pageYOffset}px`);
+            console.log(`=== END SCROLL DEBUG ===`);
+        }, 100);
     }
     
     // Handle orientation change
@@ -203,6 +204,28 @@ function initNavigation() {
     });
     
     console.log('Navigation initialized successfully');
+    
+    // DEBUG: Add manual test function to window for testing
+    window.testScroll = function(sectionId) {
+        const section = document.getElementById(sectionId);
+        if (section) {
+            console.log(`Manual test scroll to: ${sectionId}`);
+            scrollToSection(section);
+        } else {
+            console.log(`Section not found: ${sectionId}`);
+        }
+    };
+    
+    // DEBUG: List all sections found
+    console.log('Available sections:');
+    ['home', 'services', 'features', 'about', 'contact'].forEach(id => {
+        const section = document.getElementById(id);
+        if (section) {
+            console.log(`✓ Found section: ${id}`);
+        } else {
+            console.log(`✗ Missing section: ${id}`);
+        }
+    });
 }
 
 // Safari mobile specific fixes
