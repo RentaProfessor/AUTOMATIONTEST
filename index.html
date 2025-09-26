@@ -39,7 +39,7 @@
     <meta property="twitter:description" content="Transform your business with AI-powered automation solutions. Custom chatbots, workflow optimization, and intelligent systems.">
     <meta property="twitter:image" content="https://futureclarity.ai/assets/twitter-image.png">
     <title>FutureClarity Technologies - AI Solutions for Modern Business</title>
-    <link rel="stylesheet" href="css/style.css?v=181">
+    <link rel="stylesheet" href="css/style.css?v=182">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
@@ -71,6 +71,17 @@
                 transform: none !important;
                 -webkit-transform: none !important;
                 will-change: auto !important;
+            }
+            
+            /* SAFARI HERO FIX - Force stable positioning */
+            .hero {
+                padding-top: 55px !important;
+                padding-bottom: 15px !important;
+                margin-top: 0 !important;
+                transform: none !important;
+                will-change: auto !important;
+                position: relative !important;
+                z-index: 1 !important;
             }
         }
     </style>
