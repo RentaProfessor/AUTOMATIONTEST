@@ -16,10 +16,10 @@
             const fixHeroSpacing = () => {
                 const hero = document.querySelector('.hero');
                 if (hero) {
-                    // Use consistent 70px + safe area spacing (no dynamic changes)
+                    // Use consistent 55px + safe area spacing (no dynamic changes)
                     const safeAreaTop = getComputedStyle(document.documentElement).getPropertyValue('--safe-area-inset-top') || '0px';
                     const safeAreaValue = parseInt(safeAreaTop) || 0;
-                    const navbarHeight = 70 + safeAreaValue;
+                    const navbarHeight = 55 + safeAreaValue;
                     
                     // Apply stable spacing that won't shift
                     hero.style.paddingTop = `${navbarHeight}px`;

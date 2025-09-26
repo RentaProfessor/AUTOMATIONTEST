@@ -26,7 +26,7 @@
     --transition: all 0.3s ease;
     /* Mobile Safari spacing fix - safe area insets */
     --safe-area-inset-top: env(safe-area-inset-top, 0px);
-    --navbar-height: calc(70px + var(--safe-area-inset-top));
+    --navbar-height: calc(55px + var(--safe-area-inset-top));
 }
 
 html {
@@ -2487,9 +2487,9 @@ iframe {
     }
     
     /* Mobile Hero Section - FIXED VIEWPORT & ZOOM ISSUES */
-    .hero {
-        padding: 70px 0 15px 0 !important; /* Fallback for older browsers */
-        padding: var(--navbar-height) 0 15px 0 !important; /* Enforce 70px + safe area on mobile */
+        .hero {
+            padding: 55px 0 15px 0 !important; /* Fallback for older browsers */
+            padding: var(--navbar-height) 0 15px 0 !important; /* Enforce 55px + safe area on mobile */
         min-height: 100vh !important;
         position: relative !important;
         background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
