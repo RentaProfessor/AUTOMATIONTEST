@@ -28,7 +28,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize all functionality
     initNavigation();
     initSafariMobileFixes();
-    initSmoothScrolling();
     
     // Ensure proper initial state
     window.addEventListener('load', function() {
@@ -37,61 +36,171 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Navigation functionality - Safari mobile optimized
+// Navigation functionality - Completely rebuilt for Safari mobile
 function initNavigation() {
     const navToggle = document.querySelector('.nav-toggle');
     const navMenu = document.querySelector('.nav-menu');
+    const navOverlay = document.querySelector('.nav-overlay');
     const navLinks = document.querySelectorAll('.nav-menu a');
+    const body = document.body;
     
-    if (!navToggle || !navMenu) return;
+    if (!navToggle || !navMenu || !navOverlay) {
+        console.error('Navigation elements not found');
+        return;
+    }
     
-    // Mobile menu toggle
-    navToggle.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        
-        const isActive = navMenu.classList.contains('active');
-        
-        if (isActive) {
+    let isMenuOpen = false;
+    let scrollPosition = 0;
+    
+    // Toggle menu function
+    function toggleMenu() {
+        if (isMenuOpen) {
             closeMenu();
         } else {
             openMenu();
         }
+    }
+    
+    // Open menu
+    function openMenu() {
+        if (isMenuOpen) return;
+        
+        // Store current scroll position
+        scrollPosition = window.pageYOffset;
+        
+        // Prevent body scroll
+        body.style.position = 'fixed';
+        body.style.top = `-${scrollPosition}px`;
+        body.style.width = '100%';
+        body.style.overflow = 'hidden';
+        
+        // Show menu and overlay
+        navMenu.classList.add('active');
+        navOverlay.classList.add('active');
+        navToggle.classList.add('active');
+        
+        isMenuOpen = true;
+        console.log('Menu opened');
+    }
+    
+    // Close menu
+    function closeMenu() {
+        if (!isMenuOpen) return;
+        
+        // Hide menu and overlay
+        navMenu.classList.remove('active');
+        navOverlay.classList.remove('active');
+        navToggle.classList.remove('active');
+        
+        // Restore body scroll
+        body.style.position = '';
+        body.style.top = '';
+        body.style.width = '';
+        body.style.overflow = '';
+        
+        // Restore scroll position
+        window.scrollTo(0, scrollPosition);
+        
+        isMenuOpen = false;
+        console.log('Menu closed');
+    }
+    
+    // Menu toggle click
+    navToggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        toggleMenu();
     });
     
-    // Close menu when clicking a link
+    // Overlay click to close
+    navOverlay.addEventListener('click', function(e) {
+        e.preventDefault();
+        closeMenu();
+    });
+    
+    // Navigation link clicks with smooth scrolling
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
-            if (window.innerWidth <= 768) {
+            const href = this.getAttribute('href');
+            
+            // If it's an external link (portfolio.html), let it work normally
+            if (!href || !href.startsWith('#')) {
                 closeMenu();
+                return;
             }
+            
+            // Prevent default for anchor links
+            e.preventDefault();
+            
+            const targetId = href.substring(1);
+            const targetSection = document.getElementById(targetId);
+            
+            if (!targetSection) {
+                console.error(`Section not found: ${targetId}`);
+                closeMenu();
+                return;
+            }
+            
+            // Close menu first
+            closeMenu();
+            
+            // Wait for menu to close, then scroll
+            setTimeout(() => {
+                scrollToSection(targetSection);
+            }, 300);
         });
     });
     
-    // Close menu when clicking outside
-    document.addEventListener('click', function(e) {
-        if (!navToggle.contains(e.target) && !navMenu.contains(e.target)) {
+    // Escape key to close menu
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && isMenuOpen) {
             closeMenu();
         }
     });
     
-    function openMenu() {
-        navMenu.classList.add('active');
-        navToggle.classList.add('active');
-        document.body.style.overflow = 'hidden';
+    // Smooth scroll to section function
+    function scrollToSection(targetSection) {
+        const navbar = document.querySelector('.navbar');
+        const navbarHeight = navbar ? navbar.offsetHeight : 70;
+        const safeAreaTop = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--safe-area-inset-top')) || 0;
+        const offset = navbarHeight + safeAreaTop + 20; // 20px buffer
         
-        // Prevent scrolling behind menu on Safari mobile
-        document.body.style.position = 'fixed';
-        document.body.style.width = '100%';
+        const targetPosition = targetSection.getBoundingClientRect().top + window.pageYOffset - offset;
+        const startPosition = window.pageYOffset;
+        const distance = targetPosition - startPosition;
+        const duration = 800; // Smooth scroll duration
+        let startTime = null;
+        
+        function scrollAnimation(currentTime) {
+            if (startTime === null) startTime = currentTime;
+            const timeElapsed = currentTime - startTime;
+            const progress = Math.min(timeElapsed / duration, 1);
+            
+            // Easing function (ease-out)
+            const ease = 1 - Math.pow(1 - progress, 3);
+            
+            window.scrollTo(0, startPosition + distance * ease);
+            
+            if (progress < 1) {
+                requestAnimationFrame(scrollAnimation);
+            }
+        }
+        
+        requestAnimationFrame(scrollAnimation);
+        console.log(`Scrolling to section: ${targetSection.id}`);
     }
     
-    function closeMenu() {
-        navMenu.classList.remove('active');
-        navToggle.classList.remove('active');
-        document.body.style.overflow = '';
-        document.body.style.position = '';
-        document.body.style.width = '';
-    }
+    // Handle orientation change
+    window.addEventListener('orientationchange', function() {
+        if (isMenuOpen) {
+            // Brief delay to let orientation settle
+            setTimeout(() => {
+                closeMenu();
+            }, 100);
+        }
+    });
+    
+    console.log('Navigation initialized successfully');
 }
 
 // Safari mobile specific fixes
@@ -192,41 +301,7 @@ function applySafariMobileFixes() {
     console.log('Safari mobile fixes applied - navbar accessible, viewport fixed');
 }
 
-// Smooth scrolling for anchor links - Safari compatible
-function initSmoothScrolling() {
-    const links = document.querySelectorAll('a[href^="#"]');
-    
-    links.forEach(link => {
-        link.addEventListener('click', function(e) {
-            const href = this.getAttribute('href');
-            if (!href || href === '#') return;
-            
-            const target = document.querySelector(href);
-            if (!target) return;
-            
-            e.preventDefault();
-            
-            // Calculate offset for fixed navbar
-            const navbar = document.querySelector('.navbar');
-            const navbarHeight = navbar ? navbar.offsetHeight : 70;
-            const safeAreaTop = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--safe-area-inset-top')) || 0;
-            const offset = navbarHeight + safeAreaTop + 20; // 20px buffer
-            
-            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
-            
-            // Use native smooth scrolling with fallback
-            if ('scrollBehavior' in document.documentElement.style) {
-                window.scrollTo({
-                    top: Math.max(0, targetPosition),
-                    behavior: 'smooth'
-                });
-            } else {
-                // Fallback for older Safari versions
-                animateScrollTo(Math.max(0, targetPosition), 600);
-            }
-        });
-    });
-}
+// Legacy smooth scrolling removed - now handled in navigation function
 
 // Fallback smooth scroll animation for older Safari
 function animateScrollTo(targetY, duration) {
