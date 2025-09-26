@@ -160,11 +160,11 @@ function applySafariMobileFixes() {
         navbar.style.height = `${70 + safeAreaTop}px`;
     }
     
-    // Update hero padding - minimal to ensure navbar is accessible
+    // Update hero padding - proper spacing to fill screen nicely
     if (hero) {
         const navbarHeight = 70; // Base navbar height
-        const topPadding = navbarHeight + safeAreaTop + 20; // Minimal spacing
-        const bottomPadding = safeAreaBottom + 40;
+        const topPadding = navbarHeight + safeAreaTop + 80; // Good spacing for full screen
+        const bottomPadding = safeAreaBottom + 60;
         
         hero.style.paddingTop = `${topPadding}px`;
         hero.style.paddingBottom = `${bottomPadding}px`;
