@@ -128,6 +128,53 @@
     }
 })();
 
+// Shared mobile scroll lock state
+let FC_SAVED_SCROLL_Y = 0;
+
+function isMobileViewport() {
+    return window.innerWidth <= 768;
+}
+
+function lockBodyScrollMobile() {
+    if (!isMobileViewport()) return;
+    if (document.body.style.position === 'fixed') return; // already locked
+    FC_SAVED_SCROLL_Y = window.scrollY || window.pageYOffset || 0;
+    document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${FC_SAVED_SCROLL_Y}px`;
+    document.body.style.width = '100%';
+    document.body.style.touchAction = 'none';
+    document.body.style.webkitOverflowScrolling = 'touch';
+}
+
+function unlockBodyScrollMobile() {
+    if (!isMobileViewport()) return;
+    const topVal = document.body.style.top;
+    document.body.style.overflow = '';
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
+    document.body.style.touchAction = '';
+    document.body.style.webkitOverflowScrolling = '';
+    const saved = topVal ? -parseInt(topVal, 10) || 0 : FC_SAVED_SCROLL_Y;
+    window.scrollTo(0, saved);
+}
+
+function closeMenuIfOpen(navToggle, navMenu) {
+    if (!navToggle || !navMenu) return;
+    if (navMenu.classList.contains('active')) {
+        navToggle.classList.remove('active');
+        navMenu.classList.remove('active');
+        // Clear inline styles that could keep overlay visible
+        navMenu.style.left = '-100%';
+        navMenu.style.transform = '';
+        navMenu.style.height = '';
+        navMenu.style.maxHeight = '';
+        navMenu.style.minHeight = '';
+        unlockBodyScrollMobile();
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     // Chrome mobile zoom fix - must be first
     fixChromeZoom();
@@ -170,9 +217,6 @@ function fixChromeZoom() {
             // Disable any Chrome scaling
             document.body.style.webkitTextSizeAdjust = '100%';
             document.documentElement.style.webkitTextSizeAdjust = '100%';
-            
-            // Reset positioning to match Safari
-            window.scrollTo(0, 0);
         }
         
         // Apply immediately
@@ -181,28 +225,7 @@ function fixChromeZoom() {
         // Apply after a brief delay to catch Chrome's defaults
         setTimeout(matchSafari, 100);
         
-        // Prevent zoom gestures to maintain Safari-like behavior
-        document.addEventListener('gesturestart', function(e) {
-            e.preventDefault();
-        }, { passive: false });
-        
-        document.addEventListener('gesturechange', function(e) {
-            e.preventDefault();
-        }, { passive: false });
-        
-        document.addEventListener('gestureend', function(e) {
-            e.preventDefault();
-        }, { passive: false });
-        
-        // Prevent double-tap zoom
-        let lastTouchEnd = 0;
-        document.addEventListener('touchend', function(event) {
-            const now = (new Date()).getTime();
-            if (now - lastTouchEnd <= 300) {
-                event.preventDefault();
-            }
-            lastTouchEnd = now;
-        }, { passive: false });
+        // Avoid intercepting gesture or touch events to reduce side effects on Chrome mobile
         
         console.log('Chrome mobile matched to Safari appearance');
     }
@@ -216,27 +239,9 @@ function fixChromeViewportHeight() {
     
     if (isChrome && isMobile) {
         function setViewportHeight() {
-            // Get the actual viewport height
+            // Only set a CSS variable for reference; avoid forcing hero height
             const vh = window.innerHeight * 0.01;
-            // Set the CSS custom property
             document.documentElement.style.setProperty('--vh', `${vh}px`);
-            
-            // Additional Chrome fixes
-            const hero = document.querySelector('.hero');
-            const navbar = document.querySelector('.navbar');
-            
-            if (hero && navbar) {
-                // Ensure hero starts after navbar
-                const navHeight = navbar.offsetHeight;
-                hero.style.marginTop = '0px';
-                hero.style.paddingTop = '0px';
-                
-                // Force Chrome to recalculate layout
-                hero.style.height = `calc(var(--vh, 1vh) * 100 + 80px)`;
-                
-                // Force repaint
-                hero.offsetHeight;
-            }
         }
         
         // Set initial viewport height
@@ -254,17 +259,7 @@ function fixChromeViewportHeight() {
             setTimeout(setViewportHeight, 600);
         });
         
-        // Update on scroll (Chrome address bar behavior) - REDUCED FREQUENCY
-        let scrollTimeout;
-        let lastScrollTime = 0;
-        window.addEventListener('scroll', function() {
-            const now = Date.now();
-            if (now - lastScrollTime > 300) { // Throttle to max once per 300ms
-                clearTimeout(scrollTimeout);
-                scrollTimeout = setTimeout(setViewportHeight, 400);
-                lastScrollTime = now;
-            }
-        }, { passive: true });
+        // No scroll listeners needed; avoid layout thrashing
         
         console.log('Chrome mobile viewport height fix applied');
     }
@@ -407,24 +402,8 @@ function forceCloseMobileMenu() {
     if (navToggle && navMenu) {
         console.log('Force closing mobile menu to clear white overlay');
         
-        // Remove active classes
-        navToggle.classList.remove('active');
-        navMenu.classList.remove('active');
-        
-        // Restore body scroll
-        document.body.style.overflow = '';
-        document.body.style.position = '';
-        document.body.style.top = '';
-        document.body.style.width = '';
-        document.body.style.touchAction = '';
-        document.body.style.webkitOverflowScrolling = '';
-        
-        // Reset any Safari-specific styles that might be stuck
-        navMenu.style.left = '-100%';
-        navMenu.style.transform = '';
-        navMenu.style.height = '';
-        navMenu.style.maxHeight = '';
-        navMenu.style.minHeight = '';
+        // Unified close routine
+        closeMenuIfOpen(navToggle, navMenu);
         
         console.log('Mobile menu force closed');
     }
@@ -474,66 +453,30 @@ function initNavigation() {
     const navMenu = document.querySelector('.nav-menu');
     const navLinks = document.querySelectorAll('.nav-menu a');
     
-    // Smooth scrolling for navigation links
+    // Smooth, reliable anchor navigation with fixed-header offset
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             const href = this.getAttribute('href');
-            
-            // Only handle anchor links
-            if (href && href.startsWith('#')) {
-                e.preventDefault();
-                
-                // MOBILE ONLY: Close mobile menu if open and restore body scroll
-                if (window.innerWidth <= 768 && navMenu.classList.contains('active')) {
-                    console.log('Closing mobile menu via navigation click');
-                    navToggle.classList.remove('active');
-                    navMenu.classList.remove('active');
-                    
-                    // Restore body scroll (mobile only)
-                    const scrollY = document.body.style.top;
-                    document.body.style.overflow = '';
-                    document.body.style.position = '';
-                    document.body.style.top = '';
-                    document.body.style.width = '';
-                    document.body.style.touchAction = '';
-                    document.body.style.webkitOverflowScrolling = '';
-                    
-                    // Reset menu position to prevent stuck overlay
-                    navMenu.style.left = '-100%';
-                    navMenu.style.transform = '';
-                    navMenu.style.height = '';
-                    navMenu.style.maxHeight = '';
-                    navMenu.style.minHeight = '';
-                    
-                    // Navigate to section after restoring scroll
-                    const targetSection = document.querySelector(href);
-                    if (targetSection) {
-                        const currentScroll = parseInt(scrollY || '0') * -1;
-                        window.scrollTo(0, currentScroll);
-                        
-                        // Small delay to ensure scroll is restored before smooth scroll
-                        setTimeout(() => {
-                            const offsetTop = targetSection.offsetTop - 70; // Account for fixed navbar
-                            window.scrollTo({
-                                top: offsetTop,
-                                behavior: 'smooth'
-                            });
-                        }, 100);
-                    } else {
-                        window.scrollTo(0, parseInt(scrollY || '0') * -1);
-                    }
-                } else {
-                    // Regular navigation for desktop OR when menu is not open
-                    const targetSection = document.querySelector(href);
-                    if (targetSection) {
-                        const offsetTop = targetSection.offsetTop - 70; // Account for fixed navbar
-                        
-                        window.scrollTo({
-                            top: offsetTop,
-                            behavior: 'smooth'
-                        });
-                    }
-                }
+            if (!href || !href.startsWith('#')) return;
+            e.preventDefault();
+
+            const targetSection = document.querySelector(href);
+            if (!targetSection) return;
+
+            const navbar = document.querySelector('.navbar');
+            const headerOffset = (navbar ? navbar.offsetHeight : 70) + 10; // small buffer
+
+            // If mobile and menu is open, close menu first, restore scroll, then scroll
+            if (isMobileViewport() && navMenu.classList.contains('active')) {
+                closeMenuIfOpen(navToggle, navMenu);
+                // Ensure we wait for reflow before scrolling
+                setTimeout(() => {
+                    const top = Math.max(0, targetSection.getBoundingClientRect().top + window.pageYOffset - headerOffset);
+                    window.scrollTo({ top, behavior: 'smooth' });
+                }, 60);
+            } else {
+                const top = Math.max(0, targetSection.getBoundingClientRect().top + window.pageYOffset - headerOffset);
+                window.scrollTo({ top, behavior: 'smooth' });
             }
         });
     });
@@ -545,24 +488,11 @@ function initNavigation() {
             if (window.innerWidth <= 768) {
                 navToggle.classList.toggle('active');
                 navMenu.classList.toggle('active');
-                
+
                 // Manage body scroll to prevent background scrolling while allowing menu scroll
                 if (navMenu.classList.contains('active')) {
-                    // Menu is opening - prevent body scroll but allow menu scroll
-                    document.body.style.overflow = 'hidden';
-                    document.body.style.position = 'fixed';
-                    document.body.style.top = `-${window.scrollY}px`;
-                    document.body.style.width = '100%';
-                    
-                    // TARGETED CHROME MOBILE FIXES - prevent document breaking
-                    const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
-                    if (isChrome) {
-                        // Gentle Chrome mobile scroll prevention without breaking layout
-                        document.body.style.touchAction = 'none';
-                        document.body.style.webkitOverflowScrolling = 'touch';
-                        // DO NOT fix documentElement position - this breaks navigation
-                        console.log('Applied targeted Chrome mobile menu fixes');
-                    }
+                    // Menu is opening
+                    lockBodyScrollMobile();
                     
                     // Add scroll indicators for mobile menu after animation
                     setTimeout(() => {
@@ -587,24 +517,9 @@ function initNavigation() {
                         }
                     }, 500);
                 } else {
-                    // Menu is closing - restore body scroll
+                    // Menu is closing - restore body scroll and clear inline styles
                     console.log('Closing mobile menu via toggle');
-                    const scrollY = document.body.style.top;
-                    document.body.style.overflow = '';
-                    document.body.style.position = '';
-                    document.body.style.top = '';
-                    document.body.style.width = '';
-                    document.body.style.touchAction = '';
-                    document.body.style.webkitOverflowScrolling = '';
-                    
-                    // Reset menu position to prevent stuck overlay
-                    navMenu.style.left = '-100%';
-                    navMenu.style.transform = '';
-                    navMenu.style.height = '';
-                    navMenu.style.maxHeight = '';
-                    navMenu.style.minHeight = '';
-                    
-                    window.scrollTo(0, parseInt(scrollY || '0') * -1);
+                    closeMenuIfOpen(navToggle, navMenu);
                 }
             }
         });
@@ -669,29 +584,10 @@ function initNavigation() {
     // Close mobile menu when clicking outside (MOBILE ONLY)
     document.addEventListener('click', function(event) {
         // Only apply on mobile devices
-        if (window.innerWidth <= 768 && !navToggle.contains(event.target) && !navMenu.contains(event.target)) {
+        if (window.innerWidth <= 768 && navToggle && navMenu && !navToggle.contains(event.target) && !navMenu.contains(event.target)) {
             if (navMenu.classList.contains('active')) {
                 console.log('Closing mobile menu via outside click');
-                navToggle.classList.remove('active');
-                navMenu.classList.remove('active');
-                
-                // Restore body scroll
-                const scrollY = document.body.style.top;
-                document.body.style.overflow = '';
-                document.body.style.position = '';
-                document.body.style.top = '';
-                document.body.style.width = '';
-                document.body.style.touchAction = '';
-                document.body.style.webkitOverflowScrolling = '';
-                
-                // Reset menu position to prevent stuck overlay
-                navMenu.style.left = '-100%';
-                navMenu.style.transform = '';
-                navMenu.style.height = '';
-                navMenu.style.maxHeight = '';
-                navMenu.style.minHeight = '';
-                
-                window.scrollTo(0, parseInt(scrollY || '0') * -1);
+                closeMenuIfOpen(navToggle, navMenu);
             }
         }
     });
