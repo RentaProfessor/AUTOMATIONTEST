@@ -3150,6 +3150,65 @@ iframe {
         z-index: 1 !important;
     }
     
+    /* CRITICAL: Fix portfolio page hero section white overlay */
+    #portfolio-hero.hero {
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
+        background-color: #f8fafc !important;
+        background-image: none !important;
+        position: relative !important;
+        z-index: 1 !important;
+        overflow: visible !important;
+    }
+    
+    /* Fix portfolio page body and html to prevent white overlay */
+    body.portfolio-page {
+        background-color: #f8fafc !important;
+        background: #f8fafc !important;
+        background-image: none !important;
+    }
+    
+    html.portfolio-page {
+        background-color: #f8fafc !important;
+        background: #f8fafc !important;
+        background-image: none !important;
+    }
+    
+    /* CRITICAL: Prevent any white overlays on portfolio page */
+    .portfolio-page * {
+        background-image: none !important;
+    }
+    
+    .portfolio-page .navbar {
+        background: rgba(255, 255, 255, 0.96) !important;
+        background-color: rgba(255, 255, 255, 0.96) !important;
+        background-image: none !important;
+    }
+    
+    .portfolio-page .nav-menu {
+        background: rgba(255, 255, 255, 0.98) !important;
+        background-color: rgba(255, 255, 255, 0.98) !important;
+        background-image: none !important;
+    }
+    
+    .portfolio-page .nav-menu.active {
+        background: rgba(255, 255, 255, 0.98) !important;
+        background-color: rgba(255, 255, 255, 0.98) !important;
+        background-image: none !important;
+    }
+    
+    /* Fix iframe containers on portfolio page */
+    .portfolio-page .iframe-container {
+        background: #f8f9fa !important;
+        background-color: #f8f9fa !important;
+        background-image: none !important;
+    }
+    
+    .portfolio-page .project-placeholder {
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+        background-color: #f5f7fa !important;
+        background-image: none !important;
+    }
+    
     .projects-grid {
         grid-template-columns: 1fr !important;
         gap: 20px !important;

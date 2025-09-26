@@ -248,6 +248,19 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Fix mobile Safari white overlay issues
         fixMobileSafariOverlay();
+        
+        // Fix portfolio page specific white overlay issues
+        fixPortfolioPageOverlay();
+        
+        // Additional aggressive fix for portfolio page
+        setTimeout(() => {
+            fixPortfolioPageOverlay();
+        }, 1000);
+        
+        // Final fix after everything loads
+        setTimeout(() => {
+            fixPortfolioPageOverlay();
+        }, 3000);
     }
 });
 
@@ -285,6 +298,64 @@ function fixMobileSafariOverlay() {
         document.body.offsetHeight;
         
         console.log('Mobile Safari white overlay fixes applied');
+    }
+}
+
+// Fix portfolio page specific white overlay issues
+function fixPortfolioPageOverlay() {
+    const isMobile = window.innerWidth <= 768;
+    const isPortfolioPage = document.body.classList.contains('portfolio-page');
+    
+    if (isMobile && isPortfolioPage) {
+        console.log('Applying portfolio page specific white overlay fixes');
+        
+        // Force portfolio page background
+        document.body.style.backgroundColor = '#f8fafc';
+        document.documentElement.style.backgroundColor = '#f8fafc';
+        document.body.style.background = '#f8fafc';
+        document.documentElement.style.background = '#f8fafc';
+        
+        // Fix portfolio hero section specifically
+        const portfolioHero = document.querySelector('#portfolio-hero');
+        if (portfolioHero) {
+            portfolioHero.style.backgroundColor = '#f8fafc';
+            portfolioHero.style.background = 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)';
+            portfolioHero.style.backgroundImage = 'none';
+            portfolioHero.style.position = 'relative';
+            portfolioHero.style.zIndex = '1';
+            portfolioHero.style.overflow = 'visible';
+        }
+        
+        // Fix all portfolio sections
+        const portfolioSections = document.querySelectorAll('.portfolio-grid, .portfolio-cta');
+        portfolioSections.forEach(section => {
+            section.style.backgroundColor = '#f8fafc';
+            section.style.background = '#f8fafc';
+            section.style.backgroundImage = 'none';
+            section.style.position = 'relative';
+            section.style.zIndex = '1';
+        });
+        
+        // Fix iframe containers that might cause white overlay
+        const iframeContainers = document.querySelectorAll('.iframe-container');
+        iframeContainers.forEach(container => {
+            container.style.backgroundColor = '#f8fafc';
+            container.style.background = '#f8fafc';
+            container.style.backgroundImage = 'none';
+        });
+        
+        // Fix project cards
+        const projectCards = document.querySelectorAll('.project-card');
+        projectCards.forEach(card => {
+            card.style.backgroundColor = '#ffffff';
+            card.style.background = '#ffffff';
+            card.style.backgroundImage = 'none';
+        });
+        
+        // Force repaint to clear any stuck overlays
+        document.body.offsetHeight;
+        
+        console.log('Portfolio page white overlay fixes applied');
     }
 }
 
@@ -1381,6 +1452,31 @@ document.head.appendChild(style);
 
 // Initialize on DOM ready
 preloadResources();
+
+// Portfolio page specific load fix
+window.addEventListener('load', function() {
+    const isPortfolioPage = document.body.classList.contains('portfolio-page');
+    const isMobile = window.innerWidth <= 768;
+    
+    if (isPortfolioPage && isMobile) {
+        console.log('Portfolio page loaded - applying aggressive white overlay fixes');
+        
+        // Apply fixes immediately
+        fixPortfolioPageOverlay();
+        
+        // Apply fixes with delays to catch any late-loading elements
+        setTimeout(fixPortfolioPageOverlay, 500);
+        setTimeout(fixPortfolioPageOverlay, 1500);
+        setTimeout(fixPortfolioPageOverlay, 3000);
+        
+        // Force a complete page repaint
+        setTimeout(() => {
+            document.body.style.display = 'none';
+            document.body.offsetHeight; // Trigger reflow
+            document.body.style.display = '';
+        }, 2000);
+    }
+});
 
 // ULTIMATE Safari reload fix - handles all window load scenarios
 window.addEventListener('load', function() {
