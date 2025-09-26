@@ -533,63 +533,29 @@ body {
     margin-top: 0.5rem;
 }
 
-/* Features Section - Tech Company Design */
+/* Features Section - Gradient Block Design */
 .features {
     padding: 80px 0;
-    background: linear-gradient(135deg, #0F1419 0%, #1A1F2E 100%);
-    position: relative;
+    background: var(--bg-light);
     scroll-margin-top: 20px;
-    overflow: hidden;
-}
-
-.features::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: 
-        radial-gradient(circle at 25% 25%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 75% 75%, rgba(118, 75, 162, 0.1) 0%, transparent 50%);
-    pointer-events: none;
-}
-
-.features .section-header {
-    position: relative;
-    z-index: 2;
-}
-
-.features .section-header h2 {
-    color: #FFFFFF;
-    text-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
-}
-
-.features .section-header p {
-    color: rgba(255, 255, 255, 0.8);
 }
 
 .features-grid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    margin-top: 3rem;
-    position: relative;
-    z-index: 2;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
 }
 
 .feature-card {
-    background: linear-gradient(145deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--white);
+    padding: 2.5rem;
     border-radius: 20px;
-    padding: 2rem;
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    text-align: center;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
     position: relative;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     overflow: hidden;
 }
 
@@ -597,46 +563,40 @@ body {
     content: '';
     position: absolute;
     top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
-    transition: left 0.6s ease;
-}
-
-.feature-card:hover::before {
-    left: 100%;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
 .feature-card:hover {
-    transform: translateX(10px);
-    border-color: rgba(102, 126, 234, 0.4);
-    box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(102, 126, 234, 0.15);
+    border-color: #667eea;
 }
 
 .feature-icon {
     width: 80px;
     height: 80px;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border-radius: 16px;
+    border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
+    margin: 0 auto 1.5rem auto;
     box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
     position: relative;
-    z-index: 2;
 }
 
 .feature-icon::after {
     content: '';
     position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
     background: linear-gradient(135deg, #667eea, #764ba2, #667eea);
-    border-radius: 18px;
+    border-radius: 23px;
     z-index: -1;
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -651,24 +611,18 @@ body {
     color: var(--white);
 }
 
-.feature-content {
-    flex: 1;
-    position: relative;
-    z-index: 2;
-}
-
 .feature-card h3 {
     font-size: 1.4rem;
     font-weight: 600;
-    color: #FFFFFF;
-    margin-bottom: 0.5rem;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
     line-height: 1.3;
 }
 
 .feature-card p {
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--text-light);
     line-height: 1.6;
-    font-size: 0.95rem;
+    font-size: 1rem;
 }
 
 .feature-item p {
@@ -682,12 +636,11 @@ body {
     gap: 0.5rem;
 }
 
-/* Industries Section - Tech Grid Design */
+/* Industries Section - Gradient Showcase Design */
 .industries {
     padding: 80px 0;
-    background: linear-gradient(135deg, #0A0A0A 0%, #1F1F1F 100%);
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
     position: relative;
-    overflow: hidden;
 }
 
 .industries::before {
@@ -697,52 +650,28 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: 
-        linear-gradient(rgba(102, 126, 234, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(102, 126, 234, 0.03) 1px, transparent 1px);
-    background-size: 50px 50px;
-    animation: grid-move 20s linear infinite;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><pattern id="c" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="%23667eea" opacity="0.05"/></pattern></defs><rect width="100%" height="100%" fill="url(%23c)"/></svg>');
+    opacity: 0.3;
     pointer-events: none;
-}
-
-@keyframes grid-move {
-    0% { transform: translate(0, 0); }
-    100% { transform: translate(50px, 50px); }
-}
-
-.industries .section-header {
-    position: relative;
-    z-index: 2;
-}
-
-.industries .section-header h2 {
-    color: #FFFFFF;
-    text-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
-}
-
-.industries .section-header p {
-    color: rgba(255, 255, 255, 0.8);
 }
 
 .industries-showcase {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
     margin: 3rem 0;
     position: relative;
     z-index: 2;
 }
 
 .industry-highlight {
-    background: linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
-    border: 1px solid rgba(102, 126, 234, 0.2);
-    border-radius: 16px;
-    padding: 2rem;
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    transition: all 0.4s ease;
+    background: var(--white);
+    border-radius: 20px;
+    padding: 2.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
     position: relative;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     overflow: hidden;
 }
 
@@ -751,21 +680,14 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    width: 4px;
-    height: 100%;
+    right: 0;
+    height: 4px;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    transform: scaleY(0);
-    transition: transform 0.3s ease;
-}
-
-.industry-highlight:hover::before {
-    transform: scaleY(1);
 }
 
 .industry-highlight:hover {
-    transform: translateX(8px);
-    border-color: rgba(102, 126, 234, 0.5);
-    background: linear-gradient(145deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.05) 100%);
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(102, 126, 234, 0.15);
 }
 
 .industry-number {
@@ -776,23 +698,31 @@ body {
     -webkit-text-fill-color: transparent;
     background-clip: text;
     line-height: 1;
-    text-shadow: 0 0 30px rgba(102, 126, 234, 0.5);
-    flex-shrink: 0;
+    margin-bottom: 1rem;
+    position: relative;
 }
 
-.industry-text {
-    flex: 1;
+.industry-number::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 3px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 2px;
 }
 
 .industry-text h3 {
     font-size: 1.3rem;
     font-weight: 600;
-    color: #FFFFFF;
+    color: var(--text-dark);
     margin-bottom: 0.5rem;
 }
 
 .industry-text p {
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--text-light);
     font-size: 0.95rem;
     line-height: 1.5;
 }
@@ -800,23 +730,24 @@ body {
 .industry-categories {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 1rem;
+    gap: 1.5rem;
     margin-top: 3rem;
     position: relative;
     z-index: 2;
 }
 
 .category-tag {
-    background: linear-gradient(145deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
-    border: 1px solid rgba(102, 126, 234, 0.2);
-    border-radius: 12px;
-    padding: 1rem;
+    background: var(--white);
+    border: 1px solid rgba(102, 126, 234, 0.15);
+    border-radius: 16px;
+    padding: 1.2rem;
     text-align: center;
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--text-dark);
     font-weight: 500;
     font-size: 0.9rem;
     transition: all 0.3s ease;
     position: relative;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
     overflow: hidden;
 }
 
@@ -824,23 +755,24 @@ body {
     content: '';
     position: absolute;
     top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.2), transparent);
-    transition: left 0.5s ease;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
 }
 
 .category-tag:hover::before {
-    left: 100%;
+    transform: scaleX(1);
 }
 
 .category-tag:hover {
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
-    border-color: rgba(102, 126, 234, 0.5);
-    color: #FFFFFF;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+    border-color: rgba(102, 126, 234, 0.3);
+    color: #667eea;
     transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.2);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
 }
 
 /* About Section */
@@ -1325,29 +1257,18 @@ body {
     }
     
     .features-grid {
-        gap: 1.25rem;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
         margin-top: 2rem;
     }
     
     .feature-card {
-        flex-direction: column;
-        text-align: center;
-        gap: 1rem;
-        padding: 1.5rem;
+        padding: 2rem;
     }
     
     .feature-icon {
         width: 70px;
         height: 70px;
-        margin: 0 auto;
-    }
-    
-    .feature-content {
-        text-align: center;
-    }
-    
-    .feature-card:hover {
-        transform: translateY(-5px);
     }
     
     /* Industries Mobile */
@@ -1356,19 +1277,13 @@ body {
     }
     
     .industries-showcase {
-        gap: 1.25rem;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
         margin: 2rem 0;
     }
     
     .industry-highlight {
-        flex-direction: column;
-        text-align: center;
-        gap: 1rem;
-        padding: 1.5rem;
-    }
-    
-    .industry-highlight:hover {
-        transform: translateY(-5px);
+        padding: 2rem;
     }
     
     .industry-number {
@@ -1377,12 +1292,12 @@ body {
     
     .industry-categories {
         grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-        gap: 0.75rem;
+        gap: 1rem;
     }
     
     .category-tag {
         font-size: 0.85rem;
-        padding: 0.75rem 0.5rem;
+        padding: 1rem 0.5rem;
     }
     
     /* About Mobile */
