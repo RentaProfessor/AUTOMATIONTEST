@@ -1,39 +1,35 @@
 // FutureClarity Technologies Website JavaScript
 // Handles all interactive features and animations
 
-    // IMMEDIATE Mobile gradient text fix AND hero padding fix - runs before any other code
+    // Mobile Safari spacing fix - backup for external script
     (function() {
-        // Fix gradient text flashing on mobile immediately
         const isMobile = window.innerWidth <= 768 || 
                          /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
                          ('ontouchstart' in window) ||
                          (navigator.maxTouchPoints > 0);
         
-        // CRITICAL: Fix mobile Safari spacing glitch between navbar and hero content
         const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent) || 
                          /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
         
         if (isMobile && isSafari) {
-            // Fix hero section spacing to account for safe area insets
+            // Backup fix for hero spacing - only runs if head script didn't work
             const fixHeroSpacing = () => {
                 const hero = document.querySelector('.hero');
-                if (hero) {
-                    // Get the computed navbar height from CSS custom property
-                    const navbarHeight = getComputedStyle(document.documentElement).getPropertyValue('--navbar-height') || '70px';
+                if (hero && !hero.style.paddingTop) {
+                    const safeAreaTop = getComputedStyle(document.documentElement).getPropertyValue('--safe-area-inset-top') || '0px';
+                    const safeAreaValue = parseInt(safeAreaTop) || 0;
+                    const navbarHeight = 70 + safeAreaValue;
                     
-                    // Set proper padding to match navbar height
-                    hero.style.paddingTop = navbarHeight;
+                    hero.style.paddingTop = `${navbarHeight}px`;
                     hero.style.paddingBottom = '15px';
                     hero.style.marginTop = '0';
                     hero.style.position = 'relative';
                     hero.style.zIndex = '1';
-                    
-                    console.log(`Fixed Safari hero spacing: navbar height ${navbarHeight}`);
                 }
             };
             
-            // Apply fix immediately and on resize
-            fixHeroSpacing();
+            // Only run if head script didn't already fix it
+            setTimeout(fixHeroSpacing, 50);
             window.addEventListener('resize', fixHeroSpacing);
             window.addEventListener('orientationchange', () => {
                 setTimeout(fixHeroSpacing, 100);

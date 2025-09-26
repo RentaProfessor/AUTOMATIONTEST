@@ -2068,10 +2068,13 @@ iframe {
     .gradient-text {
         /* CRITICAL: Completely disable all animations and transitions on mobile */
         animation: none !important;
+        -webkit-animation: none !important;
         transition: none !important;
+        -webkit-transition: none !important;
         opacity: 1 !important;
         visibility: visible !important;
         transform: none !important;
+        -webkit-transform: none !important;
         will-change: auto !important;
         /* Force immediate display */
         display: inline !important;
@@ -2086,13 +2089,24 @@ iframe {
         background-clip: text !important;
         /* Lock the text content */
         content: 'Web Design' !important;
+        /* CRITICAL: Prevent any initial animation state */
+        animation-name: none !important;
+        animation-duration: 0s !important;
+        animation-delay: 0s !important;
+        animation-fill-mode: none !important;
+        animation-play-state: running !important;
+        animation-iteration-count: 1 !important;
+        animation-direction: normal !important;
+        animation-timing-function: ease !important;
     }
     
     /* MOBILE HERO CONTENT FIX - PREVENT LAYOUT SHIFT */
     .hero-content {
         /* CRITICAL: Disable all animations that cause layout shift */
         animation: none !important;
+        -webkit-animation: none !important;
         transition: none !important;
+        -webkit-transition: none !important;
         opacity: 1 !important;
         visibility: visible !important;
         transform: none !important;
@@ -2107,11 +2121,34 @@ iframe {
         /* Ensure content is immediately visible */
         backface-visibility: visible !important;
         -webkit-backface-visibility: visible !important;
+        /* CRITICAL: Prevent any initial animation state */
+        animation-name: none !important;
+        animation-duration: 0s !important;
+        animation-delay: 0s !important;
+        animation-fill-mode: none !important;
+        animation-play-state: running !important;
+        animation-iteration-count: 1 !important;
+        animation-direction: normal !important;
+        animation-timing-function: ease !important;
     }
 }
 
 /* CLEAN MOBILE DESIGN - DESKTOP PROTECTED */
 @media (max-width: 768px) and (min-width: 1px) {
+    /* CRITICAL: Prevent any initial animation state on mobile Safari */
+    .hero-content,
+    .gradient-text {
+        animation: none !important;
+        -webkit-animation: none !important;
+        transition: none !important;
+        -webkit-transition: none !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+        -webkit-transform: none !important;
+        will-change: auto !important;
+    }
+    
     /* Mobile Performance Optimizations */
     * {
         -webkit-tap-highlight-color: rgba(102, 126, 234, 0.3) !important;

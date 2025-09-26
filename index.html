@@ -43,6 +43,111 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
+    <!-- CRITICAL: Immediate mobile Safari spacing fix - prevents visual glitch -->
+    <style>
+        /* Prevent hero content animation glitch on mobile Safari */
+        @media (max-width: 768px) {
+            .hero-content {
+                animation: none !important;
+                -webkit-animation: none !important;
+                transition: none !important;
+                -webkit-transition: none !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+                transform: none !important;
+                -webkit-transform: none !important;
+                will-change: auto !important;
+                position: static !important;
+                display: block !important;
+            }
+            
+            .gradient-text {
+                animation: none !important;
+                -webkit-animation: none !important;
+                transition: none !important;
+                -webkit-transition: none !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+                transform: none !important;
+                -webkit-transform: none !important;
+                will-change: auto !important;
+            }
+        }
+    </style>
+    
+    <!-- CRITICAL: Immediate mobile Safari spacing fix - runs before any animations -->
+    <script>
+        (function() {
+            // Detect mobile Safari immediately
+            const isMobile = window.innerWidth <= 768 || 
+                             /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+                             ('ontouchstart' in window) ||
+                             (navigator.maxTouchPoints > 0);
+            
+            const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent) || 
+                             /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
+            
+            if (isMobile && isSafari) {
+                // IMMEDIATE fix - prevent any visual glitches
+                const fixImmediately = () => {
+                    // Fix hero section spacing immediately
+                    const hero = document.querySelector('.hero');
+                    if (hero) {
+                        const safeAreaTop = getComputedStyle(document.documentElement).getPropertyValue('--safe-area-inset-top') || '0px';
+                        const safeAreaValue = parseInt(safeAreaTop) || 0;
+                        const navbarHeight = 70 + safeAreaValue;
+                        
+                        hero.style.paddingTop = `${navbarHeight}px`;
+                        hero.style.paddingBottom = '15px';
+                        hero.style.marginTop = '0';
+                        hero.style.position = 'relative';
+                        hero.style.zIndex = '1';
+                    }
+                    
+                    // Fix hero content immediately
+                    const heroContent = document.querySelector('.hero-content');
+                    if (heroContent) {
+                        heroContent.style.animation = 'none';
+                        heroContent.style.webkitAnimation = 'none';
+                        heroContent.style.transition = 'none';
+                        heroContent.style.webkitTransition = 'none';
+                        heroContent.style.opacity = '1';
+                        heroContent.style.visibility = 'visible';
+                        heroContent.style.transform = 'none';
+                        heroContent.style.webkitTransform = 'none';
+                        heroContent.style.willChange = 'auto';
+                        heroContent.style.position = 'static';
+                        heroContent.style.display = 'block';
+                    }
+                    
+                    // Fix gradient text immediately
+                    const gradientText = document.querySelector('.gradient-text');
+                    if (gradientText) {
+                        gradientText.style.animation = 'none';
+                        gradientText.style.webkitAnimation = 'none';
+                        gradientText.style.transition = 'none';
+                        gradientText.style.webkitTransition = 'none';
+                        gradientText.style.opacity = '1';
+                        gradientText.style.visibility = 'visible';
+                        gradientText.style.transform = 'none';
+                        gradientText.style.webkitTransform = 'none';
+                        gradientText.style.willChange = 'auto';
+                    }
+                };
+                
+                // Run immediately
+                fixImmediately();
+                
+                // Also run on DOM ready
+                if (document.readyState === 'loading') {
+                    document.addEventListener('DOMContentLoaded', fixImmediately);
+                } else {
+                    fixImmediately();
+                }
+            }
+        })();
+    </script>
+    
     <!-- Force Chrome to match Safari mobile appearance -->
     <script>
         (function() {
