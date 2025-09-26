@@ -153,7 +153,7 @@ body {
     padding-bottom: calc(var(--safe-area-bottom) + 30px);
     overflow: hidden;
     /* Add scroll margin for perfect positioning */
-    scroll-margin-top: 90px;
+    scroll-margin-top: 70px;
 }
 
 .hero::before {
@@ -280,7 +280,7 @@ body {
     padding: 80px 0;
     background: var(--white);
     /* Perfect scroll positioning */
-    scroll-margin-top: 90px;
+    scroll-margin-top: 70px;
 }
 
 .container {
@@ -396,7 +396,7 @@ body {
     padding: 80px 0;
     background: var(--bg-light);
     /* Perfect scroll positioning */
-    scroll-margin-top: 90px;
+    scroll-margin-top: 70px;
 }
 
 .features-content {
@@ -514,7 +514,7 @@ body {
     padding: 80px 0;
     background: var(--bg-light);
     /* Perfect scroll positioning */
-    scroll-margin-top: 90px;
+    scroll-margin-top: 70px;
 }
 
 .about-content {
@@ -611,7 +611,7 @@ body {
     padding: 80px 0;
     background: var(--white);
     /* Perfect scroll positioning */
-    scroll-margin-top: 90px;
+    scroll-margin-top: 70px;
 }
 
 .contact-content {

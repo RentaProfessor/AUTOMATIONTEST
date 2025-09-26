@@ -122,7 +122,7 @@ function initNavigation() {
                         // Adjust for navbar after scroll
                         setTimeout(function() {
                             const currentScroll = window.pageYOffset;
-                            window.scrollTo(0, currentScroll - 90);
+                            window.scrollTo(0, currentScroll - 70);
                             console.log('Adjusted for navbar');
                         }, 100);
                         
@@ -131,7 +131,7 @@ function initNavigation() {
                         // Method 2: Direct position calculation
                         const rect = targetElement.getBoundingClientRect();
                         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                        const targetY = rect.top + scrollTop - 90;
+                        const targetY = rect.top + scrollTop - 70;
                         window.scrollTo(0, targetY);
                         
                         // Method 3: Ultimate fallback - pure anchor link
@@ -140,7 +140,7 @@ function initNavigation() {
                                 console.log('All methods failed, using pure anchor');
                                 window.location.hash = sectionId;
                                 setTimeout(function() {
-                                    window.scrollTo(0, window.pageYOffset - 90);
+                                    window.scrollTo(0, window.pageYOffset - 70);
                                 }, 50);
                             }
                         }, 200);
