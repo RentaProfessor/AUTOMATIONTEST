@@ -245,108 +245,224 @@ document.addEventListener('DOMContentLoaded', function() {
         if (navMenu && !navMenu.classList.contains('active')) {
             hideMenu(navMenu);
         }
+        
+        // Fix mobile Safari white overlay issues
+        fixMobileSafariOverlay();
     }
 });
 
-// Make Chrome mobile look exactly like Safari mobile
-function fixChromeZoom() {
-    // Check if it's Chrome mobile
-    const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
-    const isMobile = window.innerWidth <= 768;
+// Fix mobile Safari white overlay issues
+function fixMobileSafariOverlay() {
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent) || 
+                     /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
     
-    if (isChrome && isMobile) {
-        // Simple function to match Safari appearance
-        function matchSafari() {
-            // Force same zoom as Safari
-            document.body.style.zoom = '1';
-            document.documentElement.style.zoom = '1';
-            
-            // Disable any Chrome scaling
-            document.body.style.webkitTextSizeAdjust = '100%';
-            document.documentElement.style.webkitTextSizeAdjust = '100%';
-            
-            // Fix Chrome mobile scrolling issues
-            document.body.style.overflow = 'auto';
-            document.body.style.position = 'relative';
-            document.body.style.height = 'auto';
-            document.body.style.minHeight = '100vh';
-            
-            // Prevent Chrome from creating white overlays
-            document.body.style.backgroundColor = 'transparent';
-            document.documentElement.style.backgroundColor = 'transparent';
+    if (isSafari) {
+        console.log('Applying mobile Safari white overlay fixes');
+        
+        // Fix body and html background
+        document.body.style.backgroundColor = '#f8fafc';
+        document.documentElement.style.backgroundColor = '#f8fafc';
+        document.body.style.background = '#f8fafc';
+        document.documentElement.style.background = '#f8fafc';
+        
+        // Fix all sections to prevent white overlays
+        const sections = document.querySelectorAll('.hero, .services, .features, .about, .contact, .portfolio-grid');
+        sections.forEach(section => {
+            section.style.backgroundColor = '#f8fafc';
+            section.style.background = '#f8fafc';
+            section.style.backgroundImage = 'none';
+        });
+        
+        // Fix mobile menu overlay
+        const navMenu = document.querySelector('.nav-menu');
+        if (navMenu) {
+            navMenu.style.backgroundColor = 'rgba(255, 255, 255, 0.98)';
+            navMenu.style.background = 'rgba(255, 255, 255, 0.98)';
+            navMenu.style.backgroundImage = 'none';
         }
         
-        // Apply immediately
-        matchSafari();
+        // Force repaint to clear any stuck overlays
+        document.body.offsetHeight;
         
-        // Apply after a brief delay to catch Chrome's defaults
-        setTimeout(matchSafari, 100);
-        
-        // Additional Chrome mobile fixes
-        setTimeout(() => {
-            // Ensure Chrome doesn't create white overlays during scroll
-            document.body.style.background = 'transparent';
-            document.documentElement.style.background = 'transparent';
-            
-            // Fix Chrome mobile viewport issues
-            const vh = window.innerHeight * 0.01;
-            document.documentElement.style.setProperty('--vh', `${vh}px`);
-        }, 200);
-        
-        console.log('Chrome mobile matched to Safari appearance with scroll fixes');
+        console.log('Mobile Safari white overlay fixes applied');
     }
 }
 
-// Fix Chrome mobile viewport height issues
-function fixChromeViewportHeight() {
-    // Check if it's Chrome mobile
-    const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+// Fix mobile viewport and zoom issues for all browsers
+function fixChromeZoom() {
     const isMobile = window.innerWidth <= 768;
     
-    if (isChrome && isMobile) {
-        function setViewportHeight() {
-            // Only set a CSS variable for reference; avoid forcing hero height
+    if (isMobile) {
+        // Function to fix mobile viewport and prevent zoom issues
+        function fixMobileViewport() {
+            // Set proper viewport height for mobile browsers
             const vh = window.innerHeight * 0.01;
             document.documentElement.style.setProperty('--vh', `${vh}px`);
             
-            // CRITICAL: Fix Chrome mobile scrolling issues
+            // Fix mobile scrolling and prevent white overlays
             document.body.style.overflow = 'auto';
             document.body.style.position = 'relative';
             document.body.style.height = 'auto';
             document.body.style.minHeight = '100vh';
-            document.body.style.backgroundColor = 'transparent';
-            document.documentElement.style.backgroundColor = 'transparent';
+            document.body.style.minHeight = '100dvh';
             
-            // Prevent Chrome from creating white overlays
-            document.body.style.background = 'transparent';
-            document.documentElement.style.background = 'transparent';
+            // Prevent zoom issues
+            document.body.style.zoom = '1';
+            document.documentElement.style.zoom = '1';
+            document.body.style.webkitTextSizeAdjust = '100%';
+            document.documentElement.style.webkitTextSizeAdjust = '100%';
+            
+            // Ensure proper background
+            document.body.style.backgroundColor = '#f8fafc';
+            document.documentElement.style.backgroundColor = '#f8fafc';
+            
+            // Fix hero section height
+            const hero = document.querySelector('.hero');
+            if (hero) {
+                hero.style.height = '100vh';
+                hero.style.minHeight = '100vh';
+                hero.style.maxHeight = '100vh';
+                hero.style.height = `calc(var(--vh, 1vh) * 100)`;
+                hero.style.minHeight = `calc(var(--vh, 1vh) * 100)`;
+                hero.style.maxHeight = `calc(var(--vh, 1vh) * 100)`;
+            }
+        }
+        
+        // Apply immediately
+        fixMobileViewport();
+        
+        // Apply after a brief delay to catch browser defaults
+        setTimeout(fixMobileViewport, 100);
+        
+        // Additional mobile fixes
+        setTimeout(() => {
+            fixMobileViewport();
+        }, 200);
+        
+        // Fix white block at bottom issue
+        setTimeout(() => {
+            fixMobileWhiteBlock();
+        }, 500);
+        
+        console.log('Mobile viewport and zoom fixes applied');
+    }
+}
+
+// Fix mobile white block at bottom issue
+function fixMobileWhiteBlock() {
+    const isMobile = window.innerWidth <= 768;
+    
+    if (isMobile) {
+        console.log('Fixing mobile white block at bottom');
+        
+        // Ensure body takes full height
+        document.body.style.minHeight = '100vh';
+        document.body.style.minHeight = '100dvh';
+        document.body.style.height = 'auto';
+        
+        // Fix footer positioning
+        const footer = document.querySelector('.footer');
+        if (footer) {
+            footer.style.position = 'relative';
+            footer.style.zIndex = '1';
+            footer.style.marginTop = '0';
+            footer.style.paddingTop = '60px';
+            footer.style.paddingBottom = '20px';
+        }
+        
+        // Ensure all sections have proper backgrounds
+        const sections = document.querySelectorAll('.hero, .services, .features, .about, .contact, .portfolio-grid, .portfolio-cta');
+        sections.forEach(section => {
+            section.style.position = 'relative';
+            section.style.zIndex = '1';
+            section.style.marginTop = '0';
+            section.style.paddingTop = '40px';
+            section.style.paddingBottom = '40px';
+        });
+        
+        // Fix hero section specifically
+        const hero = document.querySelector('.hero');
+        if (hero) {
+            hero.style.paddingTop = '100px';
+            hero.style.paddingBottom = '60px';
+            hero.style.marginBottom = '0';
+        }
+        
+        // Ensure no white space between sections
+        const allSections = document.querySelectorAll('section');
+        allSections.forEach((section, index) => {
+            if (index > 0) {
+                section.style.marginTop = '0';
+            }
+        });
+        
+        console.log('Mobile white block fix applied');
+    }
+}
+
+// Fix mobile viewport height issues for all browsers
+function fixChromeViewportHeight() {
+    const isMobile = window.innerWidth <= 768;
+    
+    if (isMobile) {
+        function setViewportHeight() {
+            // Set proper viewport height for mobile browsers
+            const vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+            
+            // Fix mobile scrolling and prevent white overlays
+            document.body.style.overflow = 'auto';
+            document.body.style.position = 'relative';
+            document.body.style.height = 'auto';
+            document.body.style.minHeight = '100vh';
+            document.body.style.minHeight = '100dvh';
+            document.body.style.backgroundColor = '#f8fafc';
+            document.documentElement.style.backgroundColor = '#f8fafc';
+            
+            // Prevent white overlays during scroll
+            document.body.style.background = '#f8fafc';
+            document.documentElement.style.background = '#f8fafc';
+            
+            // Fix hero section height
+            const hero = document.querySelector('.hero');
+            if (hero) {
+                hero.style.height = `calc(var(--vh, 1vh) * 100)`;
+                hero.style.minHeight = `calc(var(--vh, 1vh) * 100)`;
+                hero.style.maxHeight = `calc(var(--vh, 1vh) * 100)`;
+            }
         }
         
         // Set initial viewport height
         setViewportHeight();
         
-        // Update on resize (for when Chrome address bar appears/disappears) - DEBOUNCED
+        // Update on resize (for when mobile address bar appears/disappears) - DEBOUNCED
         let resizeTimeout;
         window.addEventListener('resize', function() {
             clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(setViewportHeight, 250); // Increased delay to reduce glitching
+            resizeTimeout = setTimeout(setViewportHeight, 250);
         });
         
         // Update on orientation change
         window.addEventListener('orientationchange', function() {
             setTimeout(setViewportHeight, 600);
+            setTimeout(fixMobileWhiteBlock, 800);
         });
         
-        // CRITICAL: Fix Chrome mobile scroll lock issues
+        // Fix mobile scroll issues
         window.addEventListener('scroll', function() {
-            // Prevent Chrome from creating white overlays during scroll
+            // Ensure proper background during scroll
             if (document.body.style.position === 'fixed') {
-                document.body.style.backgroundColor = 'transparent';
-                document.documentElement.style.backgroundColor = 'transparent';
+                document.body.style.backgroundColor = '#f8fafc';
+                document.documentElement.style.backgroundColor = '#f8fafc';
             }
         }, { passive: true });
         
-        console.log('Chrome mobile viewport height and scroll fixes applied');
+        // Fix white block on resize
+        window.addEventListener('resize', function() {
+            setTimeout(fixMobileWhiteBlock, 300);
+        });
+        
+        console.log('Mobile viewport height and scroll fixes applied');
     }
 }
 

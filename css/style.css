@@ -2038,19 +2038,35 @@ iframe {
         -webkit-text-size-adjust: 100% !important;
     }
     
-    /* CRITICAL: Prevent white overlay issues on mobile */
-    html, body {
-        background-color: transparent !important;
-        background: transparent !important;
-        /* Ensure no white backgrounds appear */
-        background-image: none !important;
-        background-attachment: scroll !important;
+    /* CRITICAL: Fix mobile viewport and prevent white overlays */
+    html {
+        height: 100% !important;
+        overflow-x: hidden !important;
+        -webkit-text-size-adjust: 100% !important;
+        -webkit-tap-highlight-color: transparent !important;
     }
     
-    /* Prevent any element from creating white overlays */
-    .navbar, .nav-menu, .hero, .services, .features, .about, .contact {
-        background-color: transparent !important;
-        background: transparent !important;
+    body {
+        height: 100% !important;
+        min-height: 100vh !important;
+        min-height: 100dvh !important;
+        background-color: #f8fafc !important;
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
+        overflow-x: hidden !important;
+        -webkit-text-size-adjust: 100% !important;
+        -webkit-tap-highlight-color: transparent !important;
+        position: relative !important;
+    }
+    
+    /* Ensure proper background for all sections */
+    .hero {
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
+        background-color: #f8fafc !important;
+    }
+    
+    .services, .features, .about, .contact, .portfolio-grid {
+        background-color: #f8fafc !important;
+        background: #f8fafc !important;
     }
     
     body {
@@ -2119,7 +2135,7 @@ iframe {
         position: fixed !important;
         top: 0 !important;
         left: -100% !important;
-        width: 100% !important;
+        width: 100vw !important;
         height: 100vh !important;
         height: 100dvh !important;
         background: rgba(255, 255, 255, 0.98) !important;
@@ -2146,9 +2162,12 @@ iframe {
         /* Ensure proper scroll behavior */
         overscroll-behavior: contain !important;
         -webkit-overscroll-behavior: contain !important;
-        /* Remove problematic background gradients that cause white overlay */
+        /* Prevent white overlay issues */
         background-image: none !important;
         background-attachment: scroll !important;
+        /* Ensure menu covers entire viewport */
+        box-sizing: border-box !important;
+        -webkit-box-sizing: border-box !important;
     }
     
     .nav-menu.active {
@@ -2335,75 +2354,63 @@ iframe {
         transform: rotate(-45deg) translate(6px, -6px) !important;
     }
     
-    /* Mobile Hero Section - CHROME & SAFARI COMPATIBLE */
+    /* Mobile Hero Section - FIXED VIEWPORT & ZOOM ISSUES */
     .hero {
-        padding: 0 0 80px 0 !important;
-        /* Chrome fallback first */
-        height: calc(100vh + 80px) !important;
-        min-height: calc(100vh + 80px) !important;
-        max-height: calc(100vh + 80px) !important;
-        /* Safari enhancement with safe area support */
-        height: calc(100dvh + 80px) !important;
-        min-height: calc(100dvh + 80px) !important;
-        max-height: calc(100dvh + 80px) !important;
-        /* CRITICAL: Account for safe area insets to prevent cutoff */
-        height: calc(100vh - env(safe-area-inset-top, 0px) + 80px) !important;
-        min-height: calc(100vh - env(safe-area-inset-top, 0px) + 80px) !important;
-        max-height: calc(100vh - env(safe-area-inset-top, 0px) + 80px) !important;
+        padding: 100px 0 60px 0 !important;
+        height: 100vh !important;
+        min-height: 100vh !important;
+        max-height: 100vh !important;
+        /* Use CSS custom property for dynamic viewport height */
+        height: calc(var(--vh, 1vh) * 100) !important;
+        min-height: calc(var(--vh, 1vh) * 100) !important;
+        max-height: calc(var(--vh, 1vh) * 100) !important;
         position: relative !important;
         background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
-        background-color: #f8fafc !important; /* Chrome fallback */
-        display: block !important;
-        overflow: visible !important;
-        margin-top: 0 !important;
-        margin-bottom: -80px !important;
-        /* Prevent any scroll effects */
+        background-color: #f8fafc !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        overflow: hidden !important;
+        margin: 0 !important;
+        /* Prevent zoom and scaling issues */
         transform: none !important;
         will-change: auto !important;
-        /* Ensure no gaps - Chrome needs this */
         box-sizing: border-box !important;
-        /* Chrome mobile fix */
         -webkit-box-sizing: border-box !important;
-        /* LOCK DIMENSIONS - NO STRETCHING */
-        contain: none !important;
-        resize: none !important;
-        /* ACCOUNT FOR NAVBAR AND SAFE AREA */
-        padding-top: calc(env(safe-area-inset-top, 0px) + 80px) !important;
-        /* Chrome mobile viewport fix */
+        /* Ensure proper mobile viewport */
+        width: 100vw !important;
+        max-width: 100vw !important;
+        /* Fix for mobile browsers */
         -webkit-transform: translateZ(0) !important;
         transform: translateZ(0) !important;
+        /* Prevent white space at bottom */
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
     }
     
     .hero-container {
         text-align: center !important;
-        padding: 80px 20px 40px 20px !important;
+        padding: 20px !important;
         max-width: 100% !important;
         width: 100% !important;
         height: 100% !important;
         margin: 0 auto !important;
-        display: -webkit-flex !important;
         display: flex !important;
-        -webkit-flex-direction: column !important;
         flex-direction: column !important;
-        -webkit-justify-content: space-evenly !important;
-        justify-content: space-evenly !important;
-        position: absolute !important;
-        top: 0 !important;
-        left: 0 !important;
-        right: 0 !important;
-        bottom: 80px !important;
+        justify-content: center !important;
+        align-items: center !important;
+        position: relative !important;
         transform: none !important;
         z-index: 2 !important;
         will-change: auto !important;
         /* PREVENT STRETCHING */
         contain: layout !important;
         box-sizing: border-box !important;
-        /* Chrome mobile compatibility */
         -webkit-box-sizing: border-box !important;
         -webkit-transform: translateZ(0) !important;
-        /* Chrome flexbox fallback */
-        -webkit-flex: 1 !important;
+        /* Ensure proper mobile layout */
         flex: 1 !important;
+        overflow: hidden !important;
     }
     
     .hero-content {
@@ -3107,15 +3114,50 @@ iframe {
         width: 100% !important;
         box-sizing: border-box !important;
         overflow-x: hidden !important;
+        background-color: transparent !important;
+        background: transparent !important;
+    }
+    
+    /* Fix white block at bottom - ensure proper footer */
+    .footer {
+        background-color: #1a1a2e !important;
+        background: #1a1a2e !important;
+        margin-top: 0 !important;
+        padding: 60px 0 20px !important;
+        position: relative !important;
+        z-index: 1 !important;
+    }
+    
+    /* Ensure no white space between sections */
+    .hero + .services,
+    .services + .features,
+    .features + .about,
+    .about + .contact,
+    .contact + .footer,
+    .portfolio-grid + .portfolio-cta,
+    .portfolio-cta + .footer {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
     }
     
     /* Mobile Portfolio - PROPERLY SCALED */
+    .portfolio-grid {
+        background-color: #f8fafc !important;
+        background: #f8fafc !important;
+        padding: 40px 0 !important;
+        margin: 0 !important;
+        position: relative !important;
+        z-index: 1 !important;
+    }
+    
     .projects-grid {
         grid-template-columns: 1fr !important;
         gap: 20px !important;
         padding: 0 15px !important;
         max-width: 100vw !important;
         box-sizing: border-box !important;
+        background-color: transparent !important;
+        background: transparent !important;
     }
     
     .project-card {
