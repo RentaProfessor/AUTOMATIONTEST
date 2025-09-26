@@ -2103,7 +2103,7 @@ iframe {
         flex-direction: column !important;
         justify-content: flex-start !important;
         align-items: center !important;
-        padding: 80px 20px 40px 20px !important;
+        padding: 100px 20px 60px 20px !important;
         transition: left 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
         box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15) !important;
         z-index: 10000 !important;
@@ -2131,17 +2131,20 @@ iframe {
     }
     
     .nav-menu li {
-        margin: 15px 0 !important;
+        margin: 20px 0 !important;
         opacity: 0 !important;
         transform: translateY(20px) !important;
         animation: slideInMenu 0.3s ease forwards !important;
         width: 100% !important;
         text-align: center !important;
         /* Ensure menu items are visible and touchable */
-        min-height: 60px !important;
+        min-height: 70px !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
+        /* Better Safari compatibility */
+        flex-shrink: 0 !important;
+        position: relative !important;
     }
     
     .nav-menu.active li {
@@ -2172,7 +2175,26 @@ iframe {
     
     /* Enhance the last menu item to show more content if scrollable */
     .nav-menu li:last-child {
-        margin-bottom: 60px !important;
+        margin-bottom: 100px !important;
+    }
+    
+    /* Safari-specific scroll improvements */
+    @supports (-webkit-appearance: none) {
+        .nav-menu {
+            /* Enhanced Safari scroll support */
+            -webkit-overflow-scrolling: touch !important;
+            scroll-behavior: smooth !important;
+            /* Prevent Safari scroll bounce issues */
+            overscroll-behavior-y: contain !important;
+            -webkit-overscroll-behavior-y: contain !important;
+        }
+        
+        .nav-menu li {
+            /* Ensure Safari renders all menu items properly */
+            transform: translateZ(0) !important;
+            -webkit-transform: translateZ(0) !important;
+            will-change: opacity, transform !important;
+        }
     }
     
     .nav-menu a {

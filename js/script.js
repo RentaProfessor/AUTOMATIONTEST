@@ -475,17 +475,14 @@ function initNavigation() {
                     document.body.style.top = `-${window.scrollY}px`;
                     document.body.style.width = '100%';
                     
-                    // AGGRESSIVE CHROME MOBILE FIXES
+                    // TARGETED CHROME MOBILE FIXES - prevent document breaking
                     const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
                     if (isChrome) {
-                        // More aggressive scroll prevention for Chrome mobile
+                        // Gentle Chrome mobile scroll prevention without breaking layout
                         document.body.style.touchAction = 'none';
-                        document.body.style.webkitOverflowScrolling = 'auto';
-                        document.documentElement.style.overflow = 'hidden';
-                        document.documentElement.style.position = 'fixed';
-                        document.documentElement.style.width = '100%';
-                        document.documentElement.style.height = '100%';
-                        console.log('Applied aggressive Chrome mobile menu fixes');
+                        document.body.style.webkitOverflowScrolling = 'touch';
+                        // DO NOT fix documentElement position - this breaks navigation
+                        console.log('Applied targeted Chrome mobile menu fixes');
                     }
                     
                     // Add scroll indicators for mobile menu after animation
@@ -500,16 +497,12 @@ function initNavigation() {
                     document.body.style.top = '';
                     document.body.style.width = '';
                     
-                    // AGGRESSIVE CHROME MOBILE RESTORE
+                    // TARGETED CHROME MOBILE RESTORE
                     const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
                     if (isChrome) {
                         document.body.style.touchAction = '';
                         document.body.style.webkitOverflowScrolling = '';
-                        document.documentElement.style.overflow = '';
-                        document.documentElement.style.position = '';
-                        document.documentElement.style.width = '';
-                        document.documentElement.style.height = '';
-                        console.log('Restored from aggressive Chrome mobile menu fixes');
+                        console.log('Restored from targeted Chrome mobile menu fixes');
                     }
                     
                     window.scrollTo(0, parseInt(scrollY || '0') * -1);
@@ -531,6 +524,17 @@ function initNavigation() {
             // Add visual feedback to show menu is scrollable
             navMenu.style.borderTop = '3px solid rgba(102, 126, 234, 0.3)';
             navMenu.style.borderBottom = '3px solid rgba(102, 126, 234, 0.3)';
+            
+            // Enhanced Safari support
+            const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent) || 
+                             /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
+            
+            if (isSafari) {
+                // Additional Safari mobile menu improvements
+                navMenu.style.webkitOverflowScrolling = 'touch';
+                navMenu.style.transform = 'translateZ(0)';
+                console.log('Applied Safari-specific menu scroll improvements');
+            }
             
             // Add scroll event listener for fade effects
             navMenu.addEventListener('scroll', function() {
@@ -565,15 +569,11 @@ function initNavigation() {
                 document.body.style.top = '';
                 document.body.style.width = '';
                 
-                // AGGRESSIVE CHROME MOBILE RESTORE
+                // TARGETED CHROME MOBILE RESTORE
                 const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
                 if (isChrome) {
                     document.body.style.touchAction = '';
                     document.body.style.webkitOverflowScrolling = '';
-                    document.documentElement.style.overflow = '';
-                    document.documentElement.style.position = '';
-                    document.documentElement.style.width = '';
-                    document.documentElement.style.height = '';
                 }
                 
                 window.scrollTo(0, parseInt(scrollY || '0') * -1);
