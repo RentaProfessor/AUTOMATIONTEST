@@ -171,8 +171,26 @@ function closeMenuIfOpen(navToggle, navMenu) {
         navMenu.style.height = '';
         navMenu.style.maxHeight = '';
         navMenu.style.minHeight = '';
+        // Hide closed menu to avoid any overlay interception
+        navMenu.style.visibility = 'hidden';
+        navMenu.style.pointerEvents = 'none';
+        navMenu.setAttribute('aria-hidden', 'true');
         unlockBodyScrollMobile();
     }
+}
+
+function showMenu(navMenu) {
+    if (!navMenu) return;
+    navMenu.style.visibility = 'visible';
+    navMenu.style.pointerEvents = 'auto';
+    navMenu.removeAttribute('aria-hidden');
+}
+
+function hideMenu(navMenu) {
+    if (!navMenu) return;
+    navMenu.style.visibility = 'hidden';
+    navMenu.style.pointerEvents = 'none';
+    navMenu.setAttribute('aria-hidden', 'true');
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -198,6 +216,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // MOBILE OPTIMIZATION CHECK
     if (window.innerWidth <= 768) {
         console.log('Mobile optimization active - text animations disabled for better performance');
+        // Safety: ensure the mobile menu is hidden on load
+        const navMenu = document.querySelector('.nav-menu');
+        if (navMenu && !navMenu.classList.contains('active')) {
+            hideMenu(navMenu);
+        }
     }
 });
 
@@ -493,6 +516,7 @@ function initNavigation() {
                 if (navMenu.classList.contains('active')) {
                     // Menu is opening
                     lockBodyScrollMobile();
+                    showMenu(navMenu);
                     
                     // Add scroll indicators for mobile menu after animation
                     setTimeout(() => {
@@ -520,6 +544,7 @@ function initNavigation() {
                     // Menu is closing - restore body scroll and clear inline styles
                     console.log('Closing mobile menu via toggle');
                     closeMenuIfOpen(navToggle, navMenu);
+                    hideMenu(navMenu);
                 }
             }
         });
@@ -588,6 +613,7 @@ function initNavigation() {
             if (navMenu.classList.contains('active')) {
                 console.log('Closing mobile menu via outside click');
                 closeMenuIfOpen(navToggle, navMenu);
+                hideMenu(navMenu);
             }
         }
     });
