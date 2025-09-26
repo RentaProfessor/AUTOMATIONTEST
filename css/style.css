@@ -2434,7 +2434,7 @@ iframe {
     
     /* Mobile Hero Section - FIXED VIEWPORT & ZOOM ISSUES */
     .hero {
-        padding: 60px 0 60px 0 !important;
+        padding: 120px 0 40px 0 !important; /* FIXED: Consistent padding from start, accounting for navbar */
         min-height: 100vh !important;
         position: relative !important;
         background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
@@ -2457,7 +2457,7 @@ iframe {
         transform: translateZ(0) !important;
         /* Prevent white space at bottom */
         margin-bottom: 0 !important;
-        padding-bottom: 0 !important;
+        padding-bottom: 40px !important; /* FIXED: Consistent bottom padding */
     }
     
     .hero-container {
@@ -2775,7 +2775,7 @@ iframe {
     /* Mobile Services - POSITIONED AFTER HERO EXTENSION */
     .services {
         padding: 40px 0 40px !important;
-        margin-top: 80px !important;
+        margin-top: 0 !important; /* FIXED: Remove extra margin that was causing spacing glitch */
         position: relative !important;
         z-index: 2 !important;
         background: var(--light-color) !important;
