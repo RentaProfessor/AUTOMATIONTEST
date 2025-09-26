@@ -2565,14 +2565,16 @@ iframe {
     contain: layout style !important;
 }
 
-/* GENTLE Safari fix - minimal approach */
+/* SIMPLE Safari fix - just the essential spacing */
 @supports (-webkit-appearance: none) {
     @media (max-width: 768px) {
         .hero {
-            /* Simple: Just set the padding */
-            padding-top: 55px;
-            padding-bottom: 15px;
-            margin-top: 0;
+            padding-top: 55px !important;
+            padding-bottom: 15px !important;
+            margin-top: 0 !important;
+            /* Prevent any shifting */
+            transform: none !important;
+            will-change: auto !important;
         }
     }
 }
