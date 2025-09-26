@@ -2387,7 +2387,7 @@ iframe {
     
     /* Mobile Hero Section - FIXED VIEWPORT & ZOOM ISSUES */
     .hero {
-        padding: 100px 0 60px 0 !important;
+        padding: 60px 0 60px 0 !important;
         height: 100vh !important;
         min-height: 100vh !important;
         max-height: 100vh !important;
