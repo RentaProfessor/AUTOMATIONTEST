@@ -2388,13 +2388,7 @@ iframe {
     /* Mobile Hero Section - FIXED VIEWPORT & ZOOM ISSUES */
     .hero {
         padding: 60px 0 60px 0 !important;
-        height: 100vh !important;
         min-height: 100vh !important;
-        max-height: 100vh !important;
-        /* Use CSS custom property for dynamic viewport height */
-        height: calc(var(--vh, 1vh) * 100) !important;
-        min-height: calc(var(--vh, 1vh) * 100) !important;
-        max-height: calc(var(--vh, 1vh) * 100) !important;
         position: relative !important;
         background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
         background-color: #f8fafc !important;
@@ -2456,6 +2450,10 @@ iframe {
         contain: layout !important;
         box-sizing: border-box !important;
         margin: 0 auto !important;
+        /* Prevent flashing on mobile */
+        animation: none !important;
+        opacity: 1 !important;
+        visibility: visible !important;
     }
     
     .hero-title {
@@ -2479,6 +2477,10 @@ iframe {
         /* ENSURE VISIBILITY */
         display: block !important;
         clear: both !important;
+        /* Prevent flashing on mobile */
+        animation: none !important;
+        opacity: 1 !important;
+        visibility: visible !important;
     }
     
     .gradient-text {
