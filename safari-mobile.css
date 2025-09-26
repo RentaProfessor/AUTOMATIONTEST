@@ -277,7 +277,7 @@ body {
 
 /* Services Section */
 .services {
-    padding: 80px 0;
+    padding: 60px 0;
     background: var(--white);
     /* Perfect scroll positioning */
     scroll-margin-top: 20px;
@@ -291,39 +291,50 @@ body {
 
 .section-header {
     text-align: center;
-    margin-bottom: 4rem;
+    margin-bottom: 3rem;
 }
 
 .section-header h2 {
-    font-size: 2.5rem;
+    font-size: 2.25rem;
     font-weight: 700;
     color: var(--text-dark);
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.2;
+}
+
+.section-header p {
+    font-size: 1.1rem;
+    color: var(--text-light);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
 }
 
 .services-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
 }
 
 .service-card {
     background: var(--white);
     border: 1px solid var(--border-color);
     border-radius: 12px;
-    padding: 2rem;
-    text-align: center;
+    padding: 1.75rem;
+    text-align: left;
     transition: all 0.3s ease;
+    position: relative;
 }
 
 .service-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+    border-color: var(--primary-color);
 }
 
 .service-card.featured {
     border: 2px solid var(--primary-color);
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.03) 0%, rgba(118, 75, 162, 0.03) 100%);
 }
 
 .service-icon {
@@ -343,29 +354,32 @@ body {
 }
 
 .service-card h3 {
-    font-size: 1.5rem;
+    font-size: 1.35rem;
     font-weight: 600;
     color: var(--text-dark);
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
 }
 
 .service-card p {
     color: var(--text-light);
-    margin-bottom: 1.5rem;
-    line-height: 1.6;
+    margin-bottom: 1.25rem;
+    line-height: 1.5;
+    font-size: 0.95rem;
 }
 
 .service-features {
     list-style: none;
-    text-align: left;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 }
 
 .service-features li {
-    padding: 0.5rem 0;
+    padding: 0.4rem 0;
     color: var(--text-light);
     position: relative;
     padding-left: 1.5rem;
+    font-size: 0.9rem;
+    line-height: 1.4;
 }
 
 .service-features li::before {
@@ -374,6 +388,7 @@ body {
     left: 0;
     color: var(--primary-color);
     font-weight: 600;
+    font-size: 0.85rem;
 }
 
 .service-price {
@@ -393,7 +408,7 @@ body {
 
 /* Features Section */
 .features {
-    padding: 80px 0;
+    padding: 60px 0;
     background: var(--bg-light);
     /* Perfect scroll positioning */
     scroll-margin-top: 20px;
@@ -407,17 +422,18 @@ body {
 }
 
 .features-text h2 {
-    font-size: 2.5rem;
+    font-size: 2.25rem;
     font-weight: 700;
     color: var(--text-dark);
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.2;
 }
 
 .features-text > p {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     color: var(--text-light);
-    margin-bottom: 2rem;
-    line-height: 1.7;
+    margin-bottom: 1.75rem;
+    line-height: 1.6;
 }
 
 .features-list {
@@ -511,7 +527,7 @@ body {
 
 /* About Section */
 .about {
-    padding: 80px 0;
+    padding: 60px 0;
     background: var(--bg-light);
     /* Perfect scroll positioning */
     scroll-margin-top: 20px;
@@ -525,10 +541,11 @@ body {
 }
 
 .about-text h2 {
-    font-size: 2.5rem;
+    font-size: 2.25rem;
     font-weight: 700;
     color: var(--text-dark);
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.2;
 }
 
 .about-intro {
@@ -608,7 +625,7 @@ body {
 
 /* Contact Section */
 .contact {
-    padding: 80px 0;
+    padding: 60px 0;
     background: var(--white);
     /* Perfect scroll positioning */
     scroll-margin-top: 20px;
@@ -956,7 +973,7 @@ body {
     
     /* Services Mobile */
     .services {
-        padding: 4rem 0;
+        padding: 3rem 0;
     }
     
     .services-grid {
@@ -974,7 +991,7 @@ body {
     
     /* Features Mobile */
     .features {
-        padding: 4rem 0;
+        padding: 3rem 0;
     }
     
     .features-content {
@@ -1006,7 +1023,7 @@ body {
     
     /* About Mobile */
     .about {
-        padding: 4rem 0;
+        padding: 3rem 0;
     }
     
     .about-content {
@@ -1026,7 +1043,7 @@ body {
     
     /* Contact Mobile */
     .contact {
-        padding: 4rem 0;
+        padding: 3rem 0;
     }
     
     .contact-content {
