@@ -15,6 +15,8 @@
             mutations.forEach(function(mutation) {
                 if (mutation.type === 'childList') {
                     const gradientText = document.querySelector('.gradient-text');
+                    const heroContent = document.querySelector('.hero-content');
+                    
                     if (gradientText) {
                         // Immediately fix the gradient text for mobile
                         gradientText.textContent = 'Web Design';
@@ -24,8 +26,22 @@
                         gradientText.style.animation = 'none';
                         gradientText.style.transition = 'none';
                         gradientText.style.willChange = 'auto';
-                        
-                        // Stop observing once we've fixed it
+                    }
+                    
+                    if (heroContent) {
+                        // Immediately fix the hero content to prevent layout shift
+                        heroContent.style.opacity = '1';
+                        heroContent.style.visibility = 'visible';
+                        heroContent.style.transform = 'none';
+                        heroContent.style.animation = 'none';
+                        heroContent.style.transition = 'none';
+                        heroContent.style.willChange = 'auto';
+                        heroContent.style.position = 'static';
+                        heroContent.style.display = 'block';
+                    }
+                    
+                    // Stop observing once we've fixed both elements
+                    if (gradientText && heroContent) {
                         observer.disconnect();
                     }
                 }
@@ -41,6 +57,8 @@
         // Also try to fix immediately if the element already exists
         setTimeout(() => {
             const gradientText = document.querySelector('.gradient-text');
+            const heroContent = document.querySelector('.hero-content');
+            
             if (gradientText) {
                 gradientText.textContent = 'Web Design';
                 gradientText.style.opacity = '1';
@@ -49,6 +67,18 @@
                 gradientText.style.animation = 'none';
                 gradientText.style.transition = 'none';
                 gradientText.style.willChange = 'auto';
+            }
+            
+            // Also fix hero content to prevent layout shift
+            if (heroContent) {
+                heroContent.style.opacity = '1';
+                heroContent.style.visibility = 'visible';
+                heroContent.style.transform = 'none';
+                heroContent.style.animation = 'none';
+                heroContent.style.transition = 'none';
+                heroContent.style.willChange = 'auto';
+                heroContent.style.position = 'static';
+                heroContent.style.display = 'block';
             }
         }, 0);
     }

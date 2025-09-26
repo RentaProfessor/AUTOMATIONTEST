@@ -2084,6 +2084,27 @@ iframe {
         /* Lock the text content */
         content: 'Web Design' !important;
     }
+    
+    /* MOBILE HERO CONTENT FIX - PREVENT LAYOUT SHIFT */
+    .hero-content {
+        /* CRITICAL: Disable all animations that cause layout shift */
+        animation: none !important;
+        transition: none !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+        -webkit-transform: none !important;
+        will-change: auto !important;
+        /* Force immediate stable positioning */
+        position: static !important;
+        display: block !important;
+        /* Prevent any movement or shifting */
+        margin: 0 auto !important;
+        padding: 0 !important;
+        /* Ensure content is immediately visible */
+        backface-visibility: visible !important;
+        -webkit-backface-visibility: visible !important;
+    }
 }
 
 /* CLEAN MOBILE DESIGN - DESKTOP PROTECTED */
@@ -2476,10 +2497,15 @@ iframe {
         contain: layout !important;
         box-sizing: border-box !important;
         margin: 0 auto !important;
-        /* Prevent flashing on mobile */
+        /* CRITICAL: Prevent layout shift on mobile */
         animation: none !important;
         opacity: 1 !important;
         visibility: visible !important;
+        /* Force immediate display without any animation */
+        transition: none !important;
+        /* Prevent any transform animations */
+        -webkit-transform: none !important;
+        transform: none !important;
     }
     
     .hero-title {
