@@ -89,7 +89,7 @@
             subtree: true
         });
         
-        // Also try to fix immediately if the element already exists
+        // Also try to fix immediately if the element already exists (without touching padding)
         setTimeout(() => {
             const gradientText = document.querySelector('.gradient-text');
             const heroContent = document.querySelector('.hero-content');
@@ -104,7 +104,7 @@
                 gradientText.style.willChange = 'auto';
             }
             
-            // CRITICAL: Also fix hero content to prevent layout shift and padding glitch
+            // CRITICAL: Also fix hero content to prevent layout shift without altering spacing
             if (heroContent) {
                 heroContent.style.opacity = '1';
                 heroContent.style.visibility = 'visible';
@@ -120,7 +120,6 @@
                 heroContent.style.animationName = 'none';
                 heroContent.style.animationDuration = '0s';
                 heroContent.style.animationDelay = '0s';
-                heroContent.style.padding = '0';
                 heroContent.style.margin = '0 auto';
             }
         }, 0);
@@ -560,6 +559,7 @@ function fixPortfolioPageOverlay() {
 // Fix mobile viewport and zoom issues for all browsers
 function fixChromeZoom() {
     const isMobile = window.innerWidth <= 768;
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent) || /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
     
     if (isMobile) {
         // Function to fix mobile viewport and prevent zoom issues
@@ -585,12 +585,9 @@ function fixChromeZoom() {
             document.body.style.backgroundColor = '#f8fafc';
             document.documentElement.style.backgroundColor = '#f8fafc';
             
-            // Fix hero section height
+            // Avoid forcing hero height on Safari to prevent layout jumps
             const hero = document.querySelector('.hero');
-            if (hero) {
-                hero.style.height = '100vh';
-                hero.style.minHeight = '100vh';
-                hero.style.maxHeight = '100vh';
+            if (hero && !isSafari) {
                 hero.style.height = `calc(var(--vh, 1vh) * 100)`;
                 hero.style.minHeight = `calc(var(--vh, 1vh) * 100)`;
                 hero.style.maxHeight = `calc(var(--vh, 1vh) * 100)`;
@@ -651,9 +648,19 @@ function fixMobileWhiteBlock() {
         
         // Fix hero section specifically
         const hero = document.querySelector('.hero');
+        const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent) || /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
         if (hero) {
-            hero.style.paddingTop = '100px';
-            hero.style.paddingBottom = '60px';
+            // Preserve stable 70px + safe area spacing on Safari; keep conservative spacing elsewhere
+            if (isSafari) {
+                const safeAreaTop = getComputedStyle(document.documentElement).getPropertyValue('--safe-area-inset-top') || '0px';
+                const safeAreaValue = parseInt(safeAreaTop) || 0;
+                const navbarHeight = 70 + safeAreaValue;
+                hero.style.paddingTop = `${navbarHeight}px`;
+                hero.style.paddingBottom = '15px';
+            } else {
+                hero.style.paddingTop = '100px';
+                hero.style.paddingBottom = '60px';
+            }
             hero.style.marginBottom = '0';
         }
         
@@ -672,6 +679,7 @@ function fixMobileWhiteBlock() {
 // Fix mobile viewport height issues for all browsers
 function fixChromeViewportHeight() {
     const isMobile = window.innerWidth <= 768;
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent) || /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
     
     if (isMobile) {
         function setViewportHeight() {
@@ -692,9 +700,9 @@ function fixChromeViewportHeight() {
             document.body.style.background = '#f8fafc';
             document.documentElement.style.background = '#f8fafc';
             
-            // Fix hero section height
+            // Avoid forcing hero height on Safari to prevent layout jumps
             const hero = document.querySelector('.hero');
-            if (hero) {
+            if (hero && !isSafari) {
                 hero.style.height = `calc(var(--vh, 1vh) * 100)`;
                 hero.style.minHeight = `calc(var(--vh, 1vh) * 100)`;
                 hero.style.maxHeight = `calc(var(--vh, 1vh) * 100)`;

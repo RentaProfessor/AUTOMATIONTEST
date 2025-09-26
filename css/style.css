@@ -2483,7 +2483,7 @@ iframe {
     /* Mobile Hero Section - FIXED VIEWPORT & ZOOM ISSUES */
     .hero {
         padding: 70px 0 15px 0 !important; /* Fallback for older browsers */
-        padding: var(--navbar-height) 0 15px 0 !important; /* FIXED: Use CSS custom property to account for safe area insets */
+        padding: var(--navbar-height) 0 15px 0 !important; /* Enforce 70px + safe area on mobile */
         min-height: 100vh !important;
         position: relative !important;
         background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
