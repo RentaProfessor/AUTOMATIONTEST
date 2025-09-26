@@ -399,6 +399,75 @@ function fixSafariHeroBackground() {
     }
 }
 
+// Emergency function to force close mobile menu if stuck
+function forceCloseMobileMenu() {
+    const navToggle = document.querySelector('.nav-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+    
+    if (navToggle && navMenu) {
+        console.log('Force closing mobile menu to clear white overlay');
+        
+        // Remove active classes
+        navToggle.classList.remove('active');
+        navMenu.classList.remove('active');
+        
+        // Restore body scroll
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.width = '';
+        document.body.style.touchAction = '';
+        document.body.style.webkitOverflowScrolling = '';
+        
+        // Reset any Safari-specific styles that might be stuck
+        navMenu.style.left = '-100%';
+        navMenu.style.transform = '';
+        navMenu.style.height = '';
+        navMenu.style.maxHeight = '';
+        navMenu.style.minHeight = '';
+        
+        console.log('Mobile menu force closed');
+    }
+}
+
+// Auto-detect and fix stuck menu on page load
+window.addEventListener('load', function() {
+    setTimeout(() => {
+        const navMenu = document.querySelector('.nav-menu');
+        if (navMenu && navMenu.classList.contains('active')) {
+            console.log('Detected stuck mobile menu on page load, force closing');
+            forceCloseMobileMenu();
+        }
+    }, 1000);
+});
+
+// Emergency escape key handler to force close stuck menu
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape' && window.innerWidth <= 768) {
+        const navMenu = document.querySelector('.nav-menu');
+        if (navMenu && navMenu.classList.contains('active')) {
+            console.log('Escape key pressed, force closing mobile menu');
+            forceCloseMobileMenu();
+        }
+    }
+});
+
+// Emergency double-tap handler to force close stuck menu
+let lastTouchTime = 0;
+document.addEventListener('touchend', function(event) {
+    const currentTime = new Date().getTime();
+    const tapLength = currentTime - lastTouchTime;
+    
+    if (tapLength < 500 && tapLength > 0 && window.innerWidth <= 768) {
+        const navMenu = document.querySelector('.nav-menu');
+        if (navMenu && navMenu.classList.contains('active')) {
+            console.log('Double tap detected, force closing mobile menu');
+            forceCloseMobileMenu();
+        }
+    }
+    lastTouchTime = currentTime;
+});
+
 // Navigation functionality
 function initNavigation() {
     const navToggle = document.querySelector('.nav-toggle');
@@ -416,6 +485,7 @@ function initNavigation() {
                 
                 // MOBILE ONLY: Close mobile menu if open and restore body scroll
                 if (window.innerWidth <= 768 && navMenu.classList.contains('active')) {
+                    console.log('Closing mobile menu via navigation click');
                     navToggle.classList.remove('active');
                     navMenu.classList.remove('active');
                     
@@ -425,6 +495,15 @@ function initNavigation() {
                     document.body.style.position = '';
                     document.body.style.top = '';
                     document.body.style.width = '';
+                    document.body.style.touchAction = '';
+                    document.body.style.webkitOverflowScrolling = '';
+                    
+                    // Reset menu position to prevent stuck overlay
+                    navMenu.style.left = '-100%';
+                    navMenu.style.transform = '';
+                    navMenu.style.height = '';
+                    navMenu.style.maxHeight = '';
+                    navMenu.style.minHeight = '';
                     
                     // Navigate to section after restoring scroll
                     const targetSection = document.querySelector(href);
@@ -509,19 +588,21 @@ function initNavigation() {
                     }, 500);
                 } else {
                     // Menu is closing - restore body scroll
+                    console.log('Closing mobile menu via toggle');
                     const scrollY = document.body.style.top;
                     document.body.style.overflow = '';
                     document.body.style.position = '';
                     document.body.style.top = '';
                     document.body.style.width = '';
+                    document.body.style.touchAction = '';
+                    document.body.style.webkitOverflowScrolling = '';
                     
-                    // TARGETED CHROME MOBILE RESTORE
-                    const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
-                    if (isChrome) {
-                        document.body.style.touchAction = '';
-                        document.body.style.webkitOverflowScrolling = '';
-                        console.log('Restored from targeted Chrome mobile menu fixes');
-                    }
+                    // Reset menu position to prevent stuck overlay
+                    navMenu.style.left = '-100%';
+                    navMenu.style.transform = '';
+                    navMenu.style.height = '';
+                    navMenu.style.maxHeight = '';
+                    navMenu.style.minHeight = '';
                     
                     window.scrollTo(0, parseInt(scrollY || '0') * -1);
                 }
@@ -590,6 +671,7 @@ function initNavigation() {
         // Only apply on mobile devices
         if (window.innerWidth <= 768 && !navToggle.contains(event.target) && !navMenu.contains(event.target)) {
             if (navMenu.classList.contains('active')) {
+                console.log('Closing mobile menu via outside click');
                 navToggle.classList.remove('active');
                 navMenu.classList.remove('active');
                 
@@ -599,13 +681,15 @@ function initNavigation() {
                 document.body.style.position = '';
                 document.body.style.top = '';
                 document.body.style.width = '';
+                document.body.style.touchAction = '';
+                document.body.style.webkitOverflowScrolling = '';
                 
-                // TARGETED CHROME MOBILE RESTORE
-                const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
-                if (isChrome) {
-                    document.body.style.touchAction = '';
-                    document.body.style.webkitOverflowScrolling = '';
-                }
+                // Reset menu position to prevent stuck overlay
+                navMenu.style.left = '-100%';
+                navMenu.style.transform = '';
+                navMenu.style.height = '';
+                navMenu.style.maxHeight = '';
+                navMenu.style.minHeight = '';
                 
                 window.scrollTo(0, parseInt(scrollY || '0') * -1);
             }
