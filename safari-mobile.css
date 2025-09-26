@@ -167,10 +167,10 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    text-align: center;
     position: relative;
     z-index: 1;
     width: 100%;
@@ -266,43 +266,9 @@ body {
     color: var(--text-light);
 }
 
-/* Hero Visual */
+/* Hero Visual - Simple */
 .hero-visual {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.ai-animation {
-    width: 300px;
-    height: 300px;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.ai-circle {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-    opacity: 0.1;
-    position: absolute;
-}
-
-.ai-dots {
-    position: relative;
-    z-index: 2;
-}
-
-.dot {
-    width: 12px;
-    height: 12px;
-    background: var(--primary-color);
-    border-radius: 50%;
-    margin: 8px;
-    opacity: 0.7;
+    display: none;
 }
 
 /* Services Section */
@@ -864,9 +830,6 @@ body {
     }
     
     .hero-container {
-        grid-template-columns: 1fr;
-        gap: 3rem;
-        text-align: center;
         padding: 0 1rem;
         max-width: 100%;
         width: 100%;
@@ -910,15 +873,9 @@ body {
         font-size: 0.8rem;
     }
     
-    /* Hero Visual Mobile */
-    .ai-animation {
-        width: 200px;
-        height: 200px;
-    }
-    
-    .ai-circle {
-        width: 150px;
-        height: 150px;
+    /* Hero Visual Mobile - Hidden */
+    .hero-visual {
+        display: none;
     }
     
     /* Services Mobile */
