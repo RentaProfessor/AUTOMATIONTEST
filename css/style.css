@@ -2060,6 +2060,32 @@ iframe {
     }
 }
 
+/* MOBILE GRADIENT TEXT FIX - PREVENT FLASHING */
+@media (max-width: 768px) {
+    .gradient-text {
+        /* CRITICAL: Completely disable all animations and transitions on mobile */
+        animation: none !important;
+        transition: none !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+        will-change: auto !important;
+        /* Force immediate display */
+        display: inline !important;
+        /* Prevent any text changes or flashing */
+        text-rendering: optimizeSpeed !important;
+        -webkit-font-smoothing: antialiased !important;
+        -moz-osx-font-smoothing: grayscale !important;
+        /* Ensure stable gradient display */
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+        /* Lock the text content */
+        content: 'Web Design' !important;
+    }
+}
+
 /* CLEAN MOBILE DESIGN - DESKTOP PROTECTED */
 @media (max-width: 768px) and (min-width: 1px) {
     /* Mobile Performance Optimizations */
@@ -2492,6 +2518,15 @@ iframe {
         -webkit-text-fill-color: transparent !important;
         background-clip: text !important;
         white-space: nowrap !important;
+        /* CRITICAL: Prevent any animation or flashing on mobile */
+        animation: none !important;
+        transition: none !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+        will-change: auto !important;
+        /* Ensure immediate display without any delay */
+        content: 'Web Design' !important;
     }
     
     .hero-description {

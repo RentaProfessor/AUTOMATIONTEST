@@ -1,6 +1,59 @@
 // FutureClarity Technologies Website JavaScript
 // Handles all interactive features and animations
 
+// IMMEDIATE Mobile gradient text fix - runs before any other code
+(function() {
+    // Fix gradient text flashing on mobile immediately
+    const isMobile = window.innerWidth <= 768 || 
+                     /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+                     ('ontouchstart' in window) ||
+                     (navigator.maxTouchPoints > 0);
+    
+    if (isMobile) {
+        // Set up a mutation observer to catch the gradient text element as soon as it's added
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.type === 'childList') {
+                    const gradientText = document.querySelector('.gradient-text');
+                    if (gradientText) {
+                        // Immediately fix the gradient text for mobile
+                        gradientText.textContent = 'Web Design';
+                        gradientText.style.opacity = '1';
+                        gradientText.style.visibility = 'visible';
+                        gradientText.style.transform = 'none';
+                        gradientText.style.animation = 'none';
+                        gradientText.style.transition = 'none';
+                        gradientText.style.willChange = 'auto';
+                        
+                        // Stop observing once we've fixed it
+                        observer.disconnect();
+                    }
+                }
+            });
+        });
+        
+        // Start observing
+        observer.observe(document.body || document.documentElement, {
+            childList: true,
+            subtree: true
+        });
+        
+        // Also try to fix immediately if the element already exists
+        setTimeout(() => {
+            const gradientText = document.querySelector('.gradient-text');
+            if (gradientText) {
+                gradientText.textContent = 'Web Design';
+                gradientText.style.opacity = '1';
+                gradientText.style.visibility = 'visible';
+                gradientText.style.transform = 'none';
+                gradientText.style.animation = 'none';
+                gradientText.style.transition = 'none';
+                gradientText.style.willChange = 'auto';
+            }
+        }, 0);
+    }
+})();
+
 // IMMEDIATE Portfolio page white overlay fix - runs before any other code
 (function() {
     // Check if this is the portfolio page
@@ -1346,9 +1399,19 @@ function initTypingEffect() {
     const gradientText = document.querySelector('.gradient-text');
     if (!gradientText) return;
     
-    // DISABLE TYPING EFFECT ON MOBILE TO PREVENT GLITCHES
-    if (window.innerWidth <= 768) {
+    // ENHANCED MOBILE DETECTION - DISABLE TYPING EFFECT ON MOBILE TO PREVENT GLITCHES
+    const isMobile = window.innerWidth <= 768 || 
+                     /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+                     ('ontouchstart' in window) ||
+                     (navigator.maxTouchPoints > 0);
+    
+    if (isMobile) {
+        // Immediately set the text without any animation or delay
         gradientText.textContent = 'Web Design';
+        gradientText.style.opacity = '1';
+        gradientText.style.visibility = 'visible';
+        gradientText.style.transform = 'none';
+        gradientText.style.animation = 'none';
         return;
     }
     
@@ -1358,9 +1421,18 @@ function initTypingEffect() {
     let isDeleting = false;
     
     function typeEffect() {
-        // Double-check window size during animation to prevent mobile glitches
-        if (window.innerWidth <= 768) {
+        // Enhanced mobile detection during animation to prevent mobile glitches
+        const currentIsMobile = window.innerWidth <= 768 || 
+                               /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+                               ('ontouchstart' in window) ||
+                               (navigator.maxTouchPoints > 0);
+        
+        if (currentIsMobile) {
             gradientText.textContent = 'Web Design';
+            gradientText.style.opacity = '1';
+            gradientText.style.visibility = 'visible';
+            gradientText.style.transform = 'none';
+            gradientText.style.animation = 'none';
             return;
         }
         
