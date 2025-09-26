@@ -488,6 +488,24 @@ function initNavigation() {
                     // Add scroll indicators for mobile menu after animation
                     setTimeout(() => {
                         addMobileMenuScrollIndicators();
+                        
+                        // SAFARI CUTOFF FIX: Additional viewport correction
+                        const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent) || 
+                                         /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
+                        
+                        if (isSafari && navMenu.classList.contains('active')) {
+                            // Force Safari to recalculate viewport and menu position
+                            const viewportHeight = window.innerHeight;
+                            navMenu.style.height = viewportHeight + 'px';
+                            navMenu.style.maxHeight = viewportHeight + 'px';
+                            navMenu.style.top = '0px';
+                            
+                            // Force a repaint to ensure Safari shows the full menu
+                            navMenu.offsetHeight; // Trigger reflow
+                            navMenu.style.transform = 'translate3d(0, 0, 0)';
+                            
+                            console.log('Applied Safari viewport correction for menu cutoff');
+                        }
                     }, 500);
                 } else {
                     // Menu is closing - restore body scroll
@@ -533,7 +551,20 @@ function initNavigation() {
                 // Additional Safari mobile menu improvements
                 navMenu.style.webkitOverflowScrolling = 'touch';
                 navMenu.style.transform = 'translateZ(0)';
-                console.log('Applied Safari-specific menu scroll improvements');
+                
+                // CRITICAL: Fix Safari menu cutoff issues
+                navMenu.style.top = '0px';
+                navMenu.style.bottom = '0px';
+                navMenu.style.left = '0px';
+                navMenu.style.right = '0px';
+                navMenu.style.position = 'fixed';
+                navMenu.style.minHeight = '100vh';
+                navMenu.style.minHeight = '100dvh';
+                navMenu.style.maxHeight = '100vh';
+                navMenu.style.maxHeight = '100dvh';
+                navMenu.style.boxSizing = 'border-box';
+                
+                console.log('Applied Safari-specific menu cutoff prevention');
             }
             
             // Add scroll event listener for fade effects
