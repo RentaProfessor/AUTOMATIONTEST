@@ -2434,7 +2434,7 @@ iframe {
     
     /* Mobile Hero Section - FIXED VIEWPORT & ZOOM ISSUES */
     .hero {
-        padding: 80px 0 20px 0 !important; /* FIXED: REDUCED padding for tighter mobile layout */
+        padding: 70px 0 15px 0 !important; /* FIXED: Further reduced padding to 70px as requested */
         min-height: 100vh !important;
         position: relative !important;
         background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
@@ -2457,7 +2457,7 @@ iframe {
         transform: translateZ(0) !important;
         /* Prevent white space at bottom */
         margin-bottom: 0 !important;
-        padding-bottom: 20px !important; /* FIXED: Reduced bottom padding for tighter layout */
+        padding-bottom: 15px !important; /* FIXED: Further reduced bottom padding */
     }
     
     .hero-container {
@@ -2486,26 +2486,36 @@ iframe {
     }
     
     .hero-content {
+        /* CRITICAL: Completely disable ALL animations immediately on mobile */
+        animation: none !important;
+        -webkit-animation: none !important;
+        transition: none !important;
+        -webkit-transition: none !important;
         transform: none !important;
+        -webkit-transform: none !important;
+        /* Force immediate stable positioning */
         position: static !important;
         will-change: auto !important;
         padding: 0 !important;
+        margin: 0 auto !important;
         display: block !important;
         width: 100% !important;
         text-align: center !important;
-        /* ELIMINATE ALL STRETCHING */
-        contain: layout !important;
-        box-sizing: border-box !important;
-        margin: 0 auto !important;
-        /* CRITICAL: Prevent layout shift on mobile */
-        animation: none !important;
+        /* Force immediate visibility */
         opacity: 1 !important;
         visibility: visible !important;
-        /* Force immediate display without any animation */
-        transition: none !important;
-        /* Prevent any transform animations */
-        -webkit-transform: none !important;
-        transform: none !important;
+        /* Prevent any movement or layout shifts */
+        contain: layout !important;
+        box-sizing: border-box !important;
+        /* Override any inherited animation properties */
+        animation-name: none !important;
+        animation-duration: 0s !important;
+        animation-delay: 0s !important;
+        animation-fill-mode: none !important;
+        animation-play-state: running !important;
+        animation-iteration-count: 1 !important;
+        animation-direction: normal !important;
+        animation-timing-function: ease !important;
     }
     
     .hero-title {

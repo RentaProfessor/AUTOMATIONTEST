@@ -1,7 +1,7 @@
 // FutureClarity Technologies Website JavaScript
 // Handles all interactive features and animations
 
-// IMMEDIATE Mobile gradient text fix - runs before any other code
+// IMMEDIATE Mobile gradient text fix AND hero padding fix - runs before any other code
 (function() {
     // Fix gradient text flashing on mobile immediately
     const isMobile = window.innerWidth <= 768 || 
@@ -29,15 +29,23 @@
                     }
                     
                     if (heroContent) {
-                        // Immediately fix the hero content to prevent layout shift
+                        // CRITICAL: Immediately disable ALL animations and fix positioning to prevent padding glitch
                         heroContent.style.opacity = '1';
                         heroContent.style.visibility = 'visible';
                         heroContent.style.transform = 'none';
+                        heroContent.style.webkitTransform = 'none';
                         heroContent.style.animation = 'none';
+                        heroContent.style.webkitAnimation = 'none';
                         heroContent.style.transition = 'none';
+                        heroContent.style.webkitTransition = 'none';
                         heroContent.style.willChange = 'auto';
                         heroContent.style.position = 'static';
                         heroContent.style.display = 'block';
+                        heroContent.style.animationName = 'none';
+                        heroContent.style.animationDuration = '0s';
+                        heroContent.style.animationDelay = '0s';
+                        heroContent.style.padding = '0';
+                        heroContent.style.margin = '0 auto';
                     }
                     
                     // Stop observing once we've fixed both elements
@@ -69,16 +77,24 @@
                 gradientText.style.willChange = 'auto';
             }
             
-            // Also fix hero content to prevent layout shift
+            // CRITICAL: Also fix hero content to prevent layout shift and padding glitch
             if (heroContent) {
                 heroContent.style.opacity = '1';
                 heroContent.style.visibility = 'visible';
                 heroContent.style.transform = 'none';
+                heroContent.style.webkitTransform = 'none';
                 heroContent.style.animation = 'none';
+                heroContent.style.webkitAnimation = 'none';
                 heroContent.style.transition = 'none';
+                heroContent.style.webkitTransition = 'none';
                 heroContent.style.willChange = 'auto';
                 heroContent.style.position = 'static';
                 heroContent.style.display = 'block';
+                heroContent.style.animationName = 'none';
+                heroContent.style.animationDuration = '0s';
+                heroContent.style.animationDelay = '0s';
+                heroContent.style.padding = '0';
+                heroContent.style.margin = '0 auto';
             }
         }, 0);
     }
