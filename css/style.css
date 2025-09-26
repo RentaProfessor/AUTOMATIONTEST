@@ -24,6 +24,9 @@
     --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
     --border-radius: 8px;
     --transition: all 0.3s ease;
+    /* Mobile Safari spacing fix - safe area insets */
+    --safe-area-inset-top: env(safe-area-inset-top, 0px);
+    --navbar-height: calc(70px + var(--safe-area-inset-top));
 }
 
 html {
@@ -2312,6 +2315,14 @@ iframe {
     
     /* Safari-specific scroll improvements and cutoff prevention */
     @supports (-webkit-appearance: none) {
+        /* CRITICAL: Fix Safari spacing glitch between navbar and hero content */
+        .hero {
+            padding: var(--navbar-height) 0 15px 0 !important;
+            /* Additional Safari-specific spacing fix */
+            margin-top: 0 !important;
+            position: relative !important;
+            z-index: 1 !important;
+        }
         .nav-menu {
             /* Enhanced Safari scroll support */
             -webkit-overflow-scrolling: touch !important;
@@ -2434,7 +2445,8 @@ iframe {
     
     /* Mobile Hero Section - FIXED VIEWPORT & ZOOM ISSUES */
     .hero {
-        padding: 70px 0 15px 0 !important; /* FIXED: Further reduced padding to 70px as requested */
+        padding: 70px 0 15px 0 !important; /* Fallback for older browsers */
+        padding: var(--navbar-height) 0 15px 0 !important; /* FIXED: Use CSS custom property to account for safe area insets */
         min-height: 100vh !important;
         position: relative !important;
         background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
