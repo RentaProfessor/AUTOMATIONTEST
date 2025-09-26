@@ -2434,7 +2434,7 @@ iframe {
     
     /* Mobile Hero Section - FIXED VIEWPORT & ZOOM ISSUES */
     .hero {
-        padding: 120px 0 40px 0 !important; /* FIXED: Consistent padding from start, accounting for navbar */
+        padding: 80px 0 20px 0 !important; /* FIXED: REDUCED padding for tighter mobile layout */
         min-height: 100vh !important;
         position: relative !important;
         background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
@@ -2457,12 +2457,12 @@ iframe {
         transform: translateZ(0) !important;
         /* Prevent white space at bottom */
         margin-bottom: 0 !important;
-        padding-bottom: 40px !important; /* FIXED: Consistent bottom padding */
+        padding-bottom: 20px !important; /* FIXED: Reduced bottom padding for tighter layout */
     }
     
     .hero-container {
         text-align: center !important;
-        padding: 20px !important;
+        padding: 10px !important; /* FIXED: Reduced container padding for tighter layout */
         max-width: 100% !important;
         width: 100% !important;
         height: 100% !important;
