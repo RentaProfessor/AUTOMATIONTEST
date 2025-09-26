@@ -1,7 +1,7 @@
 // FutureClarity Technologies Website JavaScript
 // Handles all interactive features and animations
 
-    // Mobile Safari spacing fix - backup for external script
+    // Mobile Safari spacing fix - STABLE VERSION (prevents shifting)
     (function() {
         const isMobile = window.innerWidth <= 768 || 
                          /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
@@ -12,27 +12,45 @@
                          /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
         
         if (isMobile && isSafari) {
-            // Backup fix for hero spacing - only runs if head script didn't work
+            // STABLE fix - prevents shifting by using consistent spacing
             const fixHeroSpacing = () => {
                 const hero = document.querySelector('.hero');
-                if (hero && !hero.style.paddingTop) {
+                if (hero) {
+                    // Use consistent 70px + safe area spacing (no dynamic changes)
                     const safeAreaTop = getComputedStyle(document.documentElement).getPropertyValue('--safe-area-inset-top') || '0px';
                     const safeAreaValue = parseInt(safeAreaTop) || 0;
                     const navbarHeight = 70 + safeAreaValue;
                     
+                    // Apply stable spacing that won't shift
                     hero.style.paddingTop = `${navbarHeight}px`;
                     hero.style.paddingBottom = '15px';
                     hero.style.marginTop = '0';
                     hero.style.position = 'relative';
                     hero.style.zIndex = '1';
+                    
+                    // Prevent any layout shifts
+                    hero.style.transform = 'none';
+                    hero.style.willChange = 'auto';
+                    hero.style.backfaceVisibility = 'hidden';
+                    hero.style.webkitBackfaceVisibility = 'hidden';
                 }
             };
             
-            // Only run if head script didn't already fix it
-            setTimeout(fixHeroSpacing, 50);
-            window.addEventListener('resize', fixHeroSpacing);
+            // Apply immediately and prevent re-application
+            let fixApplied = false;
+            const applyStableFix = () => {
+                if (!fixApplied) {
+                    fixApplied = true;
+                    fixHeroSpacing();
+                }
+            };
+            
+            // Apply immediately
+            applyStableFix();
+            
+            // Only reapply on orientation change, not resize
             window.addEventListener('orientationchange', () => {
-                setTimeout(fixHeroSpacing, 100);
+                setTimeout(applyStableFix, 100);
             });
         }
     
@@ -56,7 +74,7 @@
                     }
                     
                     if (heroContent) {
-                        // CRITICAL: Immediately disable ALL animations and fix positioning to prevent padding glitch
+                        // CRITICAL: Immediately disable ALL animations and fix positioning to prevent shifting
                         heroContent.style.opacity = '1';
                         heroContent.style.visibility = 'visible';
                         heroContent.style.transform = 'none';
@@ -73,6 +91,10 @@
                         heroContent.style.animationDelay = '0s';
                         heroContent.style.padding = '0';
                         heroContent.style.margin = '0 auto';
+                        // Prevent any layout shifts
+                        heroContent.style.backfaceVisibility = 'hidden';
+                        heroContent.style.webkitBackfaceVisibility = 'hidden';
+                        heroContent.style.contain = 'layout style';
                     }
                     
                     // Stop observing once we've fixed both elements
@@ -121,6 +143,10 @@
                 heroContent.style.animationDuration = '0s';
                 heroContent.style.animationDelay = '0s';
                 heroContent.style.margin = '0 auto';
+                // Prevent any layout shifts
+                heroContent.style.backfaceVisibility = 'hidden';
+                heroContent.style.webkitBackfaceVisibility = 'hidden';
+                heroContent.style.contain = 'layout style';
             }
         }, 0);
     }

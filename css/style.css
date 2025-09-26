@@ -2353,13 +2353,19 @@ iframe {
     /* Safari-specific scroll improvements and cutoff prevention */
     @supports (-webkit-appearance: none) {
         /* CRITICAL: Fix Safari spacing glitch between navbar and hero content */
-        .hero {
-            padding: var(--navbar-height) 0 15px 0 !important;
-            /* Additional Safari-specific spacing fix */
-            margin-top: 0 !important;
-            position: relative !important;
-            z-index: 1 !important;
-        }
+    .hero {
+        padding: var(--navbar-height) 0 15px 0 !important;
+        /* Additional Safari-specific spacing fix */
+        margin-top: 0 !important;
+        position: relative !important;
+        z-index: 1 !important;
+        /* Prevent shifting on mobile Safari */
+        transform: none !important;
+        will-change: auto !important;
+        backface-visibility: hidden !important;
+        -webkit-backface-visibility: hidden !important;
+        contain: layout style !important;
+    }
         .nav-menu {
             /* Enhanced Safari scroll support */
             -webkit-overflow-scrolling: touch !important;
@@ -2550,6 +2556,10 @@ iframe {
         display: block !important;
         width: 100% !important;
         text-align: center !important;
+        /* Prevent shifting on mobile Safari */
+        backface-visibility: hidden !important;
+        -webkit-backface-visibility: hidden !important;
+        contain: layout style !important;
         /* Force immediate visibility */
         opacity: 1 !important;
         visibility: visible !important;
